@@ -19,25 +19,23 @@ import java.util.*;
 
 public class GeneratePattern {
 
-    private Map<String, String> pattern = new HashMap<>();
     private Set<String> methodtype = new HashSet<>();
-    private List<CodePattern> patternlist = new ArrayList<CodePattern>();
+    private Map<String, CodePattern> patternMap = new HashMap<>();
     private File left;
     private File right;
     private CompilationUnit lcu;
     private CompilationUnit rcu;
 
-    GeneratePattern(ASTNode node, SourceCodeChange change){
-        JSONObject value = new JSONObject();
-        value.put("operation","STATEMNET_UPDATE");
-        value.put("insecurity", "MD5");
-        value.put("security", "SHA256");
-//        opattern.put(node,value);
-    }
+//    GeneratePattern(ASTNode node, SourceCodeChange change){
+//        JSONObject value = new JSONObject();
+//        value.put("operation","STATEMNET_UPDATE");
+//        value.put("insecurity", "MD5");
+//        value.put("security", "SHA256");
+////        opattern.put(node,value);
+//    }
 
-    GeneratePattern(){
-        this.methodtype.add("public static final javax.crypto.Cipher getInstance");
-    }
+    GeneratePattern(){}
+
     GeneratePattern(File left, File right, CompilationUnit lcu, CompilationUnit rcu){
         this.left = left;
         this.right = right;
@@ -45,10 +43,6 @@ public class GeneratePattern {
         this.rcu= rcu;
     }
 
-    public Map<String, String> getPattern()
-    {
-        return this.pattern;
-    }
 
     public void VisitTarget(ASTNode cu, List<ASTNode> targetnode) {
         Set<MethodInvocation> node_sets;
@@ -84,7 +78,6 @@ public class GeneratePattern {
                 //if (methodtype.contains(node.resolveMethodBinding().toString())) {
                 System.out.println("method invocation++:" + node);
                 System.out.println("MI_information: " + node.resolveMethodBinding());
-                patternlist.add(new ParameterPattern(node.resolveMethodBinding().toString()));
                 //pattern.put(str_list, null);
                 targetnode.add(node);
                 // }
@@ -137,14 +130,13 @@ public class GeneratePattern {
             //get the AST node from list and filter by API
             List<ASTNode> ltargetnode =new ArrayList<>();
             List<ASTNode> rtargetnode = new ArrayList<>();
-            GeneratePattern pa1 = new GeneratePattern();
             for (SourceRange l: srlist) {
                 ASTNode ltmpNode =NodeFinder.perform(lcu.getRoot(),l.getStart(),l.getEnd()-l.getStart());
-                pa1.VisitTarget(ltmpNode,ltargetnode);
+                this.VisitTarget(ltmpNode,ltargetnode);
             }
             for (SourceRange r: newsrlist){
                 ASTNode rtmpNode =NodeFinder.perform(rcu.getRoot(),r.getStart(),r.getEnd()-r.getStart());
-                pa1.VisitTarget(rtmpNode,rtargetnode);
+                this.VisitTarget(rtmpNode,rtargetnode);
             }
 
             //TODO : 遍历提出堆成的node
@@ -176,13 +168,18 @@ public class GeneratePattern {
                 //       System.out.println("leftdifferencing:"+lcurNode.getEntity());
                 //get parameter differnece and binding information
 
-                Map<String, String> operation = pa1.getPattern();
                 if(!lcurNode.getValue().equals(rcurNode.getValue())) {
                     System.out.println("leftdifferencing:"+lcurNode.getValue()); //md5
                     VariableTypeBindingTerm vtbtobj = (VariableTypeBindingTerm) lcurNode.getUserObject();
                     System.out.println("ABSTRACT NAME: " + vtbtobj.getAbstractVariableName());
                     if (vtbtobj.getAbstractVariableName().startsWith("v")) {
-                        //new ParameterPattern();
+                        ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
+                        String bindingname = ls.get(0).toString();
+                        if (!patternMap.containsKey(bindingname)) {
+                            patternMap.put(bindingname, new ParameterPattern(bindingname));
+                        }
+                        ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
+                        pp.AppendtoSet(rcurNode.getValue());
                     }
                     System.out.println("rightdiffernt:"+ rcurNode.getValue()); //sha256
                     VariableTypeBindingTerm vtbt = leftConverter.variableTypeMap.get(lkeymapping.get(lcurNode.getValue()));
