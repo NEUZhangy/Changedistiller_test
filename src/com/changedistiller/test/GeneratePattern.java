@@ -63,7 +63,7 @@ public class GeneratePattern {
                 //if (methodtype.contains(node.resolveMethodBinding().toString())) {
                 System.out.println("method invocation++:"+ node);
                 System.out.println("MI_information: "+ node.resolveMethodBinding());
-
+                patternlist.add(new ParameterPattern(node.resolveMethodBinding().toString()));
                 //pattern.put(str_list, null);
                 //targetnode.add(node);
                // }
