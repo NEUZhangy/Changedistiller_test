@@ -169,25 +169,50 @@ public class GeneratePattern {
                 //get parameter differnece and binding information
 
                 if(!lcurNode.getValue().equals(rcurNode.getValue())) {
-                    System.out.println("leftdifferencing:"+lcurNode.getValue()); //md5
-                    VariableTypeBindingTerm vtbtobj = (VariableTypeBindingTerm) lcurNode.getUserObject();
-                    System.out.println("ABSTRACT NAME: " + vtbtobj.getAbstractVariableName());
-                    if (vtbtobj.getAbstractVariableName().startsWith("v")) {
-                        ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
-                        String bindingname = ls.get(0).toString();
-                        if (!patternMap.containsKey(bindingname)) {
-                            patternMap.put(bindingname, new ParameterPattern(bindingname));
+                    // check if the difference is caused by parameters
+//                    System.out.println("leftdifferencing:"+lcurNode.getValue()); //md5
+//                    VariableTypeBindingTerm vtbtobj = (VariableTypeBindingTerm) lcurNode.getUserObject();
+//                    System.out.println("ABSTRACT NAME: " + vtbtobj.getAbstractVariableName());
+//                    if (vtbtobj.getAbstractVariableName().startsWith("v")) {
+//                        System.out.println("ChildCount: " + lcurNode.getParent().getChildCount());
+//                        ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
+//                        String bindingname = ls.get(0).toString();
+//                        if (!patternMap.containsKey(bindingname)) {
+//                            patternMap.put(bindingname, new ParameterPattern(bindingname));
+//                        }
+//                        ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
+//                        pp.AppendtoISet(lcurNode.getValue());
+//                        pp.AppendtoCSet(rcurNode.getValue());
+//                    }
+//                    System.out.println("rightdiffernt:"+ rcurNode.getValue()); //sha256
+//                    VariableTypeBindingTerm vtbt = leftConverter.variableTypeMap.get(lkeymapping.get(lcurNode.getValue()));
+//                    System.out.println(vtbt);
+
+                    //traverse the child nodelist, to check if the node is in the parentheses
+                    Enumeration<?> children = lcurNode.getParent().children();
+                    boolean leftparenthesis = false;
+                    while (children.hasMoreElements()) {
+                        Node node = (Node) children.nextElement();
+                        if (node.getValue().equals("(")) { leftparenthesis = true; }
+                        // if the node is inside the parenthesis, then the difference is caused by the parameters
+                        if (leftparenthesis && node.getValue().equals(lcurNode.getValue())) {
+                            ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
+                            String bindingname = ls.get(0).toString();
+                            if (!patternMap.containsKey(bindingname)) {
+                                patternMap.put(bindingname, new ParameterPattern(bindingname));
+                            }
+                            ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
+                            pp.AppendtoISet(lcurNode.getValue());
+                            pp.AppendtoCSet(rcurNode.getValue());
+                            break;
                         }
-                        ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
-                        pp.AppendtoSet(rcurNode.getValue());
                     }
-                    System.out.println("rightdiffernt:"+ rcurNode.getValue()); //sha256
-                    VariableTypeBindingTerm vtbt = leftConverter.variableTypeMap.get(lkeymapping.get(lcurNode.getValue()));
-                    System.out.println(vtbt);
                 }
 
             }
-            System.out.println();
+            for(Map.Entry<?,?> entry: this.patternMap.entrySet()) {
+                System.out.println("Key: " + entry.getKey());
+            }
 
         }
 }

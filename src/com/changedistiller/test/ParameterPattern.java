@@ -7,13 +7,18 @@ import java.util.Set;
 public class ParameterPattern implements CodePattern {
     private String bindingType = new String();
     private Set<String> correctParametersSet = new HashSet<>();
+    private Set<String> incorrectParameterSet = new HashSet<>();
 
     ParameterPattern(String str){
         bindingType = str;
     }
 
-    public void AppendtoSet(String str) {
+    public void AppendtoCSet(String str) {
         correctParametersSet.add(str);
+    }
+
+    public void AppendtoISet(String str){
+        incorrectParameterSet.add(str);
     }
 
     public String getBingingType() {

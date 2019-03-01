@@ -1,20 +1,7 @@
 package com.changedistiller.test;
 
-import ch.uzh.ifi.seal.changedistiller.ChangeDistiller;
-import ch.uzh.ifi.seal.changedistiller.distilling.FileDistiller;
-import ch.uzh.ifi.seal.changedistiller.model.classifiers.SourceRange;
-import ch.uzh.ifi.seal.changedistiller.model.entities.*;
-import ch.uzh.ifi.seal.changedistiller.treedifferencing.Node;
-import edu.vt.cs.append.FineChangesInMethod;
-import edu.vt.cs.append.JavaExpressionConverter;
-import edu.vt.cs.append.terms.VariableTypeBindingTerm;
-import org.eclipse.jdt.core.ISourceRange;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.*;
 import java.io.File;
-import java.util.*;
-
-import org.apache.commons.io.*;
 
 public class Main {
 
