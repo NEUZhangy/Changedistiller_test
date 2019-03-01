@@ -19,7 +19,7 @@ public class Main {
         CompilationUnit rcu = rightast.getComplicationUnit();
         GeneratePattern gp = new GeneratePattern();
         gp.Compare(left, right, lcu, rcu);
-
+//        gp.LoadFromFile("pattern.ser");
 
     }
 }

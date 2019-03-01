@@ -1,5 +1,7 @@
 package com.changedistiller.test;
 
-public interface CodePattern {
+import java.io.Serializable;
+
+public interface CodePattern extends Serializable {
 
 }

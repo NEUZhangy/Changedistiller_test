@@ -14,7 +14,7 @@ import edu.vt.cs.append.terms.VariableTypeBindingTerm;
 import org.eclipse.jdt.core.dom.*;
 import org.json.simple.JSONObject;
 
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
 public class GeneratePattern {
@@ -191,20 +191,30 @@ public class GeneratePattern {
                     //traverse the child nodelist, to check if the node is in the parentheses
                     Enumeration<?> children = lcurNode.getParent().children();
                     boolean leftparenthesis = false;
+                    List<String> clist = null, ilist = null;
+                    String bindingname = "";
                     while (children.hasMoreElements()) {
                         Node node = (Node) children.nextElement();
-                        if (node.getValue().equals("(")) { leftparenthesis = true; }
-                        // if the node is inside the parenthesis, then the difference is caused by the parameters
-                        if (leftparenthesis && node.getValue().equals(lcurNode.getValue())) {
+                        if (node.getValue().equals("(")) {
+                            leftparenthesis = true;
+                            clist = new ArrayList<String>();
+                            ilist = new ArrayList<String>();
                             ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
-                            String bindingname = ls.get(0).toString();
+                            bindingname = ls.get(0).toString();
+                        }
+                        if (node.getValue().equals(")")) {
+                            leftparenthesis = false;
                             if (!patternMap.containsKey(bindingname)) {
                                 patternMap.put(bindingname, new ParameterPattern(bindingname));
                             }
                             ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
-                            pp.AppendtoISet(lcurNode.getValue());
-                            pp.AppendtoCSet(rcurNode.getValue());
-                            break;
+                            pp.AppendtoISet(ilist);
+                            pp.AppendtoCSet(clist);
+                        }
+                        // if the node is inside the parenthesis, then the difference is caused by the parameters
+                        if (leftparenthesis && node.getValue().equals(lcurNode.getValue())) {
+                            clist.add(rcurNode.getValue());
+                            ilist.add(lcurNode.getValue());
                         }
                     }
                 }
@@ -215,6 +225,40 @@ public class GeneratePattern {
             }
 
         }
+
+    /**
+     * Deserialize the file
+     * @param
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void SavetoFile() throws IOException {
+        FileOutputStream fos = new FileOutputStream("pattern.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this.patternMap);
+        oos.close();
+        fos.close();
+        System.out.println("Save!");
+    }
+
+    /**
+     * Deserialize the file
+     * @param filename
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void LoadFromFile(String filename) throws IOException, ClassNotFoundException{
+        FileInputStream fis = new FileInputStream(filename);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        this.patternMap = (HashMap) ois.readObject();
+        for(Map.Entry<?,?> entry: this.patternMap.entrySet()) {
+            System.out.println(entry.getKey());
+        }
+        ois.close();
+        fis.close();
+    }
+
+
 }
 
 
