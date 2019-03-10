@@ -1,17 +1,20 @@
 package com.changedistiller.test;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class ParameterPattern implements CodePattern {
+    private int pos = 0;
     private String bindingType = new String();
     private Set<List<String>> correctParametersSet = new HashSet<>();
     private Set<List<String>> incorrectParameterSet = new HashSet<>();
 
-    ParameterPattern(String str){
+    ParameterPattern(String str, int n){
         bindingType = str;
+        this.pos = n;
     }
 
     public void AppendtoCSet(List<String> lstr) {
@@ -20,6 +23,18 @@ public class ParameterPattern implements CodePattern {
 
     public void AppendtoISet(List<String> lstr){
         incorrectParameterSet.add(lstr);
+    }
+
+    public void AppendtoCSet(String str) {
+        List<String> l = new ArrayList<>();
+        l.add(str);
+        correctParametersSet.add(l);
+    }
+
+    public void AppendtoISet(String str){
+        List<String> l = new ArrayList<>();
+        l.add(str);
+        incorrectParameterSet.add(l);
     }
 
     public String getBingingType() {
@@ -33,5 +48,13 @@ public class ParameterPattern implements CodePattern {
             return rhs.getBingingType().equals(this.bindingType);
         }
         return false;
+    }
+
+    public int getPos() {
+        return this.pos;
+    }
+
+    public String toString() {
+        return new String().format("%s_%d", this.bindingType, this.pos);
     }
 }

@@ -7,12 +7,10 @@ import ch.uzh.ifi.seal.changedistiller.model.entities.Delete;
 import ch.uzh.ifi.seal.changedistiller.model.entities.Insert;
 import ch.uzh.ifi.seal.changedistiller.model.entities.SourceCodeChange;
 import ch.uzh.ifi.seal.changedistiller.model.entities.Update;
-import ch.uzh.ifi.seal.changedistiller.treedifferencing.Node;
 import edu.vt.cs.append.FineChangesInMethod;
-import edu.vt.cs.append.JavaExpressionConverter;
-import edu.vt.cs.append.terms.VariableTypeBindingTerm;
-import org.eclipse.jdt.core.dom.*;
-import org.json.simple.JSONObject;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.NodeFinder;
 
 import java.io.*;
 import java.util.*;
@@ -43,48 +41,6 @@ public class GeneratePattern {
         this.rcu= rcu;
     }
 
-
-    public void VisitTarget(ASTNode cu, List<ASTNode> targetnode) {
-        Set<MethodInvocation> node_sets;
-        cu.accept(new ASTVisitor() {
-//            @Override
-//            public boolean visit(SimpleName node) {
-//                System.out.println("identifier:" + node.getIdentifier());
-//                System.out.println("binding information:" + node.resolveTypeBinding().getBinaryName());
-//                IBinding fbinding = node.resolveBinding();
-//                System.out.println(fbinding.getKind());
-//                if (fbinding.getKind() == IBinding.METHOD) {
-//                    IMethodBinding methodBinding = (IMethodBinding) fbinding;
-//                    System.out.println("method binding: " + methodBinding);
-//
-//                }
-//                return super.visit(node);
-//            }
-
-            //            @Override
-//            public boolean visit(StringLiteral node) {
-//                System.out.println(node);
-//                return super.visit(node);
-//            }
-//
-//            @Override
-//            public boolean visit(MethodDeclaration node) {
-////                System.out.println("method:"+ node );
-//                return super.visit(node);
-//            }
-            @Override
-            public boolean visit(MethodInvocation node) {
-                //&& node.arguments().get(0).toString().equals("\"MD5\"")
-                //if (methodtype.contains(node.resolveMethodBinding().toString())) {
-                System.out.println("method invocation++:" + node);
-                System.out.println("MI_information: " + node.resolveMethodBinding());
-                //pattern.put(str_list, null);
-                targetnode.add(node);
-                // }
-                return super.visit(node);
-            }
-        });
-    }
 
     public void Compare(File left, File right, CompilationUnit lcu, CompilationUnit rcu){
             FileDistiller distiller = ChangeDistiller.createFileDistiller();
@@ -128,98 +84,117 @@ public class GeneratePattern {
             }
 
             //get the AST node from list and filter by API
-            List<ASTNode> ltargetnode =new ArrayList<>();
-            List<ASTNode> rtargetnode = new ArrayList<>();
+            List<ASTNode> lNode = new ArrayList<>();
+            List<String> lNodeType = new ArrayList<>();
+            List<ASTNode> lNodeArgument = new ArrayList<>();
+            List<ASTNode> rNode = new ArrayList<>();
+            List<String> rNodeType = new ArrayList();
+            List<ASTNode> rNodeArgument = new ArrayList<>();
+            CustomVisitor customVisitor = new CustomVisitor();
             for (SourceRange l: srlist) {
-                ASTNode ltmpNode =NodeFinder.perform(lcu.getRoot(),l.getStart(),l.getEnd()-l.getStart());
-                this.VisitTarget(ltmpNode,ltargetnode);
+                ASTNode ltmpNode = NodeFinder.perform(lcu.getRoot(),l.getStart(),l.getEnd()-l.getStart());
+                customVisitor.VisitTarget(ltmpNode, lNode, lNodeArgument);
+                lNodeType.add(customVisitor.bindingName);
             }
             for (SourceRange r: newsrlist){
-                ASTNode rtmpNode =NodeFinder.perform(rcu.getRoot(),r.getStart(),r.getEnd()-r.getStart());
-                this.VisitTarget(rtmpNode,rtargetnode);
+                ASTNode rtmpNode = NodeFinder.perform(rcu.getRoot(),r.getStart(),r.getEnd()-r.getStart());
+                customVisitor.VisitTarget(rtmpNode, rNode, rNodeArgument);
+                rNodeType.add(customVisitor.bindingName);
             }
 
-            //TODO : 遍历提出堆成的node
-            JavaExpressionConverter leftConverter = new JavaExpressionConverter();
-            ltargetnode.get(0).accept(leftConverter);
-            Node leftRoot = leftConverter.getRoot();
-//        JavaExpressionConverter.markSubStmts(leftRoot, ltargetnode);
-            JavaExpressionConverter rightConverter = new JavaExpressionConverter();
-            rtargetnode.get(0).accept(rightConverter);
-            Node rightRoot = rightConverter.getRoot();
-            //get the low level-differcing
-            Enumeration<Node> lEnum = leftRoot.breadthFirstEnumeration();
-            Enumeration<Node> rEnum = rightRoot.breadthFirstEnumeration();
-            Map<String, String> lkeymapping =new HashMap<String, String>();
-            Map<String, String> rkeymapping =new HashMap<String, String>();
-            //get typeinformation
-            for(String key: leftConverter.variableTypeMap.keySet()){
-                String[] split = key.split("\\+");
-                lkeymapping.put(split[0], key);
-            }
-            for(String key: rightConverter.variableTypeMap.keySet()){
-                String[] split = key.split("\\+");
-                rkeymapping.put(split[0], key);
-            }
-
-            while(lEnum.hasMoreElements() && rEnum.hasMoreElements()) {
-                Node lcurNode = lEnum.nextElement();
-                Node rcurNode = rEnum.nextElement();
-                //       System.out.println("leftdifferencing:"+lcurNode.getEntity());
-                //get parameter differnece and binding information
-
-                if(!lcurNode.getValue().equals(rcurNode.getValue())) {
-                    // check if the difference is caused by parameters
-//                    System.out.println("leftdifferencing:"+lcurNode.getValue()); //md5
-//                    VariableTypeBindingTerm vtbtobj = (VariableTypeBindingTerm) lcurNode.getUserObject();
-//                    System.out.println("ABSTRACT NAME: " + vtbtobj.getAbstractVariableName());
-//                    if (vtbtobj.getAbstractVariableName().startsWith("v")) {
-//                        System.out.println("ChildCount: " + lcurNode.getParent().getChildCount());
-//                        ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
-//                        String bindingname = ls.get(0).toString();
-//                        if (!patternMap.containsKey(bindingname)) {
-//                            patternMap.put(bindingname, new ParameterPattern(bindingname));
-//                        }
-//                        ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
-//                        pp.AppendtoISet(lcurNode.getValue());
-//                        pp.AppendtoCSet(rcurNode.getValue());
-//                    }
-//                    System.out.println("rightdiffernt:"+ rcurNode.getValue()); //sha256
-//                    VariableTypeBindingTerm vtbt = leftConverter.variableTypeMap.get(lkeymapping.get(lcurNode.getValue()));
-//                    System.out.println(vtbt);
-
-                    //traverse the child nodelist, to check if the node is in the parentheses
-                    Enumeration<?> children = lcurNode.getParent().children();
-                    boolean leftparenthesis = false;
-                    List<String> clist = null, ilist = null;
-                    String bindingname = "";
-                    while (children.hasMoreElements()) {
-                        Node node = (Node) children.nextElement();
-                        if (node.getValue().equals("(")) {
-                            leftparenthesis = true;
-                            clist = new ArrayList<String>();
-                            ilist = new ArrayList<String>();
-                            ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
-                            bindingname = ls.get(0).toString();
+            // Compare arguments directly
+            for(int i = 0; i < lNodeArgument.size(); i++) {
+                CodePattern codePattern;
+                String lArg = lNodeArgument.get(i).toString();
+                String rArg = rNodeArgument.get(i).toString();
+                if (!lArg.equals(rArg)) {
+                    if (lArg.contains("/")) {
+                        codePattern = new ParameterPattern(lNodeType.get(0), i);
+                        ((ParameterPattern) codePattern).AppendtoISet(this.divideArgument(lArg));
+                        ((ParameterPattern) codePattern).AppendtoCSet(this.divideArgument(rArg));
+                        this.patternMap.put(codePattern.toString(), codePattern);
+                    } else {
+                        if(lArg.matches("\\d+")){//if the argument is number
+                            codePattern = new NumberPattern(lNodeType.get(0), i);
+                            ((NumberPattern) codePattern).AppendtoISet(lArg);
+                            ((NumberPattern) codePattern).AppendtoCSet(rArg);
+                            this.patternMap.put(codePattern.toString(), codePattern);
                         }
-                        if (node.getValue().equals(")")) {
-                            leftparenthesis = false;
-                            if (!patternMap.containsKey(bindingname)) {
-                                patternMap.put(bindingname, new ParameterPattern(bindingname));
-                            }
-                            ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
-                            pp.AppendtoISet(ilist);
-                            pp.AppendtoCSet(clist);
-                        }
-                        // if the node is inside the parenthesis, then the difference is caused by the parameters
-                        if (leftparenthesis && node.getValue().equals(lcurNode.getValue())) {
-                            clist.add(rcurNode.getValue());
-                            ilist.add(lcurNode.getValue());
+                        //If the argument does not contain any slash, go with the normal case
+                        else {
+                            codePattern = new ParameterPattern(lNodeType.get(0), i);
+                            ((ParameterPattern) codePattern).AppendtoISet(lArg);
+                            ((ParameterPattern) codePattern).AppendtoCSet(rArg);
                         }
                     }
                 }
-
             }
+
+//
+//            JavaExpressionConverter leftConverter = new JavaExpressionConverter();
+//            lNode.get(0).accept(leftConverter);
+//            Node leftRoot = leftConverter.getRoot();
+////            JavaExpressionConverter.markSubStmts(leftRoot, lNode);
+//            JavaExpressionConverter rightConverter = new JavaExpressionConverter();
+//            rNode.get(0).accept(rightConverter);
+//            Node rightRoot = rightConverter.getRoot();
+//            //get the low level-differcing
+//            Enumeration<Node> lEnum = leftRoot.breadthFirstEnumeration();
+//            Enumeration<Node> rEnum = rightRoot.breadthFirstEnumeration();
+//            Map<String, String> lkeymapping =new HashMap<String, String>();
+//            Map<String, String> rkeymapping =new HashMap<String, String>();
+//            //get typeinformation
+//            for(String key: leftConverter.variableTypeMap.keySet()){
+//                String[] split = key.split("\\+");
+//                lkeymapping.put(split[0], key);
+//            }
+//            for(String key: rightConverter.variableTypeMap.keySet()){
+//                String[] split = key.split("\\+");
+//                rkeymapping.put(split[0], key);
+//            }
+//
+//            while(lEnum.hasMoreElements() && rEnum.hasMoreElements()) {
+//                Node lcurNode = lEnum.nextElement();
+//                Node rcurNode = rEnum.nextElement();
+//                //       System.out.println("leftdifferencing:"+lcurNode.getEntity());
+//                //get parameter differnece and binding information
+//
+//                if(!lcurNode.getValue().equals(rcurNode.getValue())) {
+//                    //traverse the child nodelist, to check if the node is in the parentheses
+//                    List<String> clist = new ArrayList<String>(), ilist = new ArrayList<String>();
+//                    ArrayList<?> ls = (ArrayList<?>) ((Node)lcurNode.getParent()).getUserObject();
+//                    String bindingname = ls.get(0).toString();
+//                    System.out.println(bindingname);
+//
+//
+//                    ilist.addAll(lNodeArgument);
+//                    clist.addAll(rNodeArgument);
+//                    while (children.hasMoreElements()) {
+//                        Node node = (Node) children.nextElement();
+//                        if (node.getValue().equals("(")) {
+//                            leftparenthesis = true;
+//                            clist = ;
+//                            ilist = ;
+//
+//                        }
+//                        if (node.getValue().equals(")")) {
+//                            leftparenthesis = false;
+//                            if (!patternMap.containsKey(bindingname)) {
+//                                patternMap.put(bindingname, new ParameterPattern(bindingname));
+//                            }
+//                            ParameterPattern pp = (ParameterPattern) patternMap.get(bindingname);
+//                            pp.AppendtoISet(ilist);
+//                            pp.AppendtoCSet(clist);
+//                        }
+//                        // if the node is inside the parenthesis, then the difference is caused by the parameters
+//                        if (leftparenthesis && node.getValue().equals(lcurNode.getValue())) {
+//                            clist.addAll(this.divideArgument(rcurNode.getValue()));
+//                            ilist.addAll(this.divideArgument(lcurNode.getValue()));
+//                        }
+//                    }
+//                }
+//
+//            }
             for(Map.Entry<?,?> entry: this.patternMap.entrySet()) {
                 System.out.println("Key: " + entry.getKey());
             }
@@ -256,6 +231,32 @@ public class GeneratePattern {
         }
         ois.close();
         fis.close();
+    }
+
+    /**
+     * For argument like "AES/CBC/NoPadding", it will return {"AES/$/$", "$/CBC/$", "$/$/NoPadding"}
+     * @param arg
+     * @return
+     */
+    public List<String> divideArgument(String arg) {
+        List<String> genericArgs = new ArrayList<>();
+        String[] splitArg = arg.split("\\/");
+        for (int i = 0; i < splitArg.length; i++) {
+            switch (i) {
+                case 0:
+                    genericArgs.add(String.format("%s/$/$", splitArg[i]));
+                    break;
+                case 1:
+                    genericArgs.add(String.format("$/%s/$", splitArg[i]));
+                    break;
+                case 2:
+                    genericArgs.add(String.format("$/$/%s", splitArg[i]));
+                    break;
+                default:
+                    break;
+            }
+        }
+        return genericArgs;
     }
 
 
