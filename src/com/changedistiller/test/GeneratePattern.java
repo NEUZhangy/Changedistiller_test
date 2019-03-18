@@ -94,12 +94,29 @@ public class GeneratePattern {
             for (SourceRange l: srlist) {
                 ASTNode ltmpNode = NodeFinder.perform(lcu.getRoot(),l.getStart(),l.getEnd()-l.getStart());
                 customVisitor.VisitTarget(ltmpNode, lNode, lNodeArgument);
+//                System.out.println("test the nodetype: " + customVisitor.bindingName);
                 lNodeType.add(customVisitor.bindingName);
             }
             for (SourceRange r: newsrlist){
                 ASTNode rtmpNode = NodeFinder.perform(rcu.getRoot(),r.getStart(),r.getEnd()-r.getStart());
                 customVisitor.VisitTarget(rtmpNode, rNode, rNodeArgument);
                 rNodeType.add(customVisitor.bindingName);
+            }
+
+            //composite
+            CodePattern patter = new CompositePattern(lcu, rcu);
+
+            //compare type, the name are different
+            for(int i =0; i<lNodeType.size();i++) {
+                if(!(lNodeType.get(i).equals(rNodeType.get(i)))){
+                    CodePattern name = new NamePattern();
+                    ((NamePattern) name).AppendtoINameSet(lNodeType.toString());
+                    ((NamePattern) name).AppendtoIClassSet(lNode.toString());
+
+                    ((NamePattern) name).AppendtoCNameSet(rNodeType.toString());
+                    ((NamePattern) name).AppendtoCClassSet(rNode.toString());
+                }
+
             }
 
             // Compare arguments directly

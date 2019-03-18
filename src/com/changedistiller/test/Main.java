@@ -1,6 +1,8 @@
 package com.changedistiller.test;
 
 import org.eclipse.jdt.core.dom.*;
+
+import javax.crypto.spec.IvParameterSpec;
 import java.io.File;
 
 public class Main {
@@ -21,7 +23,7 @@ public class Main {
         GeneratePattern gp = new GeneratePattern();
         gp.Compare(left, right, lcu, rcu);
 //        gp.LoadFromFile("pattern.ser");
-
+        final IvParameterSpec iv = new IvParameterSpec(new byte[8]);
     }
 }
 
