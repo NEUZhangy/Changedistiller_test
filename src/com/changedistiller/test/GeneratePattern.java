@@ -276,7 +276,6 @@ public class GeneratePattern {
         return genericArgs;
     }
 
-
 }
 
 

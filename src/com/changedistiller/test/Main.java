@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String lfilename = "SampleCipher_insecure.java";
-        String rfilename = "Sample_Cipher_secure.java";
+        String lfilename = "14.java";
+        String rfilename = "14.java";
 
         File left = new File("D:\\work\\Java\\cipher_test\\src\\cipher_test\\insecure\\parameter\\" + lfilename);
         String lsourcepath[] = {"D:\\work\\Java\\cipher_test\\src\\cipher_test"};
