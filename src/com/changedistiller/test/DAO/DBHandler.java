@@ -13,7 +13,7 @@ public class DBHandler {
     private final Jedis jedis;
 
     public DBHandler() {
-        jedis = new Jedis ("192.168.199.13");
+        jedis = new Jedis ("192.168.199.15");
         jedis.auth("123456");
     }
 
@@ -83,6 +83,16 @@ public class DBHandler {
         patternField.put("whichArg", Integer.toString(pattern.getPos()));
         patternField.put("StringMatchingExpression", matchExpression);
         patternField.put("Type", Integer.toString(typeConverter(pattern)));
+        jedis.hmset(name, patternField);
+        jedis.sadd(patternField.get("Type"), name);
+    }
+
+    private void WritetoDB_parameter(Set<String> iSet, Set<String> cSet, String matchExpression, String name, int type) {
+        Map<String, String> patternField = new HashMap<>();
+        patternField.put("StringMatchingExpression", matchExpression);
+        patternField.put("Type", Integer.toString(type));
+        for (String str: iSet) jedis.sadd(name + "IArg", str);
+        for (String str: cSet) jedis.sadd(name + "CArg", str);
         jedis.hmset(name, patternField);
         jedis.sadd(patternField.get("Type"), name);
     }
