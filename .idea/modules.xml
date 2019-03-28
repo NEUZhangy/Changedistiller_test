@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../PatchGenerationProject/PatchGenerationProject/tool/ca.mcgill.cs.swevo.ppa.ui/ca.mcgill.cs.swevo.ppa.ui.iml" filepath="$PROJECT_DIR$/../PatchGenerationProject/PatchGenerationProject/tool/ca.mcgill.cs.swevo.ppa.ui/ca.mcgill.cs.swevo.ppa.ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/changedistiller_test.iml" filepath="$PROJECT_DIR$/changedistiller_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/../PatchGenerationProject/PatchGenerationProject/tool/changedistillerplugin/changedistillerplugin.iml" filepath="$PROJECT_DIR$/../PatchGenerationProject/PatchGenerationProject/tool/changedistillerplugin/changedistillerplugin.iml" />
     </modules>

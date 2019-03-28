@@ -6,7 +6,8 @@ import java.util.*;
 
 public class CompositePattern implements CodePattern{
 
-    int count = 0;
+    private int count = 0;
+    private String name;
     private Map <String,String> variableMap = new HashMap<>();
     private List<String> lcuTemplateStatements = new ArrayList<String>();
     private List<String> rcuTemplateStatements = new ArrayList<String>();
@@ -66,11 +67,21 @@ public class CompositePattern implements CodePattern{
                 return super.visit(node);
             }
         });
-
-
-
     }
 
+    public List<String> getLcuTemplateStatements() {
+        return lcuTemplateStatements;
+    }
 
+    public List<String> getRcuTemplateStatements() {
+        return rcuTemplateStatements;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

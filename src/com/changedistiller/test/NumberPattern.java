@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class NumberPattern implements CodePattern{
+    private String name;
     private int pos = 0;
     private int minNum;
     private String bindingType;
@@ -52,5 +53,21 @@ public class NumberPattern implements CodePattern{
 
     public String toString() {
         return new String().format("%s_%d", this.bindingType, this.pos);
+    }
+
+    public Set<String> getSecureParametersSet() {
+        return secureParametersSet;
+    }
+
+    public Set<String> getInsecureParameterSet() {
+        return insecureParameterSet;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

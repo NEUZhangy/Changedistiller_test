@@ -4,19 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class NamePattern implements CodePattern {
-   // private String cbindingType = new String();
-   // private String ibindingType = new String();
+    private String name;
     private Set<String> correctNameSet = new HashSet<>();
-    private Set<String> correctclassSet = new HashSet<>();
-
+    private Set<String> correctClassSet = new HashSet<>();
     private Set<String> incorrectNameSet = new HashSet<>();
     private Set<String> incorrectClassSet = new HashSet<>();
 
-
     NamePattern(){
-        //String istr, String cstr
-        //ibindingType = istr;
-        //cbindingType = cstr;
     }
 
     public void AppendtoCNameSet(String str) {
@@ -24,7 +18,7 @@ public class NamePattern implements CodePattern {
     }
 
     public void AppendtoCClassSet(String str) {
-        correctclassSet.add(str);
+        correctClassSet.add(str);
     }
 
     public void AppendtoINameSet(String str){
@@ -32,9 +26,32 @@ public class NamePattern implements CodePattern {
     }
 
     public void AppendtoIClassSet(String str) {
-        correctclassSet.add(str);
+        correctClassSet.add(str);
     }
 
+    public Set<String> getCorrectNameSet() {
+        return correctNameSet;
+    }
+
+    public Set<String> getCorrectClassSet() {
+        return correctClassSet;
+    }
+
+    public Set<String> getIncorrectNameSet() {
+        return incorrectNameSet;
+    }
+
+    public Set<String> getIncorrectClassSet() {
+        return incorrectClassSet;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 //    public String getCBingingType() {
 //        return cbindingType;
 //    }

@@ -41,6 +41,7 @@ public class CustomVisitor extends ASTVisitor {
             public boolean visit(ClassInstanceCreation node){
                 System.out.println("varible type: " + node);
                 System.out.println("nodeType: " + node.getType());
+                System.out.println("Binding: " + node.resolveTypeBinding());
                 bindingName = node.getType().toString();
                 targetnode.add(node);
                 nodeArguments.addAll(node.arguments());

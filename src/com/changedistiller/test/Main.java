@@ -1,16 +1,15 @@
 package com.changedistiller.test;
 
-import org.eclipse.jdt.core.dom.*;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import javax.crypto.spec.IvParameterSpec;
 import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String lfilename = "14.java";
-        String rfilename = "14.java";
+        String lfilename = "12.java";
+        String rfilename = "12.java";
 
         File left = new File("D:\\work\\Java\\cipher_test\\src\\cipher_test\\insecure\\parameter\\" + lfilename);
         String lsourcepath[] = {"D:\\work\\Java\\cipher_test\\src\\cipher_test"};
@@ -22,8 +21,6 @@ public class Main {
         CompilationUnit rcu = rightast.getComplicationUnit();
         GeneratePattern gp = new GeneratePattern();
         gp.Compare(left, right, lcu, rcu);
-//        gp.LoadFromFile("pattern.ser");
-        final IvParameterSpec iv = new IvParameterSpec(new byte[8]);
     }
 }
 
