@@ -20,7 +20,7 @@ public class CustomVisitor extends ASTVisitor {
                 System.out.println("MI_information: " + node.resolveMethodBinding());
                 System.out.println("test Va: "+ node.getExpression().resolveConstantExpressionValue());
 //                constantExpression = node.getExpression().resolveConstantExpressionValue().toString();
-                bindingName = node.resolveMethodBinding().toString();
+                bindingName = node.resolveMethodBinding() != null? node.resolveMethodBinding().toString(): "";
                 nodeArguments.addAll(node.arguments());
                 StringBuilder sb = new StringBuilder();
                 sb.append(new String().format("%s.%s", node.getExpression(), node.getName()));

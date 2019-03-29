@@ -99,7 +99,16 @@ public class GeneratePattern {
         }
 
         //composite
-        CodePattern patter = new CompositePattern(lcu, rcu);
+        if (lNode.size() > 1 || rNode.size() > 1) {
+            CompositePattern compositePattern = new CompositePattern(lcu, rcu);
+            patternMap.put(compositePattern.getName(), compositePattern);
+            System.out.println("left:");
+            compositePattern.getLcuTemplateStatements().stream().forEach(x -> System.out.println(x));
+            System.out.println("right");
+            compositePattern.getRcuTemplateStatements().stream().forEach(x -> System.out.println(x));
+            return;
+        }
+
         CodePattern name = new NamePattern();
         //compare type, the name are different
         for(int i =0; i<lNodeType.size();i++) {
@@ -189,21 +198,26 @@ public class GeneratePattern {
     public List<String> divideArgument(String arg) {
         List<String> genericArgs = new ArrayList<>();
         String[] splitArg = arg.split("\\/");
-        for (int i = 0; i < splitArg.length; i++) {
-            switch (i) {
-                case 0:
-                    genericArgs.add(String.format("%s/$/$", splitArg[i]));
-                    break;
-                case 1:
-                    genericArgs.add(String.format("$/%s/$", splitArg[i]));
-                    break;
-                case 2:
-                    genericArgs.add(String.format("$/$/%s", splitArg[i]));
-                    break;
-                default:
-                    break;
+        if (splitArg.length == 1)
+            genericArgs.add(genericArgs.get(0));
+        else {
+
+            for (int i = 0; i < splitArg.length; i++) {
+                switch (i) {
+                    case 0:
+                        break;
+                    case 1:
+                        genericArgs.add(String.format("%s/%s/$", splitArg[i-1], splitArg[i]));
+                        break;
+                    case 2:
+                        genericArgs.add(String.format("$/$/%s", splitArg[i]));
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
         return genericArgs;
     }
 

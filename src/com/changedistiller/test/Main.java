@@ -8,8 +8,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String lfilename = "12.java";
-        String rfilename = "12.java";
+        String lfilename = "2.java";
+        String rfilename = "2.java";
 
         File left = new File("D:\\work\\Java\\cipher_test\\src\\cipher_test\\insecure\\parameter\\" + lfilename);
         String lsourcepath[] = {"D:\\work\\Java\\cipher_test\\src\\cipher_test"};
