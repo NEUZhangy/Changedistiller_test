@@ -130,8 +130,8 @@ public class GeneratePattern {
             if (!lArg.equals(rArg)) {
                 if (lArg.contains("/")) {
                     codePattern = new ParameterPattern(lNodeType.get(0), i);
-                    ((ParameterPattern) codePattern).AppendtoISet(this.divideArgument(lArg));
-                    ((ParameterPattern) codePattern).AppendtoCSet(this.divideArgument(rArg));
+                    ((ParameterPattern) codePattern).AppendtoISet(this.divideArgument(lArg, null));
+                    ((ParameterPattern) codePattern).AppendtoCSet(this.divideArgument(rArg, null));
                     this.patternMap.put(codePattern.toString(), codePattern);
                 } else {
                     if(lArg.matches("\\d+")){//if the argument is number
@@ -192,32 +192,28 @@ public class GeneratePattern {
 
     /**
      * For argument like "AES/CBC/NoPadding", it will return {"AES/$/$", "$/CBC/$", "$/$/NoPadding"}
-     * @param arg
+     * @param arg,
      * @return
      */
-    public List<String> divideArgument(String arg) {
+    public List<String> divideArgument(String arg, Set<Integer> groups) {
         List<String> genericArgs = new ArrayList<>();
         String[] splitArg = arg.split("\\/");
+        StringBuilder group_str = new StringBuilder();
         if (splitArg.length == 1)
             genericArgs.add(genericArgs.get(0));
         else {
-
             for (int i = 0; i < splitArg.length; i++) {
-                switch (i) {
-                    case 0:
-                        break;
-                    case 1:
-                        genericArgs.add(String.format("%s/%s/$", splitArg[i-1], splitArg[i]));
-                        break;
-                    case 2:
-                        genericArgs.add(String.format("$/$/%s", splitArg[i]));
-                        break;
-                    default:
-                        break;
+                if (groups.contains(i)) {
+                    group_str.append(splitArg[i]);
+                    group_str.append("/");
+                }
+                else {
+                    genericArgs.add(splitArg[i]);
                 }
             }
         }
-
+        if (group_str.length() > 0) group_str.deleteCharAt(group_str.length()-1);
+        genericArgs.add(group_str.toString());
         return genericArgs;
     }
 
