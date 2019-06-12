@@ -44,6 +44,7 @@ public class DirectGenerate {
         Set<String> cSet = new HashSet<>();
         statementList.get(0).getArguments().stream().forEach(x -> iSet.add(x.toString()));
         statementList.get(1).getArguments().stream().forEach(x -> cSet.add(x.toString()));
+
         System.out.println(iSet);
         System.out.println(cSet);
     }
