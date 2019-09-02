@@ -1,5 +1,9 @@
 package com.changedistiller.test.SSLDetect;
 
+<<<<<<< HEAD
+=======
+import com.Constant;
+>>>>>>> 6ea4404c650a6ab0e2f48928e1c45d896f720844
 import com.github.javaparser.JavaToken;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -107,7 +111,11 @@ public class Detection {
             IOException {
         try {
             // create an analysis scope representing the appJar as a J2SE application
+<<<<<<< HEAD
             AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile("C:\\Users\\ying\\Documents\\JAVA_CODE\\changedistiller_test\\src\\Slice\\Java60RegressionExclusions.txt"));
+=======
+            AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile(Constant.EXCLUDES));
+>>>>>>> 6ea4404c650a6ab0e2f48928e1c45d896f720844
 
             //slice 不要进包内slice
             ExampleUtil.addDefaultExclusions(scope);
@@ -148,7 +156,11 @@ public class Detection {
             // create a view of the SDG restricted to nodes in the slice
             Graph<Statement> g = pruneSDG(sdg, slice);
             sanityCheck(slice, g);
+<<<<<<< HEAD
             String filePath = "C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\dummyhostnameverifier\\HostnameVerifierCase2.java";
+=======
+            String filePath = "E:\\Code\\Java\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\dummyhostnameverifier\\HostnameVerifierCase2.java";
+>>>>>>> 6ea4404c650a6ab0e2f48928e1c45d896f720844
             //String filePath = "C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\predictablecryptographickey\\keypair.java";
 
             // The following part is to get the matching statements from the source code:
@@ -277,6 +289,13 @@ public class Detection {
 
         for (SSAInstruction s : Iterator2Iterable.make(ir.iterateAllInstructions())) {
             if (s instanceof SSAInvokeInstruction) {
+<<<<<<< HEAD
+=======
+                if (((SSAInvokeInstruction) s).getCallSite().getDeclaredTarget().getDeclaringClass().
+                        getClassLoader().getName().toString().compareToIgnoreCase("primordial") == 0)
+                    continue;
+                System.out.println(s);
+>>>>>>> 6ea4404c650a6ab0e2f48928e1c45d896f720844
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
                 // Get the information binding
                 String methodT = call.getCallSite().getDeclaredTarget().getSignature();
