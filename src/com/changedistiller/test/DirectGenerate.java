@@ -1,6 +1,7 @@
 package com.changedistiller.test;
 
 import com.github.javaparser.JavaParser;
+import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.resolution.types.ResolvedType;
@@ -20,17 +21,16 @@ public class DirectGenerate {
     private CompilationUnit cu;
 
     public DirectGenerate(String file_path) throws Exception {
-        JavaParser jp = new JavaParser();
         TypeSolver typeSolver = new ReflectionTypeSolver();
         JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
-        JavaParser.getStaticConfiguration().setSymbolResolver(symbolSolver);
+        StaticJavaParser.getConfiguration().setSymbolResolver(symbolSolver);
         file_path = "src/test.java";
-        cu = jp.parse(new File(file_path));
+        cu = StaticJavaParser.parse(new File(file_path));
         List<MethodCallExpr> statementList = new ArrayList<>();
         AtomicReference<String> binding = new AtomicReference<>(new String());
         cu.findAll(MethodCallExpr.class).forEach(ae -> {
             ResolvedType resolvedType = ae.calculateResolvedType();
-            binding.set(ae.resolveInvokedMethod().getQualifiedSignature());
+            //binding.set(ae.resolveInvokedMethod().getQualifiedSignature());
             ae.getArguments().stream().forEach(x -> System.out.println(x));
             if (ae.getNameAsString().equals("asList")) {
                 statementList.add(ae);

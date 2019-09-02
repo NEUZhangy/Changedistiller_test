@@ -24,7 +24,10 @@ public class ExampleUtil {
   		"org\\/apache\\/xerces\\/.*\n" + 
   		"java\\/security\\/.*\n" + //不再slice内部的类
 		"javax\\/crypto\\/.*\n" +
-  		"";
+		"java\\/util\\/.*\n" +
+		"java\\/nio\\/.*\n" +
+		"java\\/lang\\/StringBuilder\n" +
+			"";
 
   public static void addDefaultExclusions(AnalysisScope scope) throws UnsupportedEncodingException, IOException {
 	    scope.setExclusions(new FileOfClasses(new ByteArrayInputStream(ExampleUtil.EXCLUSIONS.getBytes("UTF-8"))));

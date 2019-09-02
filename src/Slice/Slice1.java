@@ -1,6 +1,6 @@
 package Slice;
 
-import com.ibm.wala.examples.drivers.PDFSlice;
+import com.ibm.wala.examples.slice.PDFSlice;
 import com.ibm.wala.util.CancelException;
 
 import java.io.IOException;

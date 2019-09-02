@@ -3,16 +3,14 @@ package com.changedistiller.test;
 import ch.uzh.ifi.seal.changedistiller.ChangeDistiller;
 import ch.uzh.ifi.seal.changedistiller.distilling.FileDistiller;
 import ch.uzh.ifi.seal.changedistiller.model.classifiers.SourceRange;
-import ch.uzh.ifi.seal.changedistiller.model.entities.Delete;
-import ch.uzh.ifi.seal.changedistiller.model.entities.Insert;
-import ch.uzh.ifi.seal.changedistiller.model.entities.SourceCodeChange;
-import ch.uzh.ifi.seal.changedistiller.model.entities.Update;
+import ch.uzh.ifi.seal.changedistiller.model.entities.*;
 import com.changedistiller.test.DAO.DBHandler;
 import edu.vt.cs.append.FineChangesInMethod;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.NodeFinder;
 
+import javax.xml.transform.Source;
 import java.io.*;
 import java.util.*;
 
@@ -34,6 +32,67 @@ public class GeneratePattern {
         this.rcu= rcu;
     }
 
+    private SourceRange reconstruct(List<SourceCodeChange> changeList) {
+        System.out.println("---------reconstruct----------");
+//        Map<String, TreeSet<SourceCodeChange>> codeStrucutre = new HashMap<>();
+//        for (SourceCodeChange scc: changeList) {
+//            String parent = scc.getParentEntity().getUniqueName();
+//            if (scc instanceof Move) {
+//                String old_parent = ((Move)scc).getParentEntity().getUniqueName();
+//                TreeSet<SourceCodeChange> set = codeStrucutre.get(old_parent);
+//                for (SourceCodeChange sc: set) {
+//                    if (sc.getChangedEntity() == scc.getChangedEntity()) {
+//                        set.remove(sc);
+//                        break;
+//                    }
+//                }
+//                parent = ((Move)scc).getNewParentEntity().toString();
+//            }
+//            if (codeStrucutre.containsKey(parent)) {
+//                codeStrucutre.get(parent).add(scc);
+//            }
+//            else {
+//                codeStrucutre.put(parent, new TreeSet<SourceCodeChange>(new Comparator<SourceCodeChange>() {
+//                    @Override
+//                    public int compare(SourceCodeChange o1, SourceCodeChange o2) {
+//                        return o1.getChangedEntity().getStartPosition() - o2.getChangedEntity().getEndPosition();
+//                    }
+//                }));
+//                codeStrucutre.get(parent).add(scc);
+//            }
+//        }
+//        for(Map.Entry<?, ?> entry: codeStrucutre.entrySet()) {
+//            TreeSet<SourceCodeChange> codes = (TreeSet<SourceCodeChange>) entry.getValue();
+//            System.out.println(entry.getKey());
+//            codes.stream().forEach(x-> System.out.println("\t" + x));
+//        }
+        Set<SourceCodeEntity> changes = new HashSet<>();
+        for (SourceCodeChange scc: changeList) {
+            if (changes.contains(scc.getChangedEntity())) {
+                System.out.println("YES");
+            }
+            else{
+                changes.add(scc.getChangedEntity());
+            }
+        }
+
+        int left = -1, right = -1;
+        for (SourceCodeEntity sce: changes) {
+            if (left == -1 && right == -1) {
+                left = sce.getSourceRange().getStart();
+                right = sce.getSourceRange().getEnd();
+            }
+            else {
+                left = Math.min(left, sce.getStartPosition());
+                right = Math.max(right, sce.getEndPosition());
+            }
+        }
+        SourceRange sr = new SourceRange(left, right);
+        System.out.println("Start: " + left + " END: " + right);
+        System.out.println("-----------------------------");
+        return sr;
+    }
+
 
     public void Compare(File left, File right, CompilationUnit lcu, CompilationUnit rcu){
         FileDistiller distiller = ChangeDistiller.createFileDistiller();
@@ -41,30 +100,36 @@ public class GeneratePattern {
         try {
             distiller.extractClassifiedSourceCodeChanges(left, right);
         } catch (Exception e) {
-            System.out.println("warning" + e.getMessage());
+            e.printStackTrace();
+            System.out.println("warning " + e.getMessage());
         }
-
         //get the statement of changedistiller and oldfrang, newfrang
-        List<SourceCodeChange> changes = distiller.getSourceCodeChanges();//the size of changes=1, why it is list type??
+        List<SourceCodeChange> changes = distiller.getSourceCodeChanges();//the size of changes=1
+
         List<SourceRange> srlist = new ArrayList<>();
         List<SourceRange> newsrlist  = new ArrayList<>();
+        List<SourceCodeChange> changelist = new ArrayList<>();
+        List<SourceCodeChange> extractChanges = new ArrayList<>();
+
         if (changes != null) {
             for (SourceCodeChange change : changes) {
                 System.out.println("change operation"+ change);
                 FineChangesInMethod fc = (FineChangesInMethod) change;
-                List<SourceCodeChange> changelist =fc.getChanges();
+                //changelist = fc.getChanges();
                 for (SourceCodeChange scc : fc.getChanges()) {
                     if(scc instanceof Update) {
-                        srlist.add(scc.getChangedEntity().getSourceRange());
-                        System.out.println(scc.getChangedEntity().getSourceRange());
-                        System.out.println(((Update) scc).getNewEntity().getSourceRange()); //get frange
+                        srlist.add(scc.getChangedEntity().getSourceRange()); //old entity
+                        System.out.println(scc.getChangedEntity().getSourceRange()); //old range
+                        System.out.println(((Update) scc).getNewEntity().getSourceRange()); //get frange in secure
                         newsrlist.add(((Update) scc).getNewEntity().getSourceRange());
+                        extractChanges.add(scc);
                     }
 
                     if(scc instanceof Insert){
                         System.out.println(scc.getChangedEntity().getSourceRange());
                         //System.out.println(((Insert) scc).getParentEntity().getSourceRange());
                         newsrlist.add(((Insert) scc).getChangedEntity().getSourceRange());
+                        extractChanges.add(scc);
                     }
 
                     if(scc instanceof Delete) {
@@ -72,10 +137,20 @@ public class GeneratePattern {
                         System.out.println(scc.getChangedEntity().getSourceRange());
 //                        System.out.println(((Delete) scc).getNewEntity().getSourceRange());
                     }
+
+                    if(scc instanceof Move) {
+                        srlist.add(scc.getChangedEntity().getSourceRange());
+                        System.out.println(scc.getChangedEntity().getSourceRange());
+                        extractChanges.add(scc);
+                    }
                 }
             }
         }
 
+       // newsrlist.clear();
+        //newsrlist.add(reconstruct(extractChanges));
+
+        //TODO: need save the parent node when generate pattern
         //get the AST node from list and filter by API
         List<ASTNode> lNode = new ArrayList<>();
         List<String> lNodeType = new ArrayList<>();
@@ -92,15 +167,27 @@ public class GeneratePattern {
             lNodeType.add(customVisitor.bindingName);
             matchingExpression = customVisitor.matchingExpression;
         }
-        for (SourceRange r: newsrlist){
-            ASTNode rtmpNode = NodeFinder.perform(rcu.getRoot(),r.getStart(),r.getEnd()-r.getStart());
-            customVisitor.VisitTarget(rtmpNode, rNode, rNodeArgument);
+        for (SourceRange r: newsrlist){ // can't get the node
+            ASTNode rtmpNode = NodeFinder.perform(rcu.getRoot(), r.getStart(),r.getEnd()-r.getStart());
+            customVisitor.VisitTarget(rtmpNode, rNode, rNodeArgument); // not only vist the API but the foreahc and try catch statement
             rNodeType.add(customVisitor.bindingName);
         }
 
         //composite
         if (lNode.size() > 1 || rNode.size() > 1) {
-            CompositePattern compositePattern = new CompositePattern(lcu, rcu);
+            ASTNode lTarget = null, rTarget = null;
+            int lstart = Integer.MAX_VALUE, lend = Integer.MIN_VALUE, rstart = Integer.MAX_VALUE, rend = Integer.MIN_VALUE;
+            for (ASTNode node: lNode) {
+                lstart = Math.min(lstart, node.getStartPosition());
+                lend = Math.max(lend, node.getStartPosition() + node.getLength());
+            }
+            for (ASTNode node: rNode) {
+                rstart = Math.min(rstart, node.getStartPosition());
+                rend = Math.max(rend, node.getStartPosition() + node.getLength());
+            }
+            lTarget = NodeFinder.perform(lcu.getRoot(), lstart, lend - lstart);
+            rTarget = NodeFinder.perform(rcu.getRoot(), rstart, rend - rstart);
+            CompositePattern compositePattern = new CompositePattern(lTarget, rTarget);
             patternMap.put(compositePattern.getName(), compositePattern);
             System.out.println("left:");
             compositePattern.getLcuTemplateStatements().stream().forEach(x -> System.out.println(x));
@@ -108,6 +195,8 @@ public class GeneratePattern {
             compositePattern.getRcuTemplateStatements().stream().forEach(x -> System.out.println(x));
             return;
         }
+        System.out.println("end the analysis for composite pattern generation ");
+        System.out.println(".-------------------------------------------------.");
 
         CodePattern name = new NamePattern();
         //compare type, the name are different

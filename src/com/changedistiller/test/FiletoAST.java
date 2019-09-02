@@ -16,7 +16,7 @@ public class FiletoAST {
 
     FiletoAST(String[] sourcepath, File file, String filename) throws Exception{
         String sourcefile = FileUtils.readFileToString(file);
-        ASTParser parser = ASTParser.newParser(AST.JLS8);
+        ASTParser parser = ASTParser.newParser(AST.JLS11);
         parser.setSource(sourcefile.toCharArray());
         parser.setEnvironment(classpath,sourcepath,encodings,true);
         parser.setBindingsRecovery(true);
