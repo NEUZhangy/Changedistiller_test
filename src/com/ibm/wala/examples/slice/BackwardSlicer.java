@@ -18,17 +18,14 @@ import com.ibm.wala.util.debug.Assertions;
 import com.ibm.wala.util.intset.BitVectorIntSet;
 import com.ibm.wala.util.intset.IntIterator;
 import com.ibm.wala.util.intset.IntSet;
-//import com.sun.java.util.jar.pack.Instruction;
-import org.apache.tools.ant.taskdefs.XSLTProcess;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.util.*;
 
 public class BackwardSlicer {
 
     private List<Object> ParamValue = new ArrayList<>();
-    private List<Statement> listArr = new ArrayList<>();// save the filter slice result
+    private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
     private Set<String> fieldName = new HashSet<>();
     private Map<String, Object> varMap = new HashMap<>();
 
@@ -71,9 +68,15 @@ public class BackwardSlicer {
 
         // Filter all non application stmts
         filterStatement(relatedStmts);
-        setParamValue(targetStmt, listArr);
-        for (int i = 0; i<targetStmt.getNode().getMethod().getNumberOfParameters(); i++) {
-            getParameter(i);
+        setParamValue(targetStmt);
+
+        // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement
+        // Use SSAInstruction instead
+        StatementWithInstructionIndex stmtwithindex = (StatementWithInstructionIndex) targetStmt;
+        SSAInstruction inst = stmtwithindex.getInstruction();
+        for (int i = 0; i < inst.getNumberOfUses(); i++) {
+            if (inst instanceof SSAInvokeInstruction && !((SSAInvokeInstruction)inst).isStatic() && i == 0) continue;
+            getParameter(i-1);
         }
     }
 
@@ -89,29 +92,25 @@ public class BackwardSlicer {
      set the value into ParaValue list
      */
     public void getParameter(int i) {
-        System.out.println("This is the "+i+ "th parameter for the target function" + ParamValue.get(i));
-
+        System.out.println("This is the " + i + "th parameter for the target function: " + ParamValue.get(i));
     }
 
-    public  void setParamValue(Statement targetStmt, List<Statement> relatedStmts){
-
+    public void setParamValue(Statement targetStmt){
         SSAInstruction targetInst = ((StatementWithInstructionIndex)targetStmt).getInstruction();
         BitVectorIntSet uses = new BitVectorIntSet();
         IR targetIR = targetStmt.getNode().getIR();
         SymbolTable st = targetIR.getSymbolTable();
-
         if(targetInst instanceof SSAInvokeInstruction){
-            int i = ((SSAInvokeInstruction)targetInst).isStatic() == true? 0:1;
+            int i = ((SSAInvokeInstruction)targetInst).isStatic() == true? 0 : 1;
             int numOfUse = targetInst.getNumberOfUses();
-            while(i< numOfUse){
+            while(i < numOfUse){
                 int use = targetInst.getUse(i);
                 if(st.isConstant(use)){
                     ParamValue.add(st.getConstantValue(use));
                 }
                 else{
                     uses.add(use); // can't get the parameter within one block;
-                    setParamValue(targetStmt, relatedStmts, uses);
-
+                    setParamValue(targetStmt, uses);
                 }
                 i++;
             }
@@ -120,13 +119,12 @@ public class BackwardSlicer {
         }
     }
 
-    public void setParamValue(Statement targetStmt, List<Statement> relatedStmts, BitVectorIntSet uses) {
-
+    public void setParamValue(Statement targetStmt, BitVectorIntSet uses) {
         Set<SSAInstruction> definsts = new HashSet<>();
         Map<Integer, Integer> paraMap = new HashMap<>();
-
-        for (int i = relatedStmts.size() - 1; i >= 0; i--) {
-            Statement stm = listArr.get(i);
+        for (int i = stmtList.size() - 1; i >= 0; i--) {
+            Statement stm = stmtList.get(i);
+            if (stm.toString().equals(targetStmt.toString())) continue;
             if (stm.getKind() == Statement.Kind.PARAM_CALLEE) {
                 IR ir = stm.getNode().getIR();
                 ParamCallee pacallee = (ParamCallee) stm;
@@ -171,7 +169,7 @@ public class BackwardSlicer {
                         paraMap.remove(n); // the value number would changed, remove the previous one. until it meet the caller again and save to paraMap new value
                     }
                 }
-            }else{
+            } else {
                 if (!(stm instanceof StatementWithInstructionIndex)) continue;
                 SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
 
@@ -187,13 +185,12 @@ public class BackwardSlicer {
                     IR ir = stm.getNode().getIR();
                     DefUse du = stm.getNode().getDU();
                     SymbolTable st = ir.getSymbolTable();
-                    System.out.println("\tINSTRUCTIONS: " + inst);
                     if(inst instanceof SSAGetInstruction){
                         SSAGetInstruction getinst = (SSAGetInstruction) inst;
                         String fieldname = getinst.getDeclaredField().getName().toString();
                         fieldName.add(fieldname);
                         if(varMap.containsKey(fieldname)) {
-                            System.out.println("FIND: " + varMap.get(fieldname));
+                            this.ParamValue.add(varMap.get(fieldname));
                             break;
                         }
                     }
@@ -202,7 +199,7 @@ public class BackwardSlicer {
                         SSAPutInstruction putinst = (SSAPutInstruction) inst;
                         int val = putinst.getVal();
                         if(st.isConstant(val)){
-                            System.out.println(st.getConstantValue(val));
+                            this.ParamValue.add(varMap.get(st.getConstantValue(val)));
                             continue;
                         }
                         else{
@@ -233,17 +230,15 @@ public class BackwardSlicer {
             }
 
         }
-
     }
+
     // here is the interface for filter out the unrelated statement
-    public  void filterStatement(Collection<Statement> relatedStmts){
+    public void filterStatement(Collection<Statement> relatedStmts){
         for (Statement stmt: relatedStmts) {
-            if (stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().equals("Primordial")) {
-                listArr.add(stmt);
+            if (!stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().equals("Primordial")) {
+                stmtList.add(stmt);
             }
         }
-
-
     }
 
     /* find the target method, should be a method invocation*/
