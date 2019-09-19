@@ -40,8 +40,8 @@ public class BackwardSlicer {
                     String caller,
                     String functionType
     ) throws IOException, ClassHierarchyException, CancelException {
-        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.FULL;
-        Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.NONE;
+        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.NO_BASE_NO_HEAP_NO_EXCEPTIONS;
+        Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.FULL;
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         ClassHierarchy cha = ClassHierarchyFactory.make(scope);
@@ -119,123 +119,51 @@ public class BackwardSlicer {
         }
     }
 
+
+    //TODO: this function should be refactor as follows:
+    //   1. if slice statement is within one single block (no passin. ) - done
+    //   2. cross the block (pass in, ssaput_
     public void setParamValue(Statement targetStmt, BitVectorIntSet uses) {
         Set<SSAInstruction> definsts = new HashSet<>();
-        Map<Integer, Integer> paraMap = new HashMap<>();
+        Set<Integer> visited = new HashSet<>();
         for (int i = stmtList.size() - 1; i >= 0; i--) {
             Statement stm = stmtList.get(i);
             if (stm.toString().equals(targetStmt.toString())) continue;
-            if (stm.getKind() == Statement.Kind.PARAM_CALLEE) {
-                IR ir = stm.getNode().getIR();
-                ParamCallee pacallee = (ParamCallee) stm;
-                int var = pacallee.getValueNumber();
-                int size = ir.getNumberOfParameters();
-                for (int j = 0; j < size; j++) {
-                    if (ir.getParameter(j) == var) {
-                        paraMap.put(var, j + 1);    // the location of the arguments
-                        uses.add(var);
-                    }
-                }
-            } else if (stm.getKind() == Statement.Kind.PARAM_CALLER) {
-                IR ir = stm.getNode().getIR();
-                SymbolTable st = ir.getSymbolTable();
-                ParamCaller pacaller = (ParamCaller) stm;
-                SSAInstruction caller = pacaller.getInstruction();
-                if (paraMap.size() == 0) continue;// 目前不知道有什么用，没有use没有参数，没有对应的callee 那 只可能是access static filed?
-                IntIterator it = uses.intIterator();
-                List<Integer> found = new ArrayList<>();
-                while (it.hasNext()) {
-                    if (paraMap.size() == 0) break;
-                    int n = it.next();
-                    if (caller.getNumberOfUses() == 0) continue;
-                    if (!paraMap.containsKey(n)) {
-                        continue;
-                    }
-                    int varuse = caller instanceof SSAAbstractInvokeInstruction ? paraMap.get(n) - 1 : paraMap.get(n);
-                    if (varuse < 0) {
-                        paraMap.remove(n);
-                        continue;
-                    }
-                    int use = caller.getUse(varuse);
-                    found.add(n);
-                    if (st.isConstant(use)) {
-                        ParamValue.add(st.getConstantValue(use));
-                        System.out.println("Parameter" + st.getConstantValue(use));
-                        break;
-                    } else {
-                        //TODO: Add a logic to handle if the value cannot find here. HERE have big Problem
-                        uses.add(use); // not constant, should be passin parameter again, add to use
-                        definsts.add(stm.getNode().getDU().getDef(use));
-                        paraMap.remove(n); // the value number would changed, remove the previous one. until it meet the caller again and save to paraMap new value
-                    }
-                }
-            } else {
-                if (!(stm instanceof StatementWithInstructionIndex)) continue;
-                SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
+            if (!(stm instanceof StatementWithInstructionIndex)) continue;
+            SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
+            IR ir = stm.getNode().getIR();
+            DefUse du = stm.getNode().getDU();
+            SymbolTable st = ir.getSymbolTable();
 
-                if(inst instanceof SSAArrayStoreInstruction){ //arraystore is another case
-                    SSAArrayStoreInstruction arraystore = (SSAArrayStoreInstruction) inst;
-                    if(uses.contains(arraystore.getArrayRef())){
-                        definsts.add(inst);
-                    }
-                }
-
-                if(stm.equals(targetStmt) || definsts.contains(inst)
-                        || (inst instanceof SSAPutInstruction && fieldName.contains(((SSAPutInstruction)inst).getDeclaredField().getName().toString()))) { //直接依赖DU拿deinsts 有局限性，arraystore不能处理，另外static field Du是空
-                    IR ir = stm.getNode().getIR();
-                    DefUse du = stm.getNode().getDU();
-                    SymbolTable st = ir.getSymbolTable();
-                    if(inst instanceof SSAGetInstruction){
-                        SSAGetInstruction getinst = (SSAGetInstruction) inst;
-                        String fieldname = getinst.getDeclaredField().getName().toString();
-                        fieldName.add(fieldname);
-                        if(varMap.containsKey(fieldname)) {
-                            this.ParamValue.add(varMap.get(fieldname));
-                            break;
-                        }
-                    }
-
-                    if(inst instanceof SSAPutInstruction){
-                        SSAPutInstruction putinst = (SSAPutInstruction) inst;
-                        int val = putinst.getVal();
-                        if(st.isConstant(val)){
-                            this.ParamValue.add(varMap.get(st.getConstantValue(val)));
-                            continue;
-                        }
-                        else{
-                            // bits.add(val);
-                            if(du.getDef(val)!=null) {
-                                definsts.add(du.getDef(val));//find the def of the the inConstant use
-                                continue;
-                            }
-                        }
-                    }
-
-                    for (int j = 0; j < inst.getNumberOfDefs(); j++) {
-                        uses.remove(inst.getDef(j));
-                    }
-
-                    for (int j = 0; j < inst.getNumberOfUses(); j++) {
-                        if (j == 0 && ((inst instanceof SSAInvokeInstruction
-                                && !((SSAInvokeInstruction) inst).isStatic()) || !(inst instanceof SSAAbstractInvokeInstruction))) continue;
-                        if (!st.isConstant(inst.getUse(j))) {
-                            uses.add(inst.getUse(j));
-                            if (du.getDef(inst.getUse(j)) != null) definsts.add(du.getDef(inst.getUse(j)));
-                        } else {
-                            System.out.println("\t" + inst.getUse(j) + " " + st.getConstantValue(inst.getUse(j)));
-                        }
-                    }
-
-                }
+            for (int j = 0; j < inst.getNumberOfDefs(); j++) {
+                uses.remove(inst.getDef(j));
             }
 
+            for (int j = 0; j < inst.getNumberOfUses(); j++) {
+                int use = inst.getUse(j);
+                if (j == 0 && ((inst instanceof SSAInvokeInstruction
+                        && !((SSAInvokeInstruction) inst).isStatic()) || !(inst instanceof SSAAbstractInvokeInstruction))
+                        && !st.isConstant(use))
+                    continue;
+                if (!st.isConstant(use)) {
+                    uses.add(use);
+                    if (du.getDef(use) != null) definsts.add(du.getDef(use));
+                } else {
+                    //System.out.println("\t" + use + " " + st.getConstantValue(use));
+                    if (uses.size() == 0 && !visited.contains(use)) {
+                        this.ParamValue.add(st.getConstantValue(use));
+                        visited.add(use);
+                    }
+                }
+            }
         }
+
     }
 
     // here is the interface for filter out the unrelated statement
     public void filterStatement(Collection<Statement> relatedStmts){
         for (Statement stmt: relatedStmts) {
-            if (!stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().equals("Primordial")) {
+            if (!stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial")) {
                 stmtList.add(stmt);
             }
         }
