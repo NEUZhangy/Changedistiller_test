@@ -19,6 +19,7 @@ import com.ibm.wala.util.intset.BitVectorIntSet;
 import com.ibm.wala.util.intset.IntIterator;
 import com.ibm.wala.util.intset.IntSet;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.util.*;
 
@@ -110,7 +111,33 @@ public class BackwardSlicer {
                 }
                 else{
                     uses.add(use); // can't get the parameter within one block;
-                    setParamValue(targetStmt, uses);
+                    /*
+                     * If I cannot get the value on that statement directly, which means that the value is not
+                     * in the symboltable, then run the following analysis:
+                     *   1. separate all the statements by their functions/blocks
+                     *   2. reversely loop all functions/blocks. reverse means from the block of targetstmt -> main
+                     *   3. when handling the specific function, pass the target use value number list to each function
+                     */
+                    String selector = null;
+                    List<Statement> stmtInBlock = new ArrayList<>();
+                    for (Statement stmt: stmtList) {
+                        String func = stmt.getNode().getMethod().getDeclaringClass().getName().toString() + " " +
+                                stmt.getNode().getMethod().getSelector().getName().toString();
+                        if (selector == null) {
+                            selector = func;
+                            stmtInBlock.add(stmt);
+                        }
+                        else if (selector.compareToIgnoreCase(func) == 0){
+                            //System.out.println(stmt);
+                            stmtInBlock.add(stmt);
+                        }
+                        else {
+                            setParamValue(targetStmt, uses, stmtInBlock);
+                            stmtInBlock.clear();
+                            selector = func;
+                        }
+                    }
+                    setParamValue(targetStmt, uses, stmtInBlock);
                 }
                 i++;
             }
@@ -123,11 +150,12 @@ public class BackwardSlicer {
     //TODO: this function should be refactor as follows:
     //   1. if slice statement is within one single block (no passin. ) - done
     //   2. cross the block (pass in, ssaput_
-    public void setParamValue(Statement targetStmt, BitVectorIntSet uses) {
+    public void setParamValue(Statement targetStmt, BitVectorIntSet uses,
+                              List<Statement> stmtInBlock) {
         Set<SSAInstruction> definsts = new HashSet<>();
         Set<Integer> visited = new HashSet<>();
-        for (int i = stmtList.size() - 1; i >= 0; i--) {
-            Statement stm = stmtList.get(i);
+        for (int i = stmtInBlock.size() - 1; i >= 0; i--) {
+            Statement stm = stmtInBlock.get(i);
             if (stm.toString().equals(targetStmt.toString())) continue;
             if (!(stm instanceof StatementWithInstructionIndex)) continue;
             SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
