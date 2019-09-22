@@ -29,7 +29,10 @@ public class BackwardSlicer {
     private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
     private Set<String> fieldName = new HashSet<>();
     private Map<String, Object> varMap = new HashMap<>();
-
+    /* to handle the different behavior WALA backward slicing, when only one block in the slicing result,
+    the slicing list is reversed. When multi function is in the list, the order is not reversed.
+    */
+    private Boolean blockIsReverse = false;
 
     public List<Object> getParamValue() {
         return ParamValue;
@@ -75,9 +78,14 @@ public class BackwardSlicer {
         // Use SSAInstruction instead
         StatementWithInstructionIndex stmtwithindex = (StatementWithInstructionIndex) targetStmt;
         SSAInstruction inst = stmtwithindex.getInstruction();
+
+        int neg = 0;
         for (int i = 0; i < inst.getNumberOfUses(); i++) {
-            if (inst instanceof SSAInvokeInstruction && !((SSAInvokeInstruction)inst).isStatic() && i == 0) continue;
-            getParameter(i-1);
+            if (inst instanceof SSAInvokeInstruction && !((SSAInvokeInstruction)inst).isStatic() && i == 0) {
+                neg = -1;
+                continue;
+            }
+            getParameter(i+neg);
         }
     }
 
@@ -98,7 +106,7 @@ public class BackwardSlicer {
 
     public void setParamValue(Statement targetStmt){
         SSAInstruction targetInst = ((StatementWithInstructionIndex)targetStmt).getInstruction();
-        BitVectorIntSet uses = new BitVectorIntSet();
+        Set<Integer> uses = new HashSet<>();
         IR targetIR = targetStmt.getNode().getIR();
         SymbolTable st = targetIR.getSymbolTable();
         if(targetInst instanceof SSAInvokeInstruction){
@@ -132,6 +140,7 @@ public class BackwardSlicer {
                             stmtInBlock.add(stmt);
                         }
                         else {
+                            blockIsReverse = true;
                             setParamValue(targetStmt, uses, stmtInBlock);
                             stmtInBlock.clear();
                             selector = func;
@@ -140,6 +149,7 @@ public class BackwardSlicer {
                     setParamValue(targetStmt, uses, stmtInBlock);
                 }
                 i++;
+                blockIsReverse = false;
             }
             if(ParamValue.size() == numOfUse)
                 return;
@@ -149,14 +159,49 @@ public class BackwardSlicer {
 
     //TODO: this function should be refactor as follows:
     //   1. if slice statement is within one single block (no passin. ) - done
-    //   2. cross the block (pass in, ssaput_
-    public void setParamValue(Statement targetStmt, BitVectorIntSet uses,
+    //   2. cross the block (pass in, ssaput_)
+    //   3. for pass in param, use negative number of mark the position of varables.
+    public void setParamValue(Statement targetStmt, Set<Integer> uses,
                               List<Statement> stmtInBlock) {
+        int calleeCount = 0, callerCount = 0;
+        if (!blockIsReverse) {
+            Collections.reverse(stmtInBlock);
+        }
         Set<SSAInstruction> definsts = new HashSet<>();
         Set<Integer> visited = new HashSet<>();
-        for (int i = stmtInBlock.size() - 1; i >= 0; i--) {
+        for (int i = 0; i < stmtInBlock.size(); i++) {
             Statement stm = stmtInBlock.get(i);
             if (stm.toString().equals(targetStmt.toString())) continue;
+            if (stm.getKind() == Statement.Kind.PARAM_CALLER) {
+                if (uses.contains(-callerCount)) {
+                    uses.remove(-callerCount);
+                    ParamCaller paramCaller = (ParamCaller) stm;
+                    SSAInstruction inst = paramCaller.getInstruction();
+                    int use = paramCaller.getValueNumber();
+                    SymbolTable st = paramCaller.getNode().getIR().getSymbolTable();
+                    if (uses.size() == 0 && !visited.contains(use)) {
+                        if (st.isConstant(use)) {
+                            this.ParamValue.add(st.getConstantValue(use));
+                            visited.add(use);
+                        }
+                        else {
+                            uses.add(use);
+                        }
+                    }
+                }
+                callerCount ++;
+                continue;
+            }
+            if (stm.getKind() == Statement.Kind.PARAM_CALLEE) {
+                ParamCallee paramCallee = (ParamCallee) stm;
+                int use = paramCallee.getValueNumber();
+                if (uses.contains(use)) {
+                    uses.remove(use);
+                    uses.add(-calleeCount);
+                    calleeCount++;
+                }
+                continue;
+            }
             if (!(stm instanceof StatementWithInstructionIndex)) continue;
             SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
             IR ir = stm.getNode().getIR();

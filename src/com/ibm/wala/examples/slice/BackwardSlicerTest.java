@@ -12,11 +12,14 @@ public class BackwardSlicerTest {
     @Test
     public void run() throws ClassHierarchyException, CancelException, IOException {
         String path = Constant.FILEPATH;
-        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyBBCase1";
-//        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase2";
         String caller = "main";
-        String callee = "<init>";
-        String functionType = "SecretKeySpec";
+
+//        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyBBCase1";
+//        String callee = "<init>";
+//        String functionType = "SecretKeySpec";
+        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase11";
+        String callee = "getInstance";
+        String functionType = "Cipher";
         BackwardSlicer backwardSlicer = new BackwardSlicer();
         backwardSlicer.run(path, mainClass, callee, caller, functionType);
 
