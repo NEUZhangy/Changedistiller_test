@@ -17,9 +17,11 @@ public class BackwardSlicerTest {
 //        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyBBCase1";
 //        String callee = "<init>";
 //        String functionType = "SecretKeySpec";
-        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase11";
+
+        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
         String callee = "getInstance";
         String functionType = "Cipher";
+
         BackwardSlicer backwardSlicer = new BackwardSlicer();
         backwardSlicer.run(path, mainClass, callee, caller, functionType);
 

@@ -44,7 +44,7 @@ public class BackwardSlicer {
                     String caller,
                     String functionType
     ) throws IOException, ClassHierarchyException, CancelException {
-        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.NO_BASE_NO_HEAP_NO_EXCEPTIONS;
+        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.FULL;
         Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.FULL;
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
@@ -176,7 +176,6 @@ public class BackwardSlicer {
                 if (uses.contains(-callerCount)) {
                     uses.remove(-callerCount);
                     ParamCaller paramCaller = (ParamCaller) stm;
-                    SSAInstruction inst = paramCaller.getInstruction();
                     int use = paramCaller.getValueNumber();
                     SymbolTable st = paramCaller.getNode().getIR().getSymbolTable();
                     if (uses.size() == 0 && !visited.contains(use)) {
@@ -189,7 +188,28 @@ public class BackwardSlicer {
                         }
                     }
                 }
-                callerCount ++;
+                /*
+                    There is a situation causing dangling paramcaller which we cannot find the callee to map with it.
+                    The reason causing this issue is that the paramcallee has been ignored since its classloader
+                    is primordial. Currently, we defined that if we find a paramcaller and the current paramcaller count
+                    is equal to paramcallee, then this paramcaller statement is a dangling paramcaller. And the actual
+                    use number is useful maybe. And it needs to be taken care of.
+                 */
+                if (callerCount < calleeCount) callerCount ++;
+                else {
+                    ParamCaller paramCaller = (ParamCaller) stm;
+                    int use = paramCaller.getValueNumber();
+                    SymbolTable st = paramCaller.getNode().getIR().getSymbolTable();
+                    if (uses.size() == 0 && !visited.contains(use)) {
+                        if (st.isConstant(use)) {
+                            this.ParamValue.add(st.getConstantValue(use));
+                            visited.add(use);
+                        }
+                        else {
+                            uses.add(use);
+                        }
+                    }
+                }
                 continue;
             }
             if (stm.getKind() == Statement.Kind.PARAM_CALLEE) {
@@ -216,7 +236,8 @@ public class BackwardSlicer {
                 int use = inst.getUse(j);
                 if (j == 0 && ((inst instanceof SSAInvokeInstruction
                         && !((SSAInvokeInstruction) inst).isStatic()) || !(inst instanceof SSAAbstractInvokeInstruction))
-                        && !st.isConstant(use))
+                        && !st.isConstant(use)
+                        && !(inst instanceof SSAPutInstruction))
                     continue;
                 if (!st.isConstant(use)) {
                     uses.add(use);
