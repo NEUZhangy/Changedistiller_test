@@ -1,11 +1,19 @@
 package com.ibm.wala.examples.slice;
 
+import com.Constant;
+import com.ibm.wala.classLoader.IMethod;
 import com.ibm.wala.classLoader.Language;
 import com.ibm.wala.core.tests.callGraph.CallGraphTestUtil;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
+import com.ibm.wala.ipa.callgraph.cha.CHACallGraph;
+import com.ibm.wala.ipa.callgraph.impl.AllApplicationEntrypoints;
+import com.ibm.wala.ipa.callgraph.impl.FakeRootMethod;
 import com.ibm.wala.ipa.callgraph.impl.Util;
+import com.ibm.wala.ipa.callgraph.propagation.ConstantKey;
+import com.ibm.wala.ipa.callgraph.propagation.InstanceFieldKey;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
+import com.ibm.wala.ipa.callgraph.propagation.PointerKey;
 import com.ibm.wala.ipa.cha.ClassHierarchy;
 import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.cha.ClassHierarchyFactory;
@@ -15,6 +23,8 @@ import com.ibm.wala.util.CancelException;
 import com.ibm.wala.util.collections.Iterator2Iterable;
 import com.ibm.wala.util.config.AnalysisScopeReader;
 import com.ibm.wala.util.debug.Assertions;
+import com.ibm.wala.util.graph.Graph;
+import com.ibm.wala.util.graph.GraphSlicer;
 import com.ibm.wala.util.intset.BitVectorIntSet;
 import com.ibm.wala.util.intset.IntIterator;
 import com.ibm.wala.util.intset.IntSet;
@@ -22,6 +32,7 @@ import com.ibm.wala.util.intset.IntSet;
 import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class BackwardSlicer {
 
@@ -29,6 +40,8 @@ public class BackwardSlicer {
     private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
     private Set<String> fieldName = new HashSet<>();
     private Map<String, Object> varMap = new HashMap<>();
+    private Map<SSAInstruction, Object> instValMap = new HashMap<>();
+
     /* to handle the different behavior WALA backward slicing, when only one block in the slicing result,
     the slicing list is reversed. When multi function is in the list, the order is not reversed.
     */
@@ -44,20 +57,74 @@ public class BackwardSlicer {
                     String caller,
                     String functionType
     ) throws IOException, ClassHierarchyException, CancelException {
-        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.FULL;
+        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.NO_HEAP;
         Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.FULL;
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         ClassHierarchy cha = ClassHierarchyFactory.make(scope);
         Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
                 mainClass);
+//        Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
         AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
         CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
                 new AnalysisCacheImpl(), cha, scope);
         CallGraph cg = builder.makeCallGraph(options, null);
-        SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(),
-                dataDependenceOptions, controlDependenceOptions);
         Statement targetStmt = null;
+        SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
+        Graph<Statement> g = pruneSDG(sdg, mainClass);
+        Set<SSAInstruction> visitedInst = new HashSet<>();
+        for (Statement stmt : g) {
+            if (!(stmt instanceof StatementWithInstructionIndex)) continue;
+            SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
+            if (visitedInst.contains(inst)) continue;
+            visitedInst.add(inst);
+            CGNode node = stmt.getNode();
+            SymbolTable st = node.getIR().getSymbolTable();
+            DefUse du = node.getDU();
+            if (inst instanceof SSAPutInstruction) {
+                SSAPutInstruction putinst = (SSAPutInstruction) inst;
+                int use = ((SSAPutInstruction) inst).getUse(0);
+                if (st.isConstant(use)) {
+                    varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
+                } else {
+                    for (SSAInstruction definst = du.getDef(use); definst != null && !st.isConstant(use); ) {
+                        int start = 1;
+                        if (definst instanceof SSAInvokeInstruction) {
+                            SSAInvokeInstruction invoke = (SSAInvokeInstruction) definst;
+                            if (invoke.isStatic()) start = 0;
+                        }
+                        if (definst instanceof SSAAbstractInvokeInstruction) {
+                            start = 0;
+                        }
+                        if (definst instanceof SSAGetInstruction) {
+                            String name = ((SSAGetInstruction) definst).getDeclaredField().getName().toString();
+                            st.setConstantValue(use, new ConstantValue(varMap.get(name)));
+                            instValMap.put(definst, varMap.get(name));
+                            break;
+                        }
+                        use = definst.getUse(start);
+                    }
+                    varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
+                    instValMap.put(inst, st.getConstantValue(use));
+                }
+            }
+            if (inst instanceof SSAGetInstruction) {
+                Object value = "";
+                String name = ((SSAGetInstruction) inst).getDeclaredField().getName().toString();
+                if (varMap.containsKey(name)) value = varMap.get(name);
+                else value = instValMap.get(inst);
+                instValMap.put(inst, value);
+            }
+        }
+//        for (CGNode node: cg.getEntrypointNodes()) {
+//            if (node.getMethod().getDeclaringClass().getName().toString().compareToIgnoreCase(mainClass) == 0) {
+//                Statement stmt = findCallTo(node, callee, functionType);
+//                if (stmt != null) {
+//                    targetStmt = stmt;
+//                    break;
+//                }
+//            }
+//        }
 
         for (CGNode node: cg) {
             Statement stmt = findCallTo(node, callee, functionType);
@@ -66,7 +133,6 @@ public class BackwardSlicer {
                 break;
             }
         }
-
         Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
                 dataDependenceOptions, controlDependenceOptions);
 
@@ -113,6 +179,7 @@ public class BackwardSlicer {
             int i = ((SSAInvokeInstruction)targetInst).isStatic() == true? 0 : 1;
             int numOfUse = targetInst.getNumberOfUses();
             while(i < numOfUse){
+                int before = ParamValue.size();
                 int use = targetInst.getUse(i);
                 if(st.isConstant(use)){
                     ParamValue.add(st.getConstantValue(use));
@@ -143,6 +210,7 @@ public class BackwardSlicer {
                             blockIsReverse = true;
                             setParamValue(targetStmt, uses, stmtInBlock);
                             stmtInBlock.clear();
+                            stmtInBlock.add(stmt);
                             selector = func;
                         }
                     }
@@ -164,7 +232,7 @@ public class BackwardSlicer {
     public void setParamValue(Statement targetStmt, Set<Integer> uses,
                               List<Statement> stmtInBlock) {
         int calleeCount = 0, callerCount = 0;
-        if (!blockIsReverse) {
+        if (blockIsReverse) {
             Collections.reverse(stmtInBlock);
         }
         Set<SSAInstruction> definsts = new HashSet<>();
@@ -228,6 +296,13 @@ public class BackwardSlicer {
             DefUse du = stm.getNode().getDU();
             SymbolTable st = ir.getSymbolTable();
 
+            if (inst instanceof SSAGetInstruction || inst instanceof SSAPutInstruction) {
+                if (instValMap.containsKey(inst)) {
+                    this.ParamValue.add(instValMap.get(inst));
+                    break;
+                }
+            }
+
             for (int j = 0; j < inst.getNumberOfDefs(); j++) {
                 uses.remove(inst.getDef(j));
             }
@@ -273,8 +348,8 @@ public class BackwardSlicer {
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
                 // Get the information binding
                 String methodT = call.getCallSite().getDeclaredTarget().getSignature();
-                if (call.getCallSite().getDeclaredTarget().getName().toString().equals(methodName)
-                        && methodT.contains(methodType)) {
+                if (call.getCallSite().getDeclaredTarget().getName().toString().compareTo(methodName) == 0
+                        && methodT.contains(methodType) ) {
                     // 一个例子
                     //if (call.getCallSite().getDeclaredTarget().getSignature().contains("Cipher")) continue;
                     IntSet indices = ir.getCallInstructionIndices(((SSAInvokeInstruction) s).getCallSite());
@@ -287,5 +362,9 @@ public class BackwardSlicer {
         return null;
     }
 
-
+    public Graph<Statement> pruneSDG(SDG<InstanceKey> sdg, String mainClass) {
+        Predicate<Statement> ifStmtInBlock = (i) -> (i.getNode().getMethod().getReference().getDeclaringClass().
+                getName().toString().contains(mainClass));
+        return GraphSlicer.prune(sdg, ifStmtInBlock);
+    }
 }
