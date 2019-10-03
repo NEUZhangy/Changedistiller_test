@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.Predicate;
 
+import static java.lang.System.exit;
+
 public class BackwardSlicer {
 
     private List<Object> ParamValue = new ArrayList<>();
@@ -62,9 +64,9 @@ public class BackwardSlicer {
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         ClassHierarchy cha = ClassHierarchyFactory.make(scope);
-        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
-                mainClass);
-//        Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
+//        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
+//                mainClass);
+        Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
         AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
         CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
                 new AnalysisCacheImpl(), cha, scope);
@@ -73,6 +75,28 @@ public class BackwardSlicer {
         SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
         Graph<Statement> g = pruneSDG(sdg, mainClass);
         Set<SSAInstruction> visitedInst = new HashSet<>();
+
+//        for (CGNode node: cg.getEntrypointNodes()) {
+//            if (node.getMethod().getDeclaringClass().getName().toString().compareToIgnoreCase(mainClass) == 0) {
+//                Statement stmt = findCallTo(node, callee, functionType);
+//                if (stmt != null) {
+//                    targetStmt = stmt;vv
+//                    break;
+//                }
+//            }
+//        }
+
+        for (CGNode node: cg) {
+            Statement stmt = findCallTo(node, callee, functionType, mainClass);
+            if (stmt != null) {
+                targetStmt = stmt;
+                break;
+            }
+        }
+        pruneSDG(sdg, targetStmt);
+        Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
+                dataDependenceOptions, controlDependenceOptions);
+
         for (Statement stmt : g) {
             if (!(stmt instanceof StatementWithInstructionIndex)) continue;
             SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
@@ -116,25 +140,6 @@ public class BackwardSlicer {
                 instValMap.put(inst, value);
             }
         }
-//        for (CGNode node: cg.getEntrypointNodes()) {
-//            if (node.getMethod().getDeclaringClass().getName().toString().compareToIgnoreCase(mainClass) == 0) {
-//                Statement stmt = findCallTo(node, callee, functionType);
-//                if (stmt != null) {
-//                    targetStmt = stmt;
-//                    break;
-//                }
-//            }
-//        }
-
-        for (CGNode node: cg) {
-            Statement stmt = findCallTo(node, callee, functionType);
-            if (stmt != null) {
-                targetStmt = stmt;
-                break;
-            }
-        }
-        Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
-                dataDependenceOptions, controlDependenceOptions);
 
         // Filter all non application stmts
         filterStatement(relatedStmts);
@@ -339,10 +344,10 @@ public class BackwardSlicer {
     }
 
     /* find the target method, should be a method invocation*/
-    public Statement findCallTo(CGNode n, String methodName, String methodType) {
+    public Statement findCallTo(CGNode n, String methodName, String methodType, String mainclass) {
         IR ir = n.getIR();
         if (ir == null) return null;
-
+        if (ir.getMethod().getDeclaringClass().getName().toString().compareTo(mainclass) != 0) return null;
         for (SSAInstruction s : Iterator2Iterable.make(ir.iterateAllInstructions())) {
             if (s instanceof SSAInvokeInstruction) {
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
@@ -366,5 +371,16 @@ public class BackwardSlicer {
         Predicate<Statement> ifStmtInBlock = (i) -> (i.getNode().getMethod().getReference().getDeclaringClass().
                 getName().toString().contains(mainClass));
         return GraphSlicer.prune(sdg, ifStmtInBlock);
+    }
+
+    public Graph<Statement> pruneSDG(SDG<InstanceKey> sdg, Statement targetStmt) {
+        System.out.println(targetStmt);
+        System.out.println(sdg.getPredNodeCount(targetStmt));
+        Iterator<Statement> itst = sdg.getPredNodes(targetStmt);
+        while (itst.hasNext()) {
+            System.out.println(itst.next());
+        }
+        exit(0);
+        return GraphSlicer.prune(sdg, null);
     }
 }
