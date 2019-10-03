@@ -43,6 +43,7 @@ public class BackwardSlicer {
     private Set<String> fieldName = new HashSet<>();
     private Map<String, Object> varMap = new HashMap<>();
     private Map<SSAInstruction, Object> instValMap = new HashMap<>();
+    private Set<Statement> allRelatedStmt = new HashSet<>();
 
     /* to handle the different behavior WALA backward slicing, when only one block in the slicing result,
     the slicing list is reversed. When multi function is in the list, the order is not reversed.
@@ -80,7 +81,7 @@ public class BackwardSlicer {
 //            if (node.getMethod().getDeclaringClass().getName().toString().compareToIgnoreCase(mainClass) == 0) {
 //                Statement stmt = findCallTo(node, callee, functionType);
 //                if (stmt != null) {
-//                    targetStmt = stmt;vv
+//                    targetStmt = stmt;
 //                    break;
 //                }
 //            }
@@ -88,11 +89,13 @@ public class BackwardSlicer {
 
         for (CGNode node: cg) {
             Statement stmt = findCallTo(node, callee, functionType, mainClass);
+            findAllCallTo(node, callee, functionType);
             if (stmt != null) {
                 targetStmt = stmt;
                 break;
             }
         }
+
         Graph<Statement> g = pruneSDG(sdg, targetStmt);
         Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
                 dataDependenceOptions, controlDependenceOptions);
@@ -367,6 +370,34 @@ public class BackwardSlicer {
         return null;
     }
 
+    /**
+     * Get all related function statements
+     * @param n
+     * @param methodName
+     * @param methodType
+     */
+    public void findAllCallTo(CGNode n, String methodName, String methodType) {
+        IR ir = n.getIR();
+        if (ir == null) return;
+        for (SSAInstruction s : Iterator2Iterable.make(ir.iterateAllInstructions())) {
+            if (s instanceof SSAInvokeInstruction) {
+                SSAInvokeInstruction call = (SSAInvokeInstruction) s;
+                // Get the information binding
+                String methodT = call.getCallSite().getDeclaredTarget().getSignature();
+                if (call.getCallSite().getDeclaredTarget().getName().toString().compareTo(methodName) == 0
+                        && methodT.contains(methodType) ) {
+                    // 一个例子
+                    //if (call.getCallSite().getDeclaredTarget().getSignature().contains("Cipher")) continue;
+                    IntSet indices = ir.getCallInstructionIndices(((SSAInvokeInstruction) s).getCallSite());
+                    Assertions.productionAssertion(indices.size() == 1, "expected 1 but got " + indices.size());
+                    allRelatedStmt.add(new NormalStatement(n, indices.intIterator().next()));
+                }
+            }
+        }
+        //Assertions.UNREACHABLE("failed to find call to " + methodName + " in " + n);
+        return;
+    }
+
     public Graph<Statement> pruneSDG(SDG<InstanceKey> sdg, String mainClass) {
         Predicate<Statement> ifStmtInBlock = (i) -> (i.getNode().getMethod().getReference().getDeclaringClass().
                 getName().toString().contains(mainClass));
@@ -377,7 +408,6 @@ public class BackwardSlicer {
         Queue<Statement> stmtQueue = new LinkedList<>();
         stmtQueue.add(targetStmt);
         Set<Statement> relatedStmt = new HashSet<>();
-        int count = 0;
         while (!stmtQueue.isEmpty()) {
             Statement head = stmtQueue.poll();
             if (head.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial"))
@@ -385,7 +415,9 @@ public class BackwardSlicer {
             relatedStmt.add(head);
             Iterator<Statement> itst = sdg.getPredNodes(head);
             while (itst.hasNext()) {
-                stmtQueue.add(itst.next());
+                Statement stmt = itst.next();
+                if (relatedStmt.contains(stmt)) continue;
+                stmtQueue.add(stmt);
             }
         }
         return GraphSlicer.prune(sdg, relatedStmt::contains);
