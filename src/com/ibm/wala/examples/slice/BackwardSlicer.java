@@ -73,7 +73,7 @@ public class BackwardSlicer {
         CallGraph cg = builder.makeCallGraph(options, null);
         Statement targetStmt = null;
         SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
-        Graph<Statement> g = pruneSDG(sdg, mainClass);
+        //Graph<Statement> g = pruneSDG(sdg, mainClass);
         Set<SSAInstruction> visitedInst = new HashSet<>();
 
 //        for (CGNode node: cg.getEntrypointNodes()) {
@@ -93,7 +93,7 @@ public class BackwardSlicer {
                 break;
             }
         }
-        pruneSDG(sdg, targetStmt);
+        Graph<Statement> g = pruneSDG(sdg, targetStmt);
         Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
                 dataDependenceOptions, controlDependenceOptions);
 
@@ -374,13 +374,20 @@ public class BackwardSlicer {
     }
 
     public Graph<Statement> pruneSDG(SDG<InstanceKey> sdg, Statement targetStmt) {
-        System.out.println(targetStmt);
-        System.out.println(sdg.getPredNodeCount(targetStmt));
-        Iterator<Statement> itst = sdg.getPredNodes(targetStmt);
-        while (itst.hasNext()) {
-            System.out.println(itst.next());
+        Queue<Statement> stmtQueue = new LinkedList<>();
+        stmtQueue.add(targetStmt);
+        Set<Statement> relatedStmt = new HashSet<>();
+        int count = 0;
+        while (!stmtQueue.isEmpty()) {
+            Statement head = stmtQueue.poll();
+            if (head.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial"))
+                continue;
+            relatedStmt.add(head);
+            Iterator<Statement> itst = sdg.getPredNodes(head);
+            while (itst.hasNext()) {
+                stmtQueue.add(itst.next());
+            }
         }
-        exit(0);
-        return GraphSlicer.prune(sdg, null);
+        return GraphSlicer.prune(sdg, relatedStmt::contains);
     }
 }
