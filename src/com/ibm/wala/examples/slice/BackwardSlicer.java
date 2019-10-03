@@ -1,19 +1,11 @@
 package com.ibm.wala.examples.slice;
 
-import com.Constant;
-import com.ibm.wala.classLoader.IMethod;
 import com.ibm.wala.classLoader.Language;
 import com.ibm.wala.core.tests.callGraph.CallGraphTestUtil;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
-import com.ibm.wala.ipa.callgraph.cha.CHACallGraph;
-import com.ibm.wala.ipa.callgraph.impl.AllApplicationEntrypoints;
-import com.ibm.wala.ipa.callgraph.impl.FakeRootMethod;
 import com.ibm.wala.ipa.callgraph.impl.Util;
-import com.ibm.wala.ipa.callgraph.propagation.ConstantKey;
-import com.ibm.wala.ipa.callgraph.propagation.InstanceFieldKey;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
-import com.ibm.wala.ipa.callgraph.propagation.PointerKey;
 import com.ibm.wala.ipa.cha.ClassHierarchy;
 import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.cha.ClassHierarchyFactory;
@@ -25,16 +17,11 @@ import com.ibm.wala.util.config.AnalysisScopeReader;
 import com.ibm.wala.util.debug.Assertions;
 import com.ibm.wala.util.graph.Graph;
 import com.ibm.wala.util.graph.GraphSlicer;
-import com.ibm.wala.util.intset.BitVectorIntSet;
-import com.ibm.wala.util.intset.IntIterator;
 import com.ibm.wala.util.intset.IntSet;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Predicate;
-
-import static java.lang.System.exit;
 
 public class BackwardSlicer {
 
@@ -65,27 +52,17 @@ public class BackwardSlicer {
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         ClassHierarchy cha = ClassHierarchyFactory.make(scope);
-//        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
-//                mainClass);
-        Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
+        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
+                mainClass);
+//        Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
         AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
         CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
                 new AnalysisCacheImpl(), cha, scope);
         CallGraph cg = builder.makeCallGraph(options, null);
         Statement targetStmt = null;
         SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
-        //Graph<Statement> g = pruneSDG(sdg, mainClass);
+        Graph<Statement> g = pruneSDG(sdg, mainClass);
         Set<SSAInstruction> visitedInst = new HashSet<>();
-
-//        for (CGNode node: cg.getEntrypointNodes()) {
-//            if (node.getMethod().getDeclaringClass().getName().toString().compareToIgnoreCase(mainClass) == 0) {
-//                Statement stmt = findCallTo(node, callee, functionType);
-//                if (stmt != null) {
-//                    targetStmt = stmt;
-//                    break;
-//                }
-//            }
-//        }
 
         for (CGNode node: cg) {
             Statement stmt = findCallTo(node, callee, functionType, mainClass);
@@ -96,7 +73,8 @@ public class BackwardSlicer {
             }
         }
 
-        Graph<Statement> g = pruneSDG(sdg, targetStmt);
+//        Graph<Statement> g = pruneSDG(sdg, targetStmt);
+          System.out.println(g.getNumberOfNodes());
         Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
                 dataDependenceOptions, controlDependenceOptions);
 
@@ -408,11 +386,13 @@ public class BackwardSlicer {
         Queue<Statement> stmtQueue = new LinkedList<>();
         stmtQueue.add(targetStmt);
         Set<Statement> relatedStmt = new HashSet<>();
+        Set<String> relatedClass = new HashSet<>();
         while (!stmtQueue.isEmpty()) {
             Statement head = stmtQueue.poll();
             if (head.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial"))
                 continue;
             relatedStmt.add(head);
+            relatedClass.add(head.getNode().getMethod().getReference().getDeclaringClass().getName().toString());
             Iterator<Statement> itst = sdg.getPredNodes(head);
             while (itst.hasNext()) {
                 Statement stmt = itst.next();
@@ -420,6 +400,8 @@ public class BackwardSlicer {
                 stmtQueue.add(stmt);
             }
         }
-        return GraphSlicer.prune(sdg, relatedStmt::contains);
+        Predicate<Statement> ifStmtinBlock = (i) -> (relatedClass.contains(i.getNode().getMethod().getReference().
+                getDeclaringClass().getName().toString()));
+        return GraphSlicer.prune(sdg, ifStmtinBlock);
     }
 }
