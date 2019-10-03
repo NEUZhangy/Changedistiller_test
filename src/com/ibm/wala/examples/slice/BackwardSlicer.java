@@ -74,7 +74,6 @@ public class BackwardSlicer {
         }
 
 //        Graph<Statement> g = pruneSDG(sdg, targetStmt);
-          System.out.println(g.getNumberOfNodes());
         Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
                 dataDependenceOptions, controlDependenceOptions);
 
