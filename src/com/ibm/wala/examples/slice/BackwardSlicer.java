@@ -4,6 +4,7 @@ import com.ibm.wala.classLoader.Language;
 import com.ibm.wala.core.tests.callGraph.CallGraphTestUtil;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
+import com.ibm.wala.ipa.callgraph.impl.AllApplicationEntrypoints;
 import com.ibm.wala.ipa.callgraph.impl.Util;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
 import com.ibm.wala.ipa.cha.ClassHierarchy;
@@ -52,92 +53,107 @@ public class BackwardSlicer {
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         ClassHierarchy cha = ClassHierarchyFactory.make(scope);
-        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
-                mainClass);
-//        Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
+//        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
+//                mainClass);
+        Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
         AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
         CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
                 new AnalysisCacheImpl(), cha, scope);
         CallGraph cg = builder.makeCallGraph(options, null);
-        Statement targetStmt = null;
+
         SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
-        Graph<Statement> g = pruneSDG(sdg, mainClass);
         Set<SSAInstruction> visitedInst = new HashSet<>();
 
         for (CGNode node: cg) {
-            Statement stmt = findCallTo(node, callee, functionType, mainClass);
+//            Statement stmt = findCallTo(node, callee, functionType, mainClass);
             findAllCallTo(node, callee, functionType);
-            if (stmt != null) {
-                targetStmt = stmt;
-                break;
-            }
+//            if (stmt != null) {
+//                targetStmt = stmt;
+//                break;
+//            }
         }
 
 //        Graph<Statement> g = pruneSDG(sdg, targetStmt);
-        Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
-                dataDependenceOptions, controlDependenceOptions);
-
-        for (Statement stmt : g) {
-            if (!(stmt instanceof StatementWithInstructionIndex)) continue;
-            SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
-            if (visitedInst.contains(inst)) continue;
-            visitedInst.add(inst);
-            CGNode node = stmt.getNode();
-            SymbolTable st = node.getIR().getSymbolTable();
-            DefUse du = node.getDU();
-            if (inst instanceof SSAPutInstruction) {
-                SSAPutInstruction putinst = (SSAPutInstruction) inst;
-                int use = ((SSAPutInstruction) inst).getUse(0);
-                if (st.isConstant(use)) {
-                    varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
-                } else {
-                    for (SSAInstruction definst = du.getDef(use); definst != null && !st.isConstant(use); ) {
-                        int start = 1;
-                        if (definst instanceof SSAInvokeInstruction) {
-                            SSAInvokeInstruction invoke = (SSAInvokeInstruction) definst;
-                            if (invoke.isStatic()) start = 0;
+        for (Statement targetStmt: allRelatedStmt) {
+            varMap.clear();
+            instValMap.clear();
+            ParamValue.clear();
+            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
+                    dataDependenceOptions, controlDependenceOptions);
+            mainClass = targetStmt.getNode().getMethod().getReference().getDeclaringClass().getName().toString();
+            System.out.println(mainClass);
+            Graph<Statement> g = pruneSDG(sdg, mainClass);
+            for (Statement stmt : g) {
+                if (!(stmt instanceof StatementWithInstructionIndex)) continue;
+                SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
+                if (visitedInst.contains(inst)) continue;
+                visitedInst.add(inst);
+                CGNode node = stmt.getNode();
+                SymbolTable st = node.getIR().getSymbolTable();
+                DefUse du = node.getDU();
+                if (inst instanceof SSAPutInstruction) {
+                    SSAPutInstruction putinst = (SSAPutInstruction) inst;
+                    int use = ((SSAPutInstruction) inst).getUse(0);
+                    if (st.isConstant(use)) {
+                        varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
+                    } else {
+                        for (SSAInstruction definst = du.getDef(use); definst != null && !st.isConstant(use); ) {
+                            int start = 1;
+                            if (definst instanceof SSAInvokeInstruction) {
+                                SSAInvokeInstruction invoke = (SSAInvokeInstruction) definst;
+                                if (invoke.isStatic()) start = 0;
+                            }
+                            if (definst instanceof SSAAbstractInvokeInstruction) {
+                                start = 0;
+                            }
+                            if (definst instanceof SSAGetInstruction) {
+                                String name = ((SSAGetInstruction) definst).getDeclaredField().getName().toString();
+                                st.setConstantValue(use, new ConstantValue(varMap.get(name)));
+                                instValMap.put(definst, varMap.get(name));
+                                break;
+                            }
+                            use = definst.getUse(start);
                         }
-                        if (definst instanceof SSAAbstractInvokeInstruction) {
-                            start = 0;
+                        if (st.isConstant(use)) {
+                            varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
+                            instValMap.put(inst, st.getConstantValue(use));
                         }
-                        if (definst instanceof SSAGetInstruction) {
-                            String name = ((SSAGetInstruction) definst).getDeclaredField().getName().toString();
-                            st.setConstantValue(use, new ConstantValue(varMap.get(name)));
-                            instValMap.put(definst, varMap.get(name));
-                            break;
-                        }
-                        use = definst.getUse(start);
                     }
-                    varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
-                    instValMap.put(inst, st.getConstantValue(use));
+                }
+                if (inst instanceof SSAGetInstruction) {
+                    Object value = "";
+                    String name = ((SSAGetInstruction) inst).getDeclaredField().getName().toString();
+                    if (varMap.containsKey(name)) value = varMap.get(name);
+                    else value = instValMap.get(inst);
+                    instValMap.put(inst, value);
                 }
             }
-            if (inst instanceof SSAGetInstruction) {
-                Object value = "";
-                String name = ((SSAGetInstruction) inst).getDeclaredField().getName().toString();
-                if (varMap.containsKey(name)) value = varMap.get(name);
-                else value = instValMap.get(inst);
-                instValMap.put(inst, value);
+
+            // Filter all non application stmts
+            filterStatement(relatedStmts);
+            setParamValue(targetStmt);
+
+            // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement
+            // Use SSAInstruction instead
+            StatementWithInstructionIndex stmtwithindex = (StatementWithInstructionIndex) targetStmt;
+            SSAInstruction inst = stmtwithindex.getInstruction();
+
+            int neg = 0;
+            for (int i = 0; i < inst.getNumberOfUses(); i++) {
+                if (inst instanceof SSAInvokeInstruction && !((SSAInvokeInstruction)inst).isStatic() && i == 0) {
+                    neg = -1;
+                    continue;
+                }
+                try{
+                    getParameter(i+neg);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Index out of bound");
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getMessage());
+                }
             }
         }
 
-        // Filter all non application stmts
-        filterStatement(relatedStmts);
-        setParamValue(targetStmt);
-
-        // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement
-        // Use SSAInstruction instead
-        StatementWithInstructionIndex stmtwithindex = (StatementWithInstructionIndex) targetStmt;
-        SSAInstruction inst = stmtwithindex.getInstruction();
-
-        int neg = 0;
-        for (int i = 0; i < inst.getNumberOfUses(); i++) {
-            if (inst instanceof SSAInvokeInstruction && !((SSAInvokeInstruction)inst).isStatic() && i == 0) {
-                neg = -1;
-                continue;
-            }
-            getParameter(i+neg);
-        }
     }
 
     /**
@@ -313,6 +329,7 @@ public class BackwardSlicer {
         }
 
     }
+
 
     // here is the interface for filter out the unrelated statement
     public void filterStatement(Collection<Statement> relatedStmts){
