@@ -53,18 +53,15 @@ public class BackwardSlicer {
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         ClassHierarchy cha = ClassHierarchyFactory.make(scope);
-//        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha,
-//                mainClass);
         Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
-        AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
+        AnalysisOptions options = new AnalysisOptions(scope, entrypoints);
+        AnalysisCacheImpl cache = new AnalysisCacheImpl();
         CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
-                new AnalysisCacheImpl(), cha, scope);
-        CallGraph cg = builder.makeCallGraph(options, null);
-
-        SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
+                cache, cha, scope);
+        CallGraph completeCG = builder.makeCallGraph(options, null);
         Set<SSAInstruction> visitedInst = new HashSet<>();
 
-        for (CGNode node: cg) {
+        for (CGNode node: completeCG) {
 //            Statement stmt = findCallTo(node, callee, functionType, mainClass);
             findAllCallTo(node, callee, functionType);
 //            if (stmt != null) {
@@ -78,15 +75,23 @@ public class BackwardSlicer {
             varMap.clear();
             instValMap.clear();
             ParamValue.clear();
-            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
-                    dataDependenceOptions, controlDependenceOptions);
+            stmtList.clear();
+            cache.clear();
             mainClass = targetStmt.getNode().getMethod().getReference().getDeclaringClass().getName().toString();
             System.out.println(mainClass);
+            Iterable<Entrypoint> relatedEntrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha, mainClass);
+            options = new AnalysisOptions(scope, relatedEntrypoints);
+            builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options, cache, cha, scope);
+            CallGraph cg = builder.makeCallGraph(options, null);
+            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
+                    dataDependenceOptions, controlDependenceOptions);
+            SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
             Graph<Statement> g = pruneSDG(sdg, mainClass);
             for (Statement stmt : g) {
                 if (!(stmt instanceof StatementWithInstructionIndex)) continue;
                 SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
                 if (visitedInst.contains(inst)) continue;
+                System.out.println(stmt);
                 visitedInst.add(inst);
                 CGNode node = stmt.getNode();
                 SymbolTable st = node.getIR().getSymbolTable();
