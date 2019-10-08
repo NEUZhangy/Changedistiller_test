@@ -14,13 +14,13 @@ public class BackwardSlicerTest {
         String path = Constant.FILEPATH;
         String caller = "main";
 
-//        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyBBCase1";
-//        String callee = "<init>";
-//        String functionType = "SecretKeySpec";
+        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyBBCase1";
+        String callee = "<init>";
+        String functionType = "SecretKeySpec";
 
-        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
-        String callee = "getInstance";
-        String functionType = "Cipher";
+//        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
+//        String callee = "getInstance";
+//        String functionType = "Cipher";
 
         BackwardSlicer backwardSlicer = new BackwardSlicer();
         backwardSlicer.run(path, mainClass, callee, caller, functionType);

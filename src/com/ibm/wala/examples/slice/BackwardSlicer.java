@@ -1,5 +1,6 @@
 package com.ibm.wala.examples.slice;
 
+import com.ibm.wala.classLoader.IClass;
 import com.ibm.wala.classLoader.Language;
 import com.ibm.wala.core.tests.callGraph.CallGraphTest;
 import com.ibm.wala.core.tests.callGraph.CallGraphTestUtil;
@@ -61,6 +62,7 @@ public class BackwardSlicer {
         CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
                 cache, cha, scope);
         CallGraph completeCG = builder.makeCallGraph(options, null);
+        SDG<InstanceKey> completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
         Set<SSAInstruction> visitedInst = new HashSet<>();
 
         for (CGNode node: completeCG) {
@@ -72,7 +74,8 @@ public class BackwardSlicer {
 //            }
         }
 
-//        Graph<Statement> g = pruneSDG(sdg, targetStmt);
+
+
         for (Statement targetStmt: allRelatedStmt) {
             varMap.clear();
             instValMap.clear();
@@ -81,14 +84,28 @@ public class BackwardSlicer {
             cache.clear();
             mainClass = targetStmt.getNode().getMethod().getReference().getDeclaringClass().getName().toString();
             System.out.println(mainClass);
+            IClass targetclass = targetStmt.getNode().getMethod().getDeclaringClass();
+            Iterable<Entrypoint> targetEntrypoints =  new TargetEntryPoint(scope, cha,targetclass);
+            AnalysisOptions options1 = new AnalysisOptions(scope, targetEntrypoints);
+            CallGraph tarCG = builder.makeCallGraph(options1, null);
+
+
             Collection<CGNode> roots = new ArrayList<>();
             roots.add(targetStmt.getNode());
-            CallGraph cg = PartialCallGraph.make(completeCG, roots, roots);
+            CallGraph cg = PartialCallGraph.make(completeCG, roots);
             System.out.println(DFS.getReachableNodes(completeCG, roots));
-            SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
+
+
+            SDG<InstanceKey> sdg = new SDG<>(tarCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
+
             Graph<Statement> g = pruneSDG(sdg, mainClass);
-            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
+            Graph<Statement> newg = pruneSDG(completeSDG, targetStmt);
+
+
+            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, tarCG, builder.getPointerAnalysis(),
                     dataDependenceOptions, controlDependenceOptions);
+            filterStatement(relatedStmts);
+            System.out.println(stmtList);
             for (Statement stmt : g) {
                 if (!(stmt instanceof StatementWithInstructionIndex)) continue;
                 SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
@@ -162,6 +179,8 @@ public class BackwardSlicer {
 
     }
 
+
+
     /**
      This function is to get the parameter value.
      It will contains five situations:
@@ -173,6 +192,9 @@ public class BackwardSlicer {
      5. MultiClass Case.
      set the value into ParaValue list
      */
+
+
+
     public void getParameter(int i) {
         System.out.println("This is the " + i + "th parameter for the target function: " + ParamValue.get(i));
     }
