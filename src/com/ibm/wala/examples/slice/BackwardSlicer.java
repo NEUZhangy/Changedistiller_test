@@ -1,10 +1,12 @@
 package com.ibm.wala.examples.slice;
 
 import com.ibm.wala.classLoader.Language;
+import com.ibm.wala.core.tests.callGraph.CallGraphTest;
 import com.ibm.wala.core.tests.callGraph.CallGraphTestUtil;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
 import com.ibm.wala.ipa.callgraph.impl.AllApplicationEntrypoints;
+import com.ibm.wala.ipa.callgraph.impl.PartialCallGraph;
 import com.ibm.wala.ipa.callgraph.impl.Util;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
 import com.ibm.wala.ipa.cha.ClassHierarchy;
@@ -18,6 +20,7 @@ import com.ibm.wala.util.config.AnalysisScopeReader;
 import com.ibm.wala.util.debug.Assertions;
 import com.ibm.wala.util.graph.Graph;
 import com.ibm.wala.util.graph.GraphSlicer;
+import com.ibm.wala.util.graph.traverse.DFS;
 import com.ibm.wala.util.intset.IntSet;
 
 import java.io.IOException;
@@ -32,7 +35,6 @@ public class BackwardSlicer {
     private Map<String, Object> varMap = new HashMap<>();
     private Map<SSAInstruction, Object> instValMap = new HashMap<>();
     private Set<Statement> allRelatedStmt = new HashSet<>();
-
     /* to handle the different behavior WALA backward slicing, when only one block in the slicing result,
     the slicing list is reversed. When multi function is in the list, the order is not reversed.
     */
@@ -79,19 +81,18 @@ public class BackwardSlicer {
             cache.clear();
             mainClass = targetStmt.getNode().getMethod().getReference().getDeclaringClass().getName().toString();
             System.out.println(mainClass);
-            Iterable<Entrypoint> relatedEntrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha, mainClass);
-            options = new AnalysisOptions(scope, relatedEntrypoints);
-            builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options, cache, cha, scope);
-            CallGraph cg = builder.makeCallGraph(options, null);
-            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
-                    dataDependenceOptions, controlDependenceOptions);
+            Collection<CGNode> roots = new ArrayList<>();
+            roots.add(targetStmt.getNode());
+            CallGraph cg = PartialCallGraph.make(completeCG, roots, roots);
+            System.out.println(DFS.getReachableNodes(completeCG, roots));
             SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
             Graph<Statement> g = pruneSDG(sdg, mainClass);
+            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, cg, builder.getPointerAnalysis(),
+                    dataDependenceOptions, controlDependenceOptions);
             for (Statement stmt : g) {
                 if (!(stmt instanceof StatementWithInstructionIndex)) continue;
                 SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
                 if (visitedInst.contains(inst)) continue;
-                System.out.println(stmt);
                 visitedInst.add(inst);
                 CGNode node = stmt.getNode();
                 SymbolTable st = node.getIR().getSymbolTable();
