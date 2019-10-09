@@ -64,7 +64,7 @@ public class BackwardSlicer {
         CallGraph completeCG = builder.makeCallGraph(options, null);
         SDG<InstanceKey> completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
         Set<SSAInstruction> visitedInst = new HashSet<>();
-
+        //builder.getAnalysisCache().clear();
         for (CGNode node: completeCG) {
 //            Statement stmt = findCallTo(node, callee, functionType, mainClass);
             findAllCallTo(node, callee, functionType);
@@ -82,33 +82,39 @@ public class BackwardSlicer {
             ParamValue.clear();
             stmtList.clear();
             cache.clear();
+            //print its main class
             mainClass = targetStmt.getNode().getMethod().getReference().getDeclaringClass().getName().toString();
             System.out.println(mainClass);
             IClass targetclass = targetStmt.getNode().getMethod().getDeclaringClass();
+
+            /*make a small call graph */
             Iterable<Entrypoint> targetEntrypoints =  new TargetEntryPoint(scope, cha,targetclass);
             AnalysisOptions options1 = new AnalysisOptions(scope, targetEntrypoints);
-            CallGraph tarCG = builder.makeCallGraph(options1, null);
+            CallGraphBuilder<InstanceKey> Targetbuilder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
+                    cache, cha, scope);
+            CallGraph tarCG = Targetbuilder.makeCallGraph(options1, null);
+//            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, tarCG, Targetbuilder.getPointerAnalysis(),
+//                    dataDependenceOptions, controlDependenceOptions);
+//            filterStatement(relatedStmts);
 
 
-            Collection<CGNode> roots = new ArrayList<>();
-            roots.add(targetStmt.getNode());
-            CallGraph cg = PartialCallGraph.make(completeCG, roots);
-            System.out.println(DFS.getReachableNodes(completeCG, roots));
+            /*use the partialCallGraph to make a call graph*/
+//
+//            Collection<CGNode> roots = new ArrayList<>();
+//            roots.add(targetStmt.getNode());
+//            CallGraph cg = PartialCallGraph.make(completeCG, roots);
+//            System.out.println(DFS.getReachableNodes(completeCG, roots));
 
-
-            SDG<InstanceKey> sdg = new SDG<>(tarCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
-
-            Graph<Statement> g = pruneSDG(sdg, mainClass);
-            Graph<Statement> newg = pruneSDG(completeSDG, targetStmt);
-
-
-            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, tarCG, builder.getPointerAnalysis(),
-                    dataDependenceOptions, controlDependenceOptions);
-            filterStatement(relatedStmts);
+            SDG<InstanceKey> sdg = new SDG<>(tarCG, Targetbuilder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
+            Graph<Statement> g = pruneSDG(sdg, mainClass);;
             System.out.println(stmtList);
+
+
             for (Statement stmt : g) {
                 if (!(stmt instanceof StatementWithInstructionIndex)) continue;
+
                 SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
+                System.out.println(stmt);
                 if (visitedInst.contains(inst)) continue;
                 visitedInst.add(inst);
                 CGNode node = stmt.getNode();
@@ -153,7 +159,7 @@ public class BackwardSlicer {
             }
 
             // Filter all non application stmts
-            filterStatement(relatedStmts);
+            //filterStatement(relatedStmts);
             setParamValue(targetStmt);
 
             // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement

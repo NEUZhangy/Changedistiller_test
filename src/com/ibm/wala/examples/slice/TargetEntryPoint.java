@@ -21,7 +21,13 @@ public class TargetEntryPoint extends HashSet<Entrypoint> {
                 while(var5.hasNext()) {
                     IMethod method = (IMethod)var5.next();
                     if (!method.isAbstract()) {
-                        this.add(new ArgumentTypeEntrypoint(method, cha));
+                        if(method.toString().contains("main")){
+                            this.add(new ArgumentTypeEntrypoint(method, cha));
+                            return;
+                        }
+                        else
+                            this.add(new ArgumentTypeEntrypoint(method, cha));
+
                     }
                 }
             }
