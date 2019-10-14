@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="changedistillerplugin">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../changedistillerplugin/classes/artifacts/changedistillerplugin_jar/changedistillerplugin.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

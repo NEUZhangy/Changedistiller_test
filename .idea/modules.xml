@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/changedistiller_test.iml" filepath="$PROJECT_DIR$/.idea/changedistiller_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/InsecureFix.iml" filepath="$PROJECT_DIR$/.idea/InsecureFix.iml" />
       <module fileurl="file://$PROJECT_DIR$/../changedistillerplugin/changedistillerplugin.iml" filepath="$PROJECT_DIR$/../changedistillerplugin/changedistillerplugin.iml" />
     </modules>
   </component>
