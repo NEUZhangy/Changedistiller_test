@@ -1,5 +1,6 @@
 package com.ibm.wala.examples.slice;
 
+import com.google.inject.internal.util.$ObjectArrays;
 import com.ibm.wala.classLoader.IClass;
 import com.ibm.wala.classLoader.Language;
 import com.ibm.wala.core.tests.callGraph.CallGraphTest;
@@ -24,6 +25,7 @@ import com.ibm.wala.util.graph.GraphSlicer;
 import com.ibm.wala.util.graph.traverse.DFS;
 import com.ibm.wala.util.intset.IntSet;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Predicate;
@@ -59,7 +61,7 @@ public class BackwardSlicer {
         Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
         AnalysisOptions options = new AnalysisOptions(scope, entrypoints);
         AnalysisCacheImpl cache = new AnalysisCacheImpl();
-        CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options,
+        CallGraphBuilder<InstanceKey> builder = Util.makeZeroOneCFABuilder(Language.JAVA, options,
                 cache, cha, scope);
         CallGraph completeCG = builder.makeCallGraph(options, null);
         SDG<InstanceKey> completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
@@ -74,42 +76,45 @@ public class BackwardSlicer {
 //            }
         }
 
-
-
         for (Statement targetStmt: allRelatedStmt) {
             varMap.clear();
             instValMap.clear();
             ParamValue.clear();
             stmtList.clear();
             cache.clear();
-            mainClass = targetStmt.getNode().getMethod().getReference().getDeclaringClass().getName().toString();
-            System.out.println(mainClass);
-            IClass targetclass = targetStmt.getNode().getMethod().getDeclaringClass();
-            Iterable<Entrypoint> targetEntrypoints =  new TargetEntryPoint(scope, cha,targetclass);
-            AnalysisOptions options1 = new AnalysisOptions(scope, targetEntrypoints);
-            CallGraph tarCG = builder.makeCallGraph(options1, null);
+            String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
+            if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2") != 0) continue;
+            System.out.println(className);
 
-
+            System.out.println("==========TEST SDG==========");
+            List<Statement> stmtList = new ArrayList<>();
+            Queue<Statement> q = new LinkedList<>();
+            q.add(targetStmt);
+            stmtList.add(targetStmt);
+            while(!q.isEmpty()) {
+                Statement head = q.poll();
+                Iterator<Statement> it = completeSDG.getPredNodes(head);
+                while(it.hasNext()) {
+                    Statement st = it.next();
+                    if (stmtList.contains(st)) continue;
+                    q.add(st);
+                    stmtList.add(st);
+                }
+            }
+            System.out.println(stmtList.size());
             Collection<CGNode> roots = new ArrayList<>();
             roots.add(targetStmt.getNode());
-            CallGraph cg = PartialCallGraph.make(completeCG, roots);
-            System.out.println(DFS.getReachableNodes(completeCG, roots));
-
-
-            SDG<InstanceKey> sdg = new SDG<>(tarCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
-
-            Graph<Statement> g = pruneSDG(sdg, mainClass);
-            Graph<Statement> newg = pruneSDG(completeSDG, targetStmt);
-
-
-            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, tarCG, builder.getPointerAnalysis(),
+            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
                     dataDependenceOptions, controlDependenceOptions);
             filterStatement(relatedStmts);
-            System.out.println(stmtList);
+            setParamValue(targetStmt);
+//            System.out.println(stmtList);
+            Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
             for (Statement stmt : g) {
                 if (!(stmt instanceof StatementWithInstructionIndex)) continue;
                 SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
                 if (visitedInst.contains(inst)) continue;
+//                System.out.println("\t" + stmt);
                 visitedInst.add(inst);
                 CGNode node = stmt.getNode();
                 SymbolTable st = node.getIR().getSymbolTable();
@@ -150,11 +155,10 @@ public class BackwardSlicer {
                     else value = instValMap.get(inst);
                     instValMap.put(inst, value);
                 }
+
             }
 
             // Filter all non application stmts
-            filterStatement(relatedStmts);
-            setParamValue(targetStmt);
 
             // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement
             // Use SSAInstruction instead
@@ -179,8 +183,6 @@ public class BackwardSlicer {
 
     }
 
-
-
     /**
      This function is to get the parameter value.
      It will contains five situations:
@@ -192,9 +194,6 @@ public class BackwardSlicer {
      5. MultiClass Case.
      set the value into ParaValue list
      */
-
-
-
     public void getParameter(int i) {
         System.out.println("This is the " + i + "th parameter for the target function: " + ParamValue.get(i));
     }
@@ -448,4 +447,49 @@ public class BackwardSlicer {
                 getDeclaringClass().getName().toString()));
         return GraphSlicer.prune(sdg, ifStmtinBlock);
     }
+
+    public Graph<Statement> pruneCG(CallGraph cg, SDG<InstanceKey> sdg, CGNode cgnode) {
+
+        Set<CGNode> visited = new HashSet<>();
+        Queue<CGNode> nodeQueue = new LinkedList<>();
+        nodeQueue.add(cgnode);
+        visited.add(cgnode);
+        while(!nodeQueue.isEmpty()) {
+            CGNode head = nodeQueue.poll();
+            Iterator<CGNode> itnode = cg.getPredNodes(head);
+            while(itnode.hasNext()) {
+                CGNode n = itnode.next();
+                if (visited.contains(n)) continue;
+                nodeQueue.add(n);
+                if (!n.getMethod().getDeclaringClass().getName().toString().contains("FakeRootClass")) visited.add(n);
+            }
+        }
+
+        Set<CGNode> visitedSucc = new HashSet<>();
+        for (CGNode node: visited){
+            nodeQueue.add(node);
+            visitedSucc.add(node);
+            while(!nodeQueue.isEmpty()) {
+                CGNode head = nodeQueue.poll();
+//                System.out.println("Current Node: " + head);
+                Iterator<CGNode> itnode = cg.getSuccNodes(head);
+//                System.out.println("\tChild Nodes: ");
+                while(itnode.hasNext()) {
+                    CGNode n = itnode.next();
+//                    System.out.println("\t\t" + n);
+                    if (visitedSucc.contains(n)) continue;
+                    nodeQueue.add(n);
+                    if (!n.getMethod().getDeclaringClass().getName().toString().contains("FakeRootClass"))
+                        visitedSucc.add(n);
+                }
+            }
+        }
+
+        Predicate<Statement> ifStmtinBlock = (i) ->
+                ((visited.contains(i.getNode()) || visitedSucc.contains(i.getNode()))
+                        && !i.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial"));
+        return GraphSlicer.prune(sdg, ifStmtinBlock);
+    }
+
+
 }
