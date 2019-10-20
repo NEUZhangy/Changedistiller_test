@@ -22,7 +22,10 @@ public class BackwardSlicerTest {
 //        String callee = "getInstance";
 //        String functionType = "Cipher";
 
-        BackwardSlicer backwardSlicer = new BackwardSlicer();
+//        BackwardSlicer backwardSlicer = new BackwardSlicer();
+//        backwardSlicer.run(path, mainClass, callee, caller, functionType);
+
+        BackwardSlicer2 backwardSlicer = new BackwardSlicer2();
         backwardSlicer.run(path, mainClass, callee, caller, functionType);
 
 
