@@ -2,10 +2,7 @@
 package com.ibm.wala.examples.slice;
 
 import com.google.inject.internal.util.$ObjectArrays;
-import com.ibm.wala.classLoader.CallSiteReference;
-import com.ibm.wala.classLoader.IClass;
-import com.ibm.wala.classLoader.IMethod;
-import com.ibm.wala.classLoader.Language;
+import com.ibm.wala.classLoader.*;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
 import com.ibm.wala.ipa.callgraph.impl.AllApplicationEntrypoints;
@@ -91,6 +88,7 @@ import java.util.function.Predicate;
                 instValMap.clear();
                 ParamValue.clear();
                 stmtList.clear();
+                this.classorder.clear();
                 cache.clear();
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
                 if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
@@ -120,6 +118,9 @@ import java.util.function.Predicate;
                 Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
                 List<Statement> sorted_g = new ArrayList<>();
                 Map<String, List<Statement>> funMap = new HashMap<>();
+                /*
+                TODO: add class as prefix
+                 */
                 for (Statement stmt: g) {
                     String funName = stmt.getNode().getMethod().getReference().getName().toString();
                     List<Statement> l = funMap.get(funName);
@@ -277,7 +278,7 @@ import java.util.function.Predicate;
         }
 
 
-        //TODO: this function should be refactor as follows:
+        //This function should be refactor as follows:
         //   1. if slice statement is within one single block (no passin. ) - done
         //   2. cross the block (pass in, ssaput_)
         //   3. for pass in param, use negative number of mark the position of varables.
@@ -476,22 +477,26 @@ import java.util.function.Predicate;
 
             Set<CGNode> visited = new HashSet<>();
             Queue<CGNode> nodeQueue = new LinkedList<>();
+            Set<String> relatedClass = new HashSet<>();
             nodeQueue.add(cgnode);
             visited.add(cgnode);
             //classorder.add(cgnode.getMethod().getName().toString());
             List<String> tmpClassOrder = new ArrayList<>();
             while(!nodeQueue.isEmpty()) {
                 CGNode head = nodeQueue.poll();
+//                System.out.println(head);
                 Iterator<CGNode> itnode = cg.getPredNodes(head);
+                relatedClass.add(head.getMethod().getReference().getDeclaringClass().getName().toString());
                 while(itnode.hasNext()) {
                     CGNode n = itnode.next();
+//                    System.out.println("\t" + n);
                     tmpClassOrder.clear();
                     if (n.getMethod().getDeclaringClass().getName().toString().contains("FakeRootClass")) continue;
                     tmpClassOrder.add(n.getMethod().getName().toString());
                     Iterator<CallSiteReference> callIter = n.iterateCallSites();
                     while (callIter.hasNext()) {
                         CallSiteReference csRef = callIter.next();
-                        if (csRef.getDeclaredTarget().getName().toString().contains("fakeWorldClinit")) continue;
+//                        if (csRef.getDeclaredTarget().getName().toString().contains("fakeWorldClinit")) continue;
                         MethodReference mRef = csRef.getDeclaredTarget();
                         if (mRef.getDeclaringClass().getClassLoader().getName().toString().contains("Primordial")) continue;
                         tmpClassOrder.add(mRef.getName().toString());
@@ -509,6 +514,7 @@ import java.util.function.Predicate;
                 visitedSucc.add(node);
                 while(!nodeQueue.isEmpty()) {
                     CGNode head = nodeQueue.poll();
+                    relatedClass.add(head.getMethod().getReference().getDeclaringClass().getName().toString());
 //                System.out.println("Current Node: " + head);
                     Iterator<CGNode> itnode = cg.getSuccNodes(head);
 //                System.out.println("\tChild Nodes: ");
@@ -517,14 +523,17 @@ import java.util.function.Predicate;
 //                    System.out.println("\t\t" + n);
                         if (visitedSucc.contains(n)) continue;
                         nodeQueue.add(n);
-                        if (!n.getMethod().getDeclaringClass().getName().toString().contains("FakeRootClass"))
+                        if (!n.getMethod().getDeclaringClass().getName().toString().contains("FakeRootClass")
+                        && !n.getMethod().getDeclaringClass().getClassLoader().toString().contains("Primordial")){
                             visitedSucc.add(n);
+                        }
                     }
                 }
             }
 
             Predicate<Statement> ifStmtinBlock = (i) ->
-                    ((visited.contains(i.getNode()) || visitedSucc.contains(i.getNode()))
+                    ((visited.contains(i.getNode()) || visitedSucc.contains(i.getNode()) ||
+                        relatedClass.contains(i.getNode().getMethod().getReference().getDeclaringClass().getName().toString()))
                             && !i.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial"));
             return GraphSlicer.prune(sdg, ifStmtinBlock);
         }
