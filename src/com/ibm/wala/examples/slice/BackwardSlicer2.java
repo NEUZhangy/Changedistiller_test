@@ -68,7 +68,7 @@ import java.util.function.Predicate;
                     }
                 }
             }
-//            Iterable<Entrypoint> entrypoints = new AllApplicationEntrypoints(scope, cha);
+//            Iterable<Entrypoint> entryPoints = new AllApplicationEntrypoints(scope, cha);
             AnalysisOptions options = new AnalysisOptions(scope, entryPoints);
             AnalysisCacheImpl cache = new AnalysisCacheImpl();
             CallGraphBuilder<InstanceKey> builder = Util.makeZeroOneCFABuilder(Language.JAVA, options,
@@ -93,7 +93,7 @@ import java.util.function.Predicate;
                 stmtList.clear();
                 cache.clear();
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
-                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2") != 0) continue;
+                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
                 System.out.println(className);
 
 //            System.out.println("==========TEST SDG==========");
@@ -116,8 +116,6 @@ import java.util.function.Predicate;
                 roots.add(targetStmt.getNode());
                 Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
                         dataDependenceOptions, controlDependenceOptions);
-                filterStatement(relatedStmts);
-                setParamValue(targetStmt);
 //            System.out.println(stmtList);
                 Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
                 List<Statement> sorted_g = new ArrayList<>();
@@ -138,7 +136,7 @@ import java.util.function.Predicate;
                     if (!(stmt instanceof StatementWithInstructionIndex)) continue;
                     SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
                     if (visitedInst.contains(inst)) continue;
-                    System.out.println("\t" + stmt);
+//                    System.out.println("\t" + stmt);
                     visitedInst.add(inst);
                     CGNode node = stmt.getNode();
                     SymbolTable st = node.getIR().getSymbolTable();
@@ -183,7 +181,8 @@ import java.util.function.Predicate;
                 }
 
                 // Filter all non application stmts
-
+                filterStatement(relatedStmts);
+                setParamValue(targetStmt);
                 // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement
                 // Use SSAInstruction instead
                 StatementWithInstructionIndex stmtwithindex = (StatementWithInstructionIndex) targetStmt;
@@ -252,6 +251,7 @@ import java.util.function.Predicate;
                                     stmt.getNode().getMethod().getSelector().getName().toString();
                             if (selector == null) {
                                 selector = func;
+                                //System.out.println(selector);
                                 stmtInBlock.add(stmt);
                             }
                             else if (selector.compareToIgnoreCase(func) == 0){
@@ -284,7 +284,7 @@ import java.util.function.Predicate;
         public void setParamValue(Statement targetStmt, Set<Integer> uses,
                                   List<Statement> stmtInBlock) {
             int calleeCount = 0, callerCount = 0;
-            if (blockIsReverse) {
+            if (!blockIsReverse) {
                 Collections.reverse(stmtInBlock);
             }
             Set<SSAInstruction> definsts = new HashSet<>();
@@ -349,7 +349,7 @@ import java.util.function.Predicate;
                 SymbolTable st = ir.getSymbolTable();
 
                 if (inst instanceof SSAGetInstruction || inst instanceof SSAPutInstruction) {
-                    if (instValMap.containsKey(inst)) {
+                    if (this.instValMap.containsKey(inst)) {
                         this.ParamValue.add(instValMap.get(inst));
                         break;
                     }
