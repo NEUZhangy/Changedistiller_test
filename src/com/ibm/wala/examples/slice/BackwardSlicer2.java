@@ -93,28 +93,10 @@ import java.util.function.Predicate;
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
                 if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
                 System.out.println(className);
-
-//            System.out.println("==========TEST SDG==========");
-//            List<Statement> stmtList = new ArrayList<>();
-//            Queue<Statement> q = new LinkedList<>();
-//            q.add(targetStmt);
-//            stmtList.add(targetStmt);
-//            while(!q.isEmpty()) {
-//                Statement head = q.poll();
-//                Iterator<Statement> it = completeSDG.getPredNodes(head);
-//                while(it.hasNext()) {
-//                    Statement st = it.next();
-//                    if (stmtList.contains(st)) continue;
-//                    q.add(st);
-//                    stmtList.add(st);
-//                }
-//            }
-//            System.out.println(stmtList.size());
                 Collection<CGNode> roots = new ArrayList<>();
                 roots.add(targetStmt.getNode());
                 Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
                         dataDependenceOptions, controlDependenceOptions);
-//            System.out.println(stmtList);
                 Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
                 List<Statement> sorted_g = new ArrayList<>();
                 Map<String, List<Statement>> funMap = new HashMap<>();
@@ -122,7 +104,7 @@ import java.util.function.Predicate;
                 TODO: add class as prefix
                  */
                 for (Statement stmt: g) {
-                    String funName = stmt.getNode().getMethod().getReference().getName().toString();
+                    String funName = stmt.getNode().getMethod().getReference().toString();
                     List<Statement> l = funMap.get(funName);
                     if (l == null) l = new ArrayList<>();
                     l.add(stmt);
@@ -492,14 +474,14 @@ import java.util.function.Predicate;
 //                    System.out.println("\t" + n);
                     tmpClassOrder.clear();
                     if (n.getMethod().getDeclaringClass().getName().toString().contains("FakeRootClass")) continue;
-                    tmpClassOrder.add(n.getMethod().getName().toString());
+                    tmpClassOrder.add(n.getMethod().getReference().toString());
                     Iterator<CallSiteReference> callIter = n.iterateCallSites();
                     while (callIter.hasNext()) {
                         CallSiteReference csRef = callIter.next();
-//                        if (csRef.getDeclaredTarget().getName().toString().contains("fakeWorldClinit")) continue;
+                        if (csRef.getDeclaredTarget().getName().toString().contains("fakeWorldClinit")) continue;
                         MethodReference mRef = csRef.getDeclaredTarget();
                         if (mRef.getDeclaringClass().getClassLoader().getName().toString().contains("Primordial")) continue;
-                        tmpClassOrder.add(mRef.getName().toString());
+                        tmpClassOrder.add(mRef.toString());
                     }
                     this.classorder.clear();
                     this.classorder.addAll(tmpClassOrder);
