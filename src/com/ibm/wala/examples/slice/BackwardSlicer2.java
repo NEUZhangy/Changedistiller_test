@@ -124,9 +124,9 @@ import java.util.function.Predicate;
 //                    System.out.println("\t" + stmt);
                     visitedInst.add(inst);
                     CGNode node = stmt.getNode();
-//                    if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") == 0) {
-//                        System.out.println(1);
-//                    }
+                    if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") == 0) {
+                        System.out.println(1);
+                    }
                     SymbolTable st = node.getIR().getSymbolTable();
                     DefUse du = node.getDU();
                     if (inst instanceof SSAPutInstruction) {
