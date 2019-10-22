@@ -124,18 +124,18 @@ import java.util.function.Predicate;
 //                    System.out.println("\t" + stmt);
                     visitedInst.add(inst);
                     CGNode node = stmt.getNode();
-                    if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") == 0) {
-                        System.out.println(1);
-                    }
                     SymbolTable st = node.getIR().getSymbolTable();
                     DefUse du = node.getDU();
                     if (inst instanceof SSAPutInstruction) {
                         SSAPutInstruction putinst = (SSAPutInstruction) inst;
-                        int use = ((SSAPutInstruction) inst).getUse(0);
+                        int use = ((SSAPutInstruction) inst).getVal();
                         if (st.isConstant(use)) {
                             varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
                         } else {
+                            Set<SSAInstruction> visitInst = new HashSet<>();
                             for (SSAInstruction definst = du.getDef(use); definst != null && !st.isConstant(use); ) {
+                                if(visitedInst.contains(definst)) break;
+                                visitedInst.add(definst);
                                 int start = 1;
                                 if (definst instanceof SSAInvokeInstruction) {
                                     SSAInvokeInstruction invoke = (SSAInvokeInstruction) definst;
@@ -150,7 +150,10 @@ import java.util.function.Predicate;
                                     instValMap.put(definst, varMap.get(name));
                                     break;
                                 }
-                                use = definst.getUse(start);
+                                if (definst.getNumberOfUses() > 0)
+                                    use = definst.getUse(start);
+                                else
+                                    definst = null;
                             }
                             if (st.isConstant(use)) {
                                 varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
