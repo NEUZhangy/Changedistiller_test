@@ -1,11 +1,9 @@
 
 package com.ibm.wala.examples.slice;
 
-import com.google.inject.internal.util.$ObjectArrays;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
-import com.ibm.wala.ipa.callgraph.impl.AllApplicationEntrypoints;
 import com.ibm.wala.ipa.callgraph.impl.DefaultEntrypoint;
 import com.ibm.wala.ipa.callgraph.impl.Util;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
@@ -36,6 +34,7 @@ import java.util.function.Predicate;
         private Map<SSAInstruction, Object> instValMap = new HashMap<>();
         private Set<Statement> allRelatedStmt = new HashSet<>();
         private List<String> classorder = new ArrayList<>();
+        private Map<String, String> classInitmap = new HashMap<>();
 
         /* to handle the different behavior WALA backward slicing, when only one block in the slicing result,
         the slicing list is reversed. When multi function is in the list, the order is not reversed.
@@ -84,11 +83,7 @@ import java.util.function.Predicate;
             }
 
             for (Statement targetStmt: allRelatedStmt) {
-                varMap.clear();
-                instValMap.clear();
-                ParamValue.clear();
-                stmtList.clear();
-                this.classorder.clear();
+                clearInit();
                 cache.clear();
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
                 if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
@@ -105,13 +100,20 @@ import java.util.function.Predicate;
                  */
                 for (Statement stmt: g) {
                     String funName = stmt.getNode().getMethod().getReference().toString();
+                    if (funName.contains("<init>")) classInitmap.put(funName.split(",")[1], funName);
                     List<Statement> l = funMap.get(funName);
                     if (l == null) l = new ArrayList<>();
                     l.add(stmt);
                     funMap.put(funName, l);
                 }
+                String previous = null;
                 for (String str: classorder) {
                     if (!funMap.containsKey(str)) continue;
+                    String cur = str.split(",")[1];
+                    if (previous == null || previous.compareTo(cur) != 0 ) {
+                        sorted_g.addAll(funMap.get(classInitmap.get(cur)));
+                        previous = cur;
+                    }
                     sorted_g.addAll(funMap.get(str));
                 }
 
@@ -122,6 +124,9 @@ import java.util.function.Predicate;
 //                    System.out.println("\t" + stmt);
                     visitedInst.add(inst);
                     CGNode node = stmt.getNode();
+//                    if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") == 0) {
+//                        System.out.println(1);
+//                    }
                     SymbolTable st = node.getIR().getSymbolTable();
                     DefUse du = node.getDU();
                     if (inst instanceof SSAPutInstruction) {
@@ -520,6 +525,13 @@ import java.util.function.Predicate;
             return GraphSlicer.prune(sdg, ifStmtinBlock);
         }
 
+        public void clearInit() {
+            varMap.clear();
+            instValMap.clear();
+            ParamValue.clear();
+            stmtList.clear();
+            this.classorder.clear();
+        }
 
     }
 
