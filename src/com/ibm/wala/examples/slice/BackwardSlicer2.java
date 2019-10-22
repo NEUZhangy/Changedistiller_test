@@ -86,7 +86,7 @@ import java.util.function.Predicate;
                 clearInit();
                 cache.clear();
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
-                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
+                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/crypto") != 0) continue;
                 System.out.println(className);
                 Collection<CGNode> roots = new ArrayList<>();
                 roots.add(targetStmt.getNode());
@@ -134,8 +134,8 @@ import java.util.function.Predicate;
                         } else {
                             Set<SSAInstruction> visitInst = new HashSet<>();
                             for (SSAInstruction definst = du.getDef(use); definst != null && !st.isConstant(use); ) {
-                                if(visitedInst.contains(definst)) break;
-                                visitedInst.add(definst);
+                                if(visitInst.contains(definst)) break;
+                                visitInst.add(definst);
                                 int start = 1;
                                 if (definst instanceof SSAInvokeInstruction) {
                                     SSAInvokeInstruction invoke = (SSAInvokeInstruction) definst;
