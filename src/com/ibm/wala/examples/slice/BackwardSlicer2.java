@@ -86,7 +86,7 @@ import java.util.function.Predicate;
                 clearInit();
                 cache.clear();
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
-                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/crypto") != 0) continue;
+                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
                 System.out.println(className);
                 Collection<CGNode> roots = new ArrayList<>();
                 roots.add(targetStmt.getNode());
@@ -240,6 +240,7 @@ import java.util.function.Predicate;
                         for (Statement stmt: stmtList) {
                             String func = stmt.getNode().getMethod().getDeclaringClass().getName().toString() + " " +
                                     stmt.getNode().getMethod().getSelector().getName().toString();
+
                             if (selector == null) {
                                 selector = func;
                                 //System.out.println(selector);
@@ -341,8 +342,14 @@ import java.util.function.Predicate;
 
                 if (inst instanceof SSAGetInstruction || inst instanceof SSAPutInstruction) {
                     if (this.instValMap.containsKey(inst)) {
-                        this.ParamValue.add(instValMap.get(inst));
-                        break;
+
+                        String name = ((SSAFieldAccessInstruction) inst).getDeclaredField().getName().toString();
+                        if(varMap.containsKey(name)){
+                            this.ParamValue.add(varMap.get(name));
+                            break;
+                        }
+                        //this.ParamValue.add(instValMap.get(inst));
+
                     }
                 }
 
