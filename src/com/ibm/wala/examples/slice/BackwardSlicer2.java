@@ -20,6 +20,7 @@ import com.ibm.wala.util.debug.Assertions;
 import com.ibm.wala.util.graph.Graph;
 import com.ibm.wala.util.graph.GraphSlicer;
 import com.ibm.wala.util.intset.IntSet;
+import org.apache.tools.ant.taskdefs.XSLTProcess;
 
 import java.io.IOException;
 import java.util.*;
@@ -27,7 +28,7 @@ import java.util.function.Predicate;
 
     public class BackwardSlicer2 {
 
-        private List<Object> ParamValue = new ArrayList<>();
+        private Map<Integer, List<Object>> ParamValue = new HashMap<>();
         private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
         private Set<String> fieldName = new HashSet<>();
         private Map<String, Object> varMap = new HashMap<>();
@@ -41,7 +42,7 @@ import java.util.function.Predicate;
         */
         private Boolean blockIsReverse = false;
 
-        public List<Object> getParamValue() {
+        public Map<Integer, List<Object>> getParamValue() {
             return ParamValue;
         }
 
@@ -217,14 +218,16 @@ import java.util.function.Predicate;
             Set<Integer> uses = new HashSet<>();
             IR targetIR = targetStmt.getNode().getIR();
             SymbolTable st = targetIR.getSymbolTable();
-            if(targetInst instanceof SSAInvokeInstruction){
+            if (targetInst instanceof SSAInvokeInstruction){
                 int i = ((SSAInvokeInstruction)targetInst).isStatic() == true? 0 : 1;
+                int neg = ((SSAInvokeInstruction)targetInst).isStatic() == true? 0 : -1;
                 int numOfUse = targetInst.getNumberOfUses();
                 while(i < numOfUse){
-                    int before = ParamValue.size();
+                    List<Object> ans = new ArrayList<>();
                     int use = targetInst.getUse(i);
                     if(st.isConstant(use)){
-                        ParamValue.add(st.getConstantValue(use));
+                        ans.add(st.getConstantValue(use));
+                        ParamValue.put(i + neg, ans);
                     }
                     else{
                         uses.add(use); // can't get the parameter within one block;
@@ -252,13 +255,13 @@ import java.util.function.Predicate;
                             }
                             else {
                                 blockIsReverse = true;
-                                setParamValue(targetStmt, uses, stmtInBlock);
+                                setParamValue(targetStmt, uses, stmtInBlock, i + neg);
                                 stmtInBlock.clear();
                                 stmtInBlock.add(stmt);
                                 selector = func;
                             }
                         }
-                        setParamValue(targetStmt, uses, stmtInBlock);
+                        setParamValue(targetStmt, uses, stmtInBlock, i + neg);
                     }
                     i++;
                     blockIsReverse = false;
@@ -274,13 +277,13 @@ import java.util.function.Predicate;
         //   2. cross the block (pass in, ssaput_)
         //   3. for pass in param, use negative number of mark the position of varables.
         public void setParamValue(Statement targetStmt, Set<Integer> uses,
-                                  List<Statement> stmtInBlock) {
-            int calleeCount = 0, callerCount = 0;
+                                  List<Statement> stmtInBlock, int pos) { int calleeCount = 0, callerCount = 0;
             if (!blockIsReverse) {
                 Collections.reverse(stmtInBlock);
             }
             Set<SSAInstruction> definsts = new HashSet<>();
             Set<Integer> visited = new HashSet<>();
+            List<Object> ans = new ArrayList<>();
             for (int i = 0; i < stmtInBlock.size(); i++) {
                 Statement stm = stmtInBlock.get(i);
                 if (stm.toString().equals(targetStmt.toString())) continue;
@@ -292,7 +295,8 @@ import java.util.function.Predicate;
                         SymbolTable st = paramCaller.getNode().getIR().getSymbolTable();
                         if (uses.size() == 0 && !visited.contains(use)) {
                             if (st.isConstant(use)) {
-                                this.ParamValue.add(st.getConstantValue(use));
+                                ans.add(st.getConstantValue(use));
+                                this.ParamValue.put(pos, ans);
                                 visited.add(use);
                             }
                             else {
@@ -314,7 +318,8 @@ import java.util.function.Predicate;
                         SymbolTable st = paramCaller.getNode().getIR().getSymbolTable();
                         if (uses.size() == 0 && !visited.contains(use)) {
                             if (st.isConstant(use)) {
-                                this.ParamValue.add(st.getConstantValue(use));
+                                ans.add(st.getConstantValue(use));
+                                this.ParamValue.put(pos, ans);
                                 visited.add(use);
                             }
                             else {
@@ -334,6 +339,11 @@ import java.util.function.Predicate;
                     }
                     continue;
                 }
+
+                if (stm.getKind() == Statement.Kind.PHI) {
+                    System.out.println(stm);
+                }
+
                 if (!(stm instanceof StatementWithInstructionIndex)) continue;
                 SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
                 IR ir = stm.getNode().getIR();
@@ -345,13 +355,15 @@ import java.util.function.Predicate;
 
                         String name = ((SSAFieldAccessInstruction) inst).getDeclaredField().getName().toString();
                         if(varMap.containsKey(name)){
-                            this.ParamValue.add(varMap.get(name));
+                            ans.add(varMap.get(name));
+                            this.ParamValue.put(pos, ans);
                             break;
                         }
                         //this.ParamValue.add(instValMap.get(inst));
 
                     }
                 }
+
 
                 for (int j = 0; j < inst.getNumberOfDefs(); j++) {
                     uses.remove(inst.getDef(j));
@@ -370,7 +382,8 @@ import java.util.function.Predicate;
                     } else {
                         //System.out.println("\t" + use + " " + st.getConstantValue(use));
                         if (uses.size() == 0 && !visited.contains(use)) {
-                            this.ParamValue.add(st.getConstantValue(use));
+                            ans.add(st.getConstantValue(use));
+                            this.ParamValue.put(pos, ans);
                             visited.add(use);
                         }
                     }
