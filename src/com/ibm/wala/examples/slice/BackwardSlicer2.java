@@ -1,6 +1,7 @@
 
 package com.ibm.wala.examples.slice;
 
+import com.google.inject.internal.asm.$AnnotationVisitor;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
@@ -254,7 +255,7 @@ import java.util.function.Predicate;
                                 stmtInBlock.add(stmt);
                             }
                             else {
-                                blockIsReverse = true;
+                                blockIsReverse = isStmtinOrder(stmtInBlock);
                                 setParamValue(targetStmt, uses, stmtInBlock, i + neg);
                                 stmtInBlock.clear();
                                 stmtInBlock.add(stmt);
@@ -340,9 +341,24 @@ import java.util.function.Predicate;
                     continue;
                 }
 
-                if (stm.getKind() == Statement.Kind.PHI) {
-                    System.out.println(stm);
-                }
+//                if (stm.getKind() == Statement.Kind.PHI) {
+//                    PhiStatement pstmt = (PhiStatement) stm;
+//                    SSAPhiInstruction inst = pstmt.getPhi();
+//                    SymbolTable st = pstmt.getNode().getIR().getSymbolTable();
+//                    int def = inst.getDef();
+//                    if (uses.contains(def)) {
+//                        uses.remove(def);
+//                        for (int ii = 0; ii<inst.getNumberOfUses(); ii++) {
+//                            int use = inst.getUse(ii);
+//                            if (st.isConstant(use)) {
+//                                putVarMap(pos, st.getConstantValue(use));
+//                            } else {
+//                                uses.add(use);
+//                            }
+//                        }
+//                    }
+//                    continue;
+//                }
 
                 if (!(stm instanceof StatementWithInstructionIndex)) continue;
                 SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
@@ -352,18 +368,16 @@ import java.util.function.Predicate;
 
                 if (inst instanceof SSAGetInstruction || inst instanceof SSAPutInstruction) {
                     if (this.instValMap.containsKey(inst)) {
-
                         String name = ((SSAFieldAccessInstruction) inst).getDeclaredField().getName().toString();
                         if(varMap.containsKey(name)){
                             ans.add(varMap.get(name));
                             this.ParamValue.put(pos, ans);
-                            break;
+//                            break;
                         }
                         //this.ParamValue.add(instValMap.get(inst));
 
                     }
                 }
-
 
                 for (int j = 0; j < inst.getNumberOfDefs(); j++) {
                     uses.remove(inst.getDef(j));
@@ -556,5 +570,34 @@ import java.util.function.Predicate;
             this.classorder.clear();
         }
 
+        public boolean isStmtinOrder(List<Statement> stmtBlock) {
+            int def = 0;
+            for (Statement stmt: stmtBlock) {
+                if (stmt instanceof StatementWithInstructionIndex) {
+                    SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
+                    try {
+                        if (def < inst.getDef()) def = inst.getDef();
+                        else return false;
+                    } catch (AssertionError e) {
+                        continue;
+                    }
+
+                }
+            }
+            return true;
+        }
+
+        public boolean isInstStatic(SSAInstruction inst) {
+            if (!(inst instanceof SSAInvokeInstruction)) return false;
+            else
+                return ((SSAInvokeInstruction)inst).isStatic();
+        }
+
+        public void putVarMap(int pos, Object o) {
+            this.ParamValue.putIfAbsent(pos, new ArrayList<>());
+            List<Object> ans = ParamValue.get(pos);
+            ans.add(o);
+            this.ParamValue.put(pos, ans);
+        }
     }
 
