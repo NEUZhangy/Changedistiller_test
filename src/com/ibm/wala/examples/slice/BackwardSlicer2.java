@@ -1,7 +1,6 @@
 
 package com.ibm.wala.examples.slice;
 
-import com.google.inject.internal.asm.$AnnotationVisitor;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
@@ -21,7 +20,6 @@ import com.ibm.wala.util.debug.Assertions;
 import com.ibm.wala.util.graph.Graph;
 import com.ibm.wala.util.graph.GraphSlicer;
 import com.ibm.wala.util.intset.IntSet;
-import org.apache.tools.ant.taskdefs.XSLTProcess;
 
 import java.io.IOException;
 import java.util.*;
@@ -29,7 +27,7 @@ import java.util.function.Predicate;
 
     public class BackwardSlicer2 {
 
-        private Map<Integer, List<Object>> ParamValue = new HashMap<>();
+        private HashMap<Integer, List<Object>> paramValue = new HashMap<>();
         private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
         private Set<String> fieldName = new HashSet<>();
         private Map<String, Object> varMap = new HashMap<>();
@@ -37,20 +35,19 @@ import java.util.function.Predicate;
         private Set<Statement> allRelatedStmt = new HashSet<>();
         private List<String> classorder = new ArrayList<>();
         private Map<String, String> classInitmap = new HashMap<>();
+        private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
 
         /* to handle the different behavior WALA backward slicing, when only one block in the slicing result,
         the slicing list is reversed. When multi function is in the list, the order is not reversed.
         */
-        private Boolean blockIsReverse = false;
+        private Boolean blockNeedReverse = false;
 
-        public Map<Integer, List<Object>> getParamValue() {
-            return ParamValue;
-        }
+        public Map<Integer, List<Object>> getParamValue() { return paramValue; }
+
+        public Map<String, Map<Integer, List<Object>>> getClassVarMap() { return classVarMap; }
 
         public void run(String path,
-                        String mainClass,
                         String callee,
-                        String caller,
                         String functionType
         ) throws IOException, ClassHierarchyException, CancelException {
             Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.NO_HEAP;
@@ -88,8 +85,8 @@ import java.util.function.Predicate;
                 clearInit();
                 cache.clear();
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
-                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
-                System.out.println(className);
+//                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
+//                System.out.println(className);
                 Collection<CGNode> roots = new ArrayList<>();
                 roots.add(targetStmt.getNode());
                 Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
@@ -97,9 +94,7 @@ import java.util.function.Predicate;
                 Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
                 List<Statement> sorted_g = new ArrayList<>();
                 Map<String, List<Statement>> funMap = new HashMap<>();
-                /*
-                TODO: add class as prefix
-                 */
+
                 for (Statement stmt: g) {
                     String funName = stmt.getNode().getMethod().getReference().toString();
                     if (funName.contains("<init>")) classInitmap.put(funName.split(",")[1], funName);
@@ -123,7 +118,6 @@ import java.util.function.Predicate;
                     if (!(stmt instanceof StatementWithInstructionIndex)) continue;
                     SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
                     if (visitedInst.contains(inst)) continue;
-//                    System.out.println("\t" + stmt);
                     visitedInst.add(inst);
                     CGNode node = stmt.getNode();
                     SymbolTable st = node.getIR().getSymbolTable();
@@ -195,6 +189,8 @@ import java.util.function.Predicate;
                         System.err.println(e.getMessage());
                     }
                 }
+                classVarMap.put(className, (Map<Integer, List<Object>>) paramValue.clone());
+
             }
 
         }
@@ -211,7 +207,7 @@ import java.util.function.Predicate;
          set the value into ParaValue list
          */
         public void getParameter(int i) {
-            System.out.println("This is the " + i + "th parameter for the target function: " + ParamValue.get(i));
+//            System.out.println("This is the " + i + "th parameter for the target function: " + paramValue.get(i));
         }
 
         public void setParamValue(Statement targetStmt){
@@ -228,7 +224,7 @@ import java.util.function.Predicate;
                     int use = targetInst.getUse(i);
                     if(st.isConstant(use)){
                         ans.add(st.getConstantValue(use));
-                        ParamValue.put(i + neg, ans);
+                        paramValue.put(i + neg, ans);
                     }
                     else{
                         uses.add(use); // can't get the parameter within one block;
@@ -255,19 +251,19 @@ import java.util.function.Predicate;
                                 stmtInBlock.add(stmt);
                             }
                             else {
-                                blockIsReverse = isStmtinOrder(stmtInBlock);
+                                blockNeedReverse = isStmtinOrder(stmtInBlock);
                                 setParamValue(targetStmt, uses, stmtInBlock, i + neg);
                                 stmtInBlock.clear();
                                 stmtInBlock.add(stmt);
                                 selector = func;
                             }
                         }
+                        blockNeedReverse = isStmtinOrder(stmtInBlock);
                         setParamValue(targetStmt, uses, stmtInBlock, i + neg);
                     }
                     i++;
-                    blockIsReverse = false;
                 }
-                if(ParamValue.size() == numOfUse)
+                if(paramValue.size() == numOfUse)
                     return;
             }
         }
@@ -276,10 +272,10 @@ import java.util.function.Predicate;
         //This function should be refactor as follows:
         //   1. if slice statement is within one single block (no passin. ) - done
         //   2. cross the block (pass in, ssaput_)
-        //   3. for pass in param, use negative number of mark the position of varables.
+        //   3. for pass in param, use negative number of mark the position of variables.
         public void setParamValue(Statement targetStmt, Set<Integer> uses,
                                   List<Statement> stmtInBlock, int pos) { int calleeCount = 0, callerCount = 0;
-            if (!blockIsReverse) {
+            if (blockNeedReverse) {
                 Collections.reverse(stmtInBlock);
             }
             Set<SSAInstruction> definsts = new HashSet<>();
@@ -297,7 +293,7 @@ import java.util.function.Predicate;
                         if (uses.size() == 0 && !visited.contains(use)) {
                             if (st.isConstant(use)) {
                                 ans.add(st.getConstantValue(use));
-                                this.ParamValue.put(pos, ans);
+                                this.paramValue.put(pos, ans);
                                 visited.add(use);
                             }
                             else {
@@ -320,7 +316,7 @@ import java.util.function.Predicate;
                         if (uses.size() == 0 && !visited.contains(use)) {
                             if (st.isConstant(use)) {
                                 ans.add(st.getConstantValue(use));
-                                this.ParamValue.put(pos, ans);
+                                this.paramValue.put(pos, ans);
                                 visited.add(use);
                             }
                             else {
@@ -367,38 +363,60 @@ import java.util.function.Predicate;
                 SymbolTable st = ir.getSymbolTable();
 
                 if (inst instanceof SSAGetInstruction || inst instanceof SSAPutInstruction) {
-                    if (this.instValMap.containsKey(inst)) {
-                        String name = ((SSAFieldAccessInstruction) inst).getDeclaredField().getName().toString();
-                        if(varMap.containsKey(name)){
-                            ans.add(varMap.get(name));
-                            this.ParamValue.put(pos, ans);
-//                            break;
+                    if (inst instanceof SSAGetInstruction) {
+                        if (uses.contains(inst.getDef())) {
+                            String name = ((SSAFieldAccessInstruction) inst).getDeclaredField().getName().toString();
+                            if(varMap.containsKey(name)) {
+                                ans.add(varMap.get(name));
+                                this.paramValue.put(pos, ans);
+                                break;
+                            }
                         }
-                        //this.ParamValue.add(instValMap.get(inst));
-
                     }
+                    //this.ParamValue.add(instValMap.get(inst));
                 }
-
+                boolean isDef = false;
                 for (int j = 0; j < inst.getNumberOfDefs(); j++) {
-                    uses.remove(inst.getDef(j));
+                    if (uses.contains(inst.getDef(j))) {
+                        uses.remove(inst.getDef(j));
+                        isDef = true;
+                    }
+
                 }
 
-                for (int j = 0; j < inst.getNumberOfUses(); j++) {
-                    int use = inst.getUse(j);
-                    if (j == 0 && ((inst instanceof SSAInvokeInstruction
-                            && !((SSAInvokeInstruction) inst).isStatic()) || !(inst instanceof SSAAbstractInvokeInstruction))
-                            && !st.isConstant(use)
-                            && !(inst instanceof SSAPutInstruction))
-                        continue;
-                    if (!st.isConstant(use)) {
-                        uses.add(use);
-                        if (du.getDef(use) != null) definsts.add(du.getDef(use));
-                    } else {
-                        //System.out.println("\t" + use + " " + st.getConstantValue(use));
-                        if (uses.size() == 0 && !visited.contains(use)) {
-                            ans.add(st.getConstantValue(use));
-                            this.ParamValue.put(pos, ans);
-                            visited.add(use);
+                if (isDef) {
+                    for (int j = 0; j < inst.getNumberOfUses(); j++) {
+                        int use = inst.getUse(j);
+                        if (j == 0 && (inst instanceof SSAInvokeInstruction)
+                         && ((SSAInvokeInstruction)inst).getDeclaredTarget().getSelector().getName().toString().contains("getBytes")) {
+                            if (!st.isConstant(use)) {
+                                uses.add(use);
+                                if (du.getDef(use) != null) definsts.add(du.getDef(use));
+                            } else {
+                                //System.out.println("\t" + use + " " + st.getConstantValue(use));
+                                if (uses.size() == 0 && !visited.contains(use)) {
+                                    ans.add(st.getConstantValue(use));
+                                    this.paramValue.put(pos, ans);
+                                    visited.add(use);
+                                }
+                            }
+                            break;
+                        }
+                        if (j == 0 && ((inst instanceof SSAInvokeInstruction
+                                && !((SSAInvokeInstruction) inst).isStatic()) || !(inst instanceof SSAAbstractInvokeInstruction))
+                                && !st.isConstant(use)
+                                && !(inst instanceof SSAPutInstruction))
+                            continue;
+                        if (!st.isConstant(use)) {
+                            uses.add(use);
+                            if (du.getDef(use) != null) definsts.add(du.getDef(use));
+                        } else {
+                            //System.out.println("\t" + use + " " + st.getConstantValue(use));
+                            if (uses.size() == 0 && !visited.contains(use)) {
+                                ans.add(st.getConstantValue(use));
+                                this.paramValue.put(pos, ans);
+                                visited.add(use);
+                            }
                         }
                     }
                 }
@@ -565,7 +583,7 @@ import java.util.function.Predicate;
         public void clearInit() {
             varMap.clear();
             instValMap.clear();
-            ParamValue.clear();
+            paramValue.clear();
             stmtList.clear();
             this.classorder.clear();
         }
@@ -576,15 +594,15 @@ import java.util.function.Predicate;
                 if (stmt instanceof StatementWithInstructionIndex) {
                     SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
                     try {
-                        if (def < inst.getDef()) def = inst.getDef();
+                        if (def == 0) def = inst.getDef();
+                        else if (def <= inst.getDef()) return true;
                         else return false;
                     } catch (AssertionError e) {
                         continue;
                     }
-
                 }
             }
-            return true;
+            return false;
         }
 
         public boolean isInstStatic(SSAInstruction inst) {
@@ -594,10 +612,10 @@ import java.util.function.Predicate;
         }
 
         public void putVarMap(int pos, Object o) {
-            this.ParamValue.putIfAbsent(pos, new ArrayList<>());
-            List<Object> ans = ParamValue.get(pos);
+            this.paramValue.putIfAbsent(pos, new ArrayList<>());
+            List<Object> ans = paramValue.get(pos);
             ans.add(o);
-            this.ParamValue.put(pos, ans);
+            this.paramValue.put(pos, ans);
         }
     }
 

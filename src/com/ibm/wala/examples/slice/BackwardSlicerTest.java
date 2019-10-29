@@ -26,7 +26,7 @@ public class BackwardSlicerTest {
 //        backwardSlicer.run(path, mainClass, callee, caller, functionType);
 
         BackwardSlicer2 backwardSlicer = new BackwardSlicer2();
-        backwardSlicer.run(path, mainClass, callee, caller, functionType);
+        backwardSlicer.run(path, callee, functionType);
 
 
     }
