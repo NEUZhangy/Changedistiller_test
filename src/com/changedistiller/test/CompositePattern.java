@@ -12,6 +12,7 @@ public class CompositePattern implements CodePattern{
     private int varCount = 0;
     private int constantCount = 0;
     private String name;
+    private String matchingExpression;
     private Map <String, String> variableMap = new HashMap<>();
     private Map <String, String> constantMap = new HashMap<>();
     private List<String> lcuTemplateStatements = new ArrayList<String>();
@@ -167,8 +168,22 @@ public class CompositePattern implements CodePattern{
         this.name = name;
     }
 
+    public String getMatchingExpression() {
+        return matchingExpression;
+    }
+
+    public void setMatchingExpression(String matchingExpression) {
+        this.matchingExpression = matchingExpression;
+    }
+
+
     @Override
     public JSONObject marshall() {
-        return null;
+        Map<String, String> jsonFields = new HashMap<>();
+        jsonFields.put("Type", "composite");
+        jsonFields.put("matchingExpression", this.matchingExpression);
+        jsonFields.put("incorrectStmts", lcuTemplateStatements.toString());
+        jsonFields.put("correctStmts", rcuTemplateStatements.toString());
+        return new JSONObject(jsonFields);
     }
 }

@@ -189,6 +189,7 @@ public class GeneratePattern {
             lTarget = NodeFinder.perform(lcu.getRoot(), lstart, lend - lstart);
             rTarget = NodeFinder.perform(rcu.getRoot(), rstart, rend - rstart);
             CompositePattern compositePattern = new CompositePattern(lTarget, rTarget);
+            compositePattern.setMatchingExpression(matchingExpression);
             patternMap.put(compositePattern.getName(), compositePattern);
             System.out.println("left:");
             compositePattern.getLcuTemplateStatements().stream().forEach(x -> System.out.println(x));
@@ -199,7 +200,7 @@ public class GeneratePattern {
         System.out.println("end the analysis for composite pattern generation ");
         System.out.println(".-------------------------------------------------.");
 
-        CodePattern name = new NamePattern();
+        CodePattern name = new NamePattern(matchingExpression);
         //compare type, the name are different
         for(int i =0; i<lNodeType.size();i++) {
             if(!(lNodeType.get(i).equals(rNodeType.get(i)))){

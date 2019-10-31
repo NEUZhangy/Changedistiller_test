@@ -2,17 +2,21 @@ package com.changedistiller.test;
 
 import org.json.simple.JSONObject;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class NamePattern implements CodePattern {
     private String name;
+    public String matchingExpression;
     private Set<String> correctNameSet = new HashSet<>();
     private Set<String> correctClassSet = new HashSet<>();
     private Set<String> incorrectNameSet = new HashSet<>();
     private Set<String> incorrectClassSet = new HashSet<>();
 
-    NamePattern(){
+    NamePattern(String str){
+        matchingExpression = str;
     }
 
     public void AppendtoCNameSet(String str) {
@@ -73,6 +77,13 @@ public class NamePattern implements CodePattern {
 
     @Override
     public JSONObject marshall() {
-        return null;
+        Map<String, String> jsonFields = new HashMap<>();
+        jsonFields.put("Type", "Name");
+        jsonFields.put("matchingExpression", matchingExpression);
+        jsonFields.put("correctNameSet", correctNameSet.toString());
+        jsonFields.put("correctClassSet", correctClassSet.toString());
+        jsonFields.put("incorrectNameSet", incorrectNameSet.toString());
+        jsonFields.put("inCorrectClassSet", incorrectClassSet.toString());
+        return new JSONObject(jsonFields);
     }
 }
