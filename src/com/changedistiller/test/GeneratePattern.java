@@ -113,7 +113,7 @@ public class GeneratePattern {
 
         if (changes != null) {
             for (SourceCodeChange change : changes) {
-                System.out.println("change operation"+ change);
+                System.out.println("change operation "+ change);
                 FineChangesInMethod fc = (FineChangesInMethod) change;
                 //changelist = fc.getChanges();
                 for (SourceCodeChange scc : fc.getChanges()) {
@@ -169,12 +169,13 @@ public class GeneratePattern {
         }
         for (SourceRange r: newsrlist){ // can't get the node
             ASTNode rtmpNode = NodeFinder.perform(rcu.getRoot(), r.getStart(),r.getEnd()-r.getStart());
-            customVisitor.VisitTarget(rtmpNode, rNode, rNodeArgument); // not only vist the API but the foreahc and try catch statement
+            customVisitor.VisitTarget(rtmpNode, rNode, rNodeArgument); // not only vist the API but the foreach and try catch statement
             rNodeType.add(customVisitor.bindingName);
         }
 
         //composite
-        if (lNode.size() > 1 || rNode.size() > 1) {
+//        if (lNode.size() > 1 || rNode.size() > 1) {
+        if (extractChanges.size() > 1){
             ASTNode lTarget = null, rTarget = null;
             int lstart = Integer.MAX_VALUE, lend = Integer.MIN_VALUE, rstart = Integer.MAX_VALUE, rend = Integer.MIN_VALUE;
             for (ASTNode node: lNode) {
@@ -235,15 +236,16 @@ public class GeneratePattern {
                         ((ParameterPattern) codePattern).AppendtoISet(lArg);
                         ((ParameterPattern) codePattern).AppendtoCSet(rArg);
                         this.patternMap.put(codePattern.toString(), codePattern);
+                        System.out.println(codePattern.marshall());
                     }
                 }
             }
         }
 
-        DBHandler db = new DBHandler();
-        for(Map.Entry<String, CodePattern> entry: this.patternMap.entrySet()) {
-            db.WritetoDB(entry.getKey(), entry.getValue(), matchingExpression);
-        }
+//        DBHandler db = new DBHandler();
+//        for(Map.Entry<String, CodePattern> entry: this.patternMap.entrySet()) {
+//            db.WritetoDB(entry.getKey(), entry.getValue(), matchingExpression);
+//        }
 
     }
 

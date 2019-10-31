@@ -1,9 +1,9 @@
 package com.changedistiller.test;
 
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.json.simple.JSONObject;
+
+import java.util.*;
 
 public class ParameterPattern implements CodePattern {
     private int pos = 0;
@@ -59,5 +59,32 @@ public class ParameterPattern implements CodePattern {
 
     public String toString() {
         return new String().format("%s_%d", this.bindingType, this.pos);
+    }
+
+    @Override
+    public JSONObject marshall() {
+        Map<String, String> jsonFields = new HashMap<>();
+        jsonFields.put("Type", "parameter");
+        jsonFields.put("Check", Integer.toString(this.pos));
+        jsonFields.put("Incorrect", this.incorrectParameterSet.toString());
+        jsonFields.put("Correct", this.correctParametersSet.toString());
+        String[] strList = this.bindingType.split(" ");
+        if (strList.length == 1) {
+            jsonFields.put("MethodType", this.bindingType);
+            jsonFields.put("callee", "<init>");
+        }
+        else {
+            for (int i = 0; i<strList.length; i++) {
+                String str = strList[i];
+                if (str.startsWith("java")) {
+                    String[] sepStrList = str.split("[.]");
+                    jsonFields.put("MethodType", sepStrList[sepStrList.length-1]);
+                    sepStrList = strList[i+1].split("[(]");
+                    jsonFields.put("callee", sepStrList[0]);
+                    break;
+                }
+            }
+        }
+        return new JSONObject(jsonFields);
     }
 }

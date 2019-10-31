@@ -1,6 +1,7 @@
 package com.changedistiller.test;
 
 import org.eclipse.jdt.core.dom.*;
+import org.json.simple.JSONObject;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -164,5 +165,10 @@ public class CompositePattern implements CodePattern{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public JSONObject marshall() {
+        return null;
     }
 }

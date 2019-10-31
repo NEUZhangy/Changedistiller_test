@@ -1,5 +1,7 @@
 package com.changedistiller.test;
 
+import org.json.simple.JSONObject;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,5 +71,10 @@ public class NumberPattern implements CodePattern{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public JSONObject marshall() {
+        return null;
     }
 }
