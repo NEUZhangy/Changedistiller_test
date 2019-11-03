@@ -3,6 +3,12 @@ package com.changedistiller.test.DAO;
 import com.changedistiller.test.*;
 import redis.clients.jedis.Jedis;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +16,12 @@ import java.util.Set;
 
 public class DBHandler {
 
-    private final Jedis jedis;
+    private final Jedis jedis = null;
+
 
     public DBHandler() {
-        jedis = new Jedis ("192.168.199.15");
-        jedis.auth("123456");
+//        jedis = new Jedis ("192.168.32.129");
+//        jedis.auth("");
     }
 
     private int typeConverter(CodePattern pattern) {
@@ -96,6 +103,31 @@ public class DBHandler {
         jedis.hmset(name, patternField);
         jedis.sadd(patternField.get("Type"), name);
     }
+
+    public void writetoJson(CodePattern codePattern) {
+        try (Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://192.168.32.129/InsecureFix", "root", "123456")) {
+            if (conn != null) {
+                String query = "insert into InsecureFix (Name, JsonString) " + "values (?,?)";
+                PreparedStatement stmt = conn.prepareStatement(query);
+                stmt.setString(1, Integer.toString(codePattern.hashCode()));
+                stmt.setString(2, codePattern.marshall().toJSONString());
+                stmt.execute();
+            }
+            else {
+                System.out.println("fail");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try (FileWriter file = new FileWriter("pattern.json")) {
+            file.write(codePattern.marshall().toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Transform the set to String -> arg1, arg2, arg3
