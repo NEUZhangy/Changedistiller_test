@@ -368,6 +368,26 @@ public class BackwardSlicer3 {
         }
     }
 
+    /*checkusevalue(){
+          checkconstant(); terminate;
+          checkpassin(); terminate, upperblck;
+          checkstaticfield(); getfield, reocred transfer "fieldname"
+
+    // }
+
+    checstaticfield(){
+     putstatic not in block terminate-> upper block
+     putstatic{
+     du();
+     checkusevalue();
+     }
+
+     if(instancefield) go constctor ==
+
+    }
+    */
+
+
     public void loopStatementInBlockHelper(Statement targetStmt, List<Statement> stmtInBlock, int index, int pos) {
         //check if there is put stmt;
         int bound = stmtInBlock.indexOf(targetStmt);
@@ -386,6 +406,7 @@ public class BackwardSlicer3 {
                     SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
                     if (inst instanceof SSAInvokeInstruction) {
                         loopPreNode(stm, pos);
+                        return;
                     }
 
                     if (inst instanceof SSAPutInstruction) {
@@ -450,6 +471,27 @@ public class BackwardSlicer3 {
         q.addAll(uses);
         while (!q.isEmpty()) {
             int use = q.poll();
+
+            Statement tmp = isPassin(use, stmtInBlock, uses); //return the method entry
+            if (tmp != null) {
+                this.targetStmt = getCalleePosition(tmp);
+                if (this.targetStmt != null) {
+                    SSAInstruction inst = ((StatementWithInstructionIndex) this.targetStmt).getInstruction();
+                    int newUse = inst.getUse(use - 1);
+                    uses.remove(use);
+                    uses.add(newUse);
+                    q.add(newUse);
+                    return;
+                } else {
+                    //no caller found in the cg, let's check constructor;
+                    SSAInstruction inst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
+                    uses.add(inst.getUse(0)); //get itself and see the result
+                    q.add(inst.getUse(0));
+                }
+            } else {
+                System.out.println("Case is out of scope!");
+            }
+
             StatementWithInstructionIndex getFieldStmt = isStaticField(use, stmtInBlock, uses);
             if (getFieldStmt != null) {
                 SSAGetInstruction getinst = (SSAGetInstruction) getFieldStmt.getInstruction();
@@ -482,25 +524,6 @@ public class BackwardSlicer3 {
                 }
             }
 
-            Statement tmp = isPassin(use, stmtInBlock, uses); //return the method entry
-            if (tmp != null) {
-                this.targetStmt = getCalleePosition(tmp);
-                if (this.targetStmt != null) {
-                    SSAInstruction inst = ((StatementWithInstructionIndex) this.targetStmt).getInstruction();
-                    int newUse = inst.getUse(use - 1);
-                    uses.remove(use);
-                    uses.add(newUse);
-                    q.add(newUse);
-                    return;
-                } else {
-                    //no caller found in the cg, let's check constructor;
-                    SSAInstruction inst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
-                    uses.add(inst.getUse(0)); //get itself and see the result
-                    q.add(inst.getUse(0));
-                }
-            } else {
-                System.out.println("Case is out of scope!");
-            }
         }
     }
 
