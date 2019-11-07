@@ -1,6 +1,5 @@
 package com.ibm.wala.examples.slice;
 
-import com.google.inject.internal.cglib.core.$CollectionUtils;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
@@ -11,7 +10,6 @@ import com.ibm.wala.ipa.callgraph.impl.Util;
 import com.ibm.wala.ipa.callgraph.propagation.HeapModel;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
 import com.ibm.wala.ipa.callgraph.propagation.PointerAnalysis;
-import com.ibm.wala.ipa.callgraph.propagation.PointerKey;
 import com.ibm.wala.ipa.cha.ClassHierarchy;
 import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.cha.ClassHierarchyFactory;
@@ -20,8 +18,6 @@ import com.ibm.wala.ssa.*;
 import com.ibm.wala.types.FieldReference;
 import com.ibm.wala.types.MethodReference;
 import com.ibm.wala.util.CancelException;
-import com.ibm.wala.util.collections.FilterIterator;
-import com.ibm.wala.util.collections.HashSetFactory;
 import com.ibm.wala.util.collections.Iterator2Iterable;
 import com.ibm.wala.util.config.AnalysisScopeReader;
 import com.ibm.wala.util.debug.Assertions;
@@ -30,7 +26,6 @@ import com.ibm.wala.util.graph.GraphSlicer;
 import com.ibm.wala.util.intset.IntSet;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -353,7 +348,7 @@ public class BackwardSlicer3 {
         return null;
     }
 
-    public void loopPreNode(Statement stm) {
+    public void loopPreNode(Statement stm, int pos) {
         Iterator<Statement> statements = this.backwardSuperGraph.getPredNodes(stm);
         Iterator<Statement> statementWithinPreNode;
         List<Statement> stmtInBlock = null;
@@ -368,14 +363,21 @@ public class BackwardSlicer3 {
                 while (statementWithinPreNode.hasNext()) {
                     stmtInBlock.add(statementWithinPreNode.next());
                 }
-                loopStatementInBlock(current, stmtInBlock, stmtInBlock.size());
+                loopStatementInBlockHelper(current, stmtInBlock, stmtInBlock.size(), pos);
             }
         }
     }
 
-    public void loopStatementInBlock(Statement targetStmt, List<Statement> stmtInBlock, int index) {
+    public void loopStatementInBlockHelper(Statement targetStmt, List<Statement> stmtInBlock, int index, int pos) {
         //check if there is put stmt;
         int bound = stmtInBlock.indexOf(targetStmt);
+        Set<Integer> uses = new HashSet<>();
+        Set<Integer> visited = new HashSet<>();
+        List<Object> ans = new ArrayList<>();
+        IR ir = targetStmt.getNode().getIR();
+        SymbolTable st = ir.getSymbolTable();
+        DefUse du = targetStmt.getNode().getDU();
+
         for (int i = bound; i > 0; i--) {
             Statement stm = stmtInBlock.get(i);
             if (stm instanceof StatementWithInstructionIndex) {
@@ -383,7 +385,7 @@ public class BackwardSlicer3 {
                 if (stmIndex < index) {
                     SSAInstruction inst = ((StatementWithInstructionIndex) stm).getInstruction();
                     if (inst instanceof SSAInvokeInstruction) {
-                        loopPreNode(stm);
+                        loopPreNode(stm, pos);
                     }
 
                     if (inst instanceof SSAPutInstruction) {
@@ -392,6 +394,7 @@ public class BackwardSlicer3 {
                         * possible 1: change the fieldname(use-def is getstatic) getstatic; 2 passin parameter
                        done here*/
                         StatementWithInstructionIndex putfield = getPutStmt(stmtInBlock, inst.iindex, fieldRef, stm);
+                        int use = ((SSAPutInstruction)inst).getUse(pos);
                         if (putfield == null) {
                             /*no put, lose the use trace, should use the fieldname as trace; go back the upper layer and check stmt one by one*/
                             uses.remove(use);
@@ -435,7 +438,7 @@ public class BackwardSlicer3 {
             if (targetStmt instanceof StatementWithInstructionIndex) {
                 int index = ((StatementWithInstructionIndex) targetStmt).getInstructionIndex();
                 Statement methodentry = getMethodEntry(stmtInBlock);//make sure have entry?
-                loopStatementInBlock(targetStmt, stmtInBlock, index);
+                loopStatementInBlockHelper(targetStmt, stmtInBlock, index, pos);
             }
         }
         //TODO: check instancefield name
@@ -457,7 +460,7 @@ public class BackwardSlicer3 {
                     uses.remove(use);
                     Statement methodentry = getMethodEntry(stmtInBlock);
                     this.targetStmt = getCalleePosition(methodentry);
-                    if(targetStmt ==null) {
+                    if (targetStmt == null) {
                         System.out.println("can't find the value! out of scope");
                     }
                     this.fieldName.add(fieldRef.getName().toString());
