@@ -337,6 +337,7 @@ public class BackwardSlicer4 {
 
     public StatementWithInstructionIndex retrivePutStaticStmt(Statement getStmt, String fieldname, Set<String> fieldNames, List<Statement> stmtList, int indexnumber) {
 
+        // getstmt should be set as targetstmt(invoked place) when in different block
         String func = getStmt.getNode().getMethod().getDeclaringClass().getName().toString() + " " +
                 getStmt.getNode().getMethod().getSelector().getName().toString();
         IR ir = getStmt.getNode().getIR();
@@ -361,7 +362,7 @@ public class BackwardSlicer4 {
                         if (st.isConstant(use)) {
                             varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
                             this.fieldNames.remove(fieldname);
-                            return indexput;
+                            //return indexput;
                             //TODO:here should be figure out, return null?
                         } else {
                             return indexput;
@@ -380,14 +381,14 @@ public class BackwardSlicer4 {
 
     public void checkPutStatic(StatementWithInstructionIndex getStmt, Statement targetStmt, StatementWithInstructionIndex putstmt, Set<Integer> uses, int use, List<Statement> stmtList, Set<Integer> visited, List<Object> ans, int pos) {
         if (putstmt == null) {
+            if(fieldNames.isEmpty()) return;
             /*TODO::complecated case 2) loop stmtinblock no put, lose the use trace, should use the fieldname as trace; go back the upper layer and check stmt one by one*/
             uses.remove(use);
             Statement methodentry = getMethodEntry(targetStmt, stmtList); //here should get the callermethod node
             System.out.println("-----------No putinst found, loop Stmt " + i + "in block, check callsit before getstmt..-------");
             i++;
-            checkCallSiteInst(methodentry,getStmt);
-
-            //checkCallsite(getStmt, methodentry, targetStmt, uses, use, stmtList, visited, ans, pos);
+            //checkCallSiteInst(methodentry,getStmt);
+            checkCallsite(getStmt, methodentry, targetStmt, uses, use, stmtList, visited, ans, pos);
 
             if (!fieldNames.isEmpty()) {
                 System.out.println("-----------not found with in block, check the caller block-------");
@@ -434,7 +435,6 @@ public class BackwardSlicer4 {
             checkEachCGnode(inst);
         }
     }
-
     public List<SSAAbstractInvokeInstruction> getCallSiteInst(CGNode targetNode){
         IR callerIR = targetNode.getIR();
         Iterator<CallSiteReference> callSiteRefs = targetNode.iterateCallSites();
@@ -455,7 +455,6 @@ public class BackwardSlicer4 {
 
         return callSiteInst;
     }
-
     public  void  checkEachCGnode(SSAAbstractInvokeInstruction inst){
         Set<CGNode> itNodes =  completeCG.getNodes(inst.getDeclaredTarget()); // here may have a lot of node
         for(CGNode node: itNodes){
@@ -465,32 +464,15 @@ public class BackwardSlicer4 {
         }
 
     }
+
     public void checkCallsite(StatementWithInstructionIndex targetgetStmt, Statement methodEntry, Statement targetStmt, Set<Integer> uses, int use, List<Statement> stmtList, Set<Integer> visited, List<Object> ans, int pos) {
-//        IR callerIR = targetStmt.getNode().getIR();
-//        Iterator<CallSiteReference> callSiteRefs = targetStmt.getNode().iterateCallSites();
-//        List<SSAAbstractInvokeInstruction> reverseOrderSite = new ArrayList<>();
-//        int index = ((StatementWithInstructionIndex)targetStmt).getInstructionIndex();
-//
-//        while(callSiteRefs.hasNext()){
-//            CallSiteReference ref = callSiteRefs.next();
-//            if (ref.getDeclaredTarget().getName().toString().contains("fakeWorldClinit")) continue;
-//            MethodReference mRef = ref.getDeclaredTarget();
-//            if (mRef.getDeclaringClass().getClassLoader().getName().toString().contains("Primordial")) continue;
-//            SSAAbstractInvokeInstruction callInstrs[] = callerIR.getCalls(ref);
-//            System.out.println(callInstrs[0]);
-//            if(callInstrs[0].iindex < index){//TODO: not in callin stmtlist
-//                reverseOrderSite.add(callInstrs[0]);
-//            }
-//        }
-//
-//        Collections.reverse(reverseOrderSite);
-//        for(SSAAbstractInvokeInstruction inst: reverseOrderSite){
-//            inst.getCallSite();//TODO: should passin correct parameter
-//            loopStatementWithStaticField((StatementWithInstructionIndex)targetStmt, methodEntry,targetgetStmt, uses, use,stmtList, visited, ans, pos);
-//        }
         /*get method invocaktion stmt in current block, callsite, should I method entry ?  */
         //get methodcall
+        //NormalStatement n = (NormalStatement) targetgetStmt;
+        PDG<?> pdg = completeSDG.getPDG(targetgetStmt.getNode());
         Iterator<Statement> statements = this.backwardSuperGraph.getSuccNodes(methodEntry);//.e should it be methodentry
+        backwardSuperGraph.getCallSites(methodEntry,pdg);
+
         Iterator<Statement> statementWithinPreNode;
         List<Statement> newStmtList = new ArrayList<>();
         Statement newTargetStmt = null;
