@@ -61,12 +61,7 @@ public class BackwardSlicer {
         Set<SSAInstruction> visitedInst = new HashSet<>();
 
         for (CGNode node: completeCG) {
-//            Statement stmt = findCallTo(node, callee, functionType, mainClass);
-            findAllCallTo(node, callee, functionType);
-//            if (stmt != null) {
-//                targetStmt = stmt;
-//                break;
-//            }
+            findAllCallTo(node, callee, functionType); //find the  terget stmt; add the  terget stmt to allrelated target
         }
 
         for (Statement targetStmt: allRelatedStmt) {
