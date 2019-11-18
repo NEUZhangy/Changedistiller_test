@@ -1,10 +1,5 @@
 package com.ibm.wala.examples.slice;
 
-import com.google.inject.internal.cglib.core.$CollectionUtils;
-import com.google.inject.internal.util.$ObjectArrays;
-import com.ibm.wala.cast.java.translator.jdt.ecj.ECJClassLoaderFactory;
-import com.ibm.wala.cast.tree.CAstType;
-import com.ibm.wala.cfg.exc.intra.NullPointerState;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
@@ -26,13 +21,8 @@ import com.ibm.wala.util.collections.Iterator2Iterable;
 import com.ibm.wala.util.collections.Pair;
 import com.ibm.wala.util.config.AnalysisScopeReader;
 import com.ibm.wala.util.debug.Assertions;
-import com.ibm.wala.util.graph.Graph;
 import com.ibm.wala.util.intset.IntSet;
-import com.ibm.wala.util.intset.OrdinalSet;
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
-import jdk.internal.dynalink.CallSiteDescriptor;
 
-import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 import java.util.*;
 
@@ -283,12 +273,12 @@ public class BackwardSlice {
             String fieldName = fieldRef.getName().toString();
             if (getinst.isStatic()) {
                 this.fieldNames.add(fieldName);
-                Iterator<Statement> succStatement = backwardSuperGraph.getSuccNodes(getFieldStmt);
-                processSuccStmt(targetStmt, fieldName, stmtList, succStatement, uses, visited, ans, pos, stmtInBlock);
+                Iterator<Statement> succStatements = backwardSuperGraph.getSuccNodes(getFieldStmt);
+                processSuccStmt(targetStmt, fieldName, stmtList, succStatements, uses, visited, ans, pos, stmtInBlock);
             } else {
                 this.instanceFieldNames.add(fieldName);
-                Iterator<Statement> succStatement = backwardSuperGraph.getSuccNodes(getFieldStmt);
-                processSuccStmt(targetStmt, fieldName, stmtList, succStatement, uses, visited, ans, pos, stmtInBlock);
+                Iterator<Statement> succStatements = backwardSuperGraph.getSuccNodes(getFieldStmt);
+                processSuccStmt(targetStmt, fieldName, stmtList, succStatements, uses, visited, ans, pos, stmtInBlock);
             }
 
 
@@ -298,10 +288,11 @@ public class BackwardSlice {
 
     }
 
-    public void processSuccStmt(Statement targetStmt, String fieldName, List<Statement> stmtList, Iterator<Statement> succStatement, Set<Integer> uses, Set<Integer> visited, List<Object> ans, int pos, List<Statement> stmtInBlock) {
-        while (succStatement.hasNext()) {
-            Statement currStmt = succStatement.next();
+    public void processSuccStmt(Statement targetStmt, String fieldName, List<Statement> stmtList, Iterator<Statement> succStatements, Set<Integer> uses, Set<Integer> visited, List<Object> ans, int pos, List<Statement> stmtInBlock) {
+        while (succStatements.hasNext()) {
+            Statement currStmt = succStatements.next();
             if (currStmt.getKind() == Statement.Kind.HEAP_PARAM_CALLEE) {
+                Collection<IField> fieldSet = currStmt.getNode().getMethod().getDeclaringClass().getDeclaredInstanceFields();
                 HeapStatement.HeapParamCallee heapcallee = (HeapStatement.HeapParamCallee) currStmt;
                 System.out.println("It is a passin-static field, find the heap_param_caller");
                 PointerKey loc = heapcallee.getLocation();
@@ -309,6 +300,10 @@ public class BackwardSlice {
                     InstanceFieldKey insLoc = (InstanceFieldKey) loc;
                     InstanceKey insKey = insLoc.getInstanceKey();
                     Iterator<Pair<CGNode, NewSiteReference>> siteIn = insKey.getCreationSites(completeCG);
+                    if (fieldSet.contains(insLoc.getField())) {
+                        if (searchInit(currStmt, insLoc.getField(), pos, uses))
+                            return;
+                    }
                     while (siteIn.hasNext()) {
                         Pair<CGNode, NewSiteReference> next = siteIn.next();
                         SymbolTable st = next.fst.getIR().getSymbolTable();
@@ -337,17 +332,59 @@ public class BackwardSlice {
                 if (curtInst instanceof SSAPutInstruction) {
                     SSAPutInstruction curPut = (SSAPutInstruction) curtInst;
                     if (curPut.getDeclaredField().getName().toString().compareTo(fieldName) == 0) {
-                        uses.add(curPut.getVal());
+                        SymbolTable st = currStmt.getNode().getIR().getSymbolTable();
+                        int newUse = curPut.getVal();
+                        if(st.isConstant(newUse)){
+                            ans.add(st.getConstantValue(newUse));
+                            paramValue.put(pos, ans);
+                            return;
+                        }
+                        uses.add(newUse);
                         targetStmt = currStmt;
-                        uses = getDU(uses, pos, currStmt.getNode().getIR().getSymbolTable(), visited, ans, currStmt.getNode().getDU());
+                        uses = getDU(uses, pos, st, visited, ans, currStmt.getNode().getDU());
                         useCheckHelper(targetStmt, uses, stmtList, visited, ans, pos, stmtInBlock);
                         return;
                     }
-
                 }
             }
         }
 
+    }
+
+    public boolean searchInit(Statement stmt, IField field, int pos, Set<Integer> uses) {
+        CGNode initNode = null;
+        List<Object> ans = new ArrayList<>();
+        Collection<? extends IMethod> methodList = stmt.getNode().getMethod().getDeclaringClass().getDeclaredMethods();
+        for (IMethod m: methodList) {
+            ShrikeCTMethod method = (ShrikeCTMethod) m;
+            MethodReference mr = method.getReference();
+            if (mr.getName().toString().contains("init")) {
+                Set<CGNode> nodes = completeCG.getNodes(mr);
+                //TODO: Handle multiple initalizer
+                for (CGNode node: nodes) {
+                    initNode = node;
+                    break;
+                }
+            }
+        }
+        SymbolTable st = initNode.getIR().getSymbolTable();
+        for (SSAInstruction inst: initNode.getIR().getInstructions()) {
+            if (inst instanceof SSAPutInstruction) {
+                SSAPutInstruction putInst = (SSAPutInstruction) inst;
+                if (putInst.getDeclaredField() == field.getReference()) {
+                    int val = putInst.getVal();
+                    if (st.isConstant(val)) {
+                        ans.add(st.getConstantValue(val));
+                        this.paramValue.put(pos, ans);
+                        instanceFieldNames.remove(field.getName().toString());
+                        return true;
+                    } else {
+                        System.out.println("Cannot find the value");
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     //TODO: hre should be modify to deal with heap callee and para_callee
