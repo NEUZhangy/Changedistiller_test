@@ -128,7 +128,7 @@ public class GeneratePattern {
                     if(scc instanceof Insert){
                         System.out.println(scc.getChangedEntity().getSourceRange());
                         //System.out.println(((Insert) scc).getParentEntity().getSourceRange());
-                        newsrlist.add(((Insert) scc).getChangedEntity().getSourceRange());
+                        newsrlist.add(scc.getChangedEntity().getSourceRange());
                         extractChanges.add(scc);
                     }
 
@@ -195,7 +195,7 @@ public class GeneratePattern {
             compositePattern.getLcuTemplateStatements().stream().forEach(x -> System.out.println(x));
             System.out.println("right");
             compositePattern.getRcuTemplateStatements().stream().forEach(x -> System.out.println(x));
-            return;
+            //return;
         }
         System.out.println("end the analysis for composite pattern generation ");
         System.out.println(".-------------------------------------------------.");
@@ -243,10 +243,12 @@ public class GeneratePattern {
             }
         }
 
-//        DBHandler db = new DBHandler();
-//        for(Map.Entry<String, CodePattern> entry: this.patternMap.entrySet()) {
+        DBHandler db = new DBHandler();
+        for(Map.Entry<String, CodePattern> entry: this.patternMap.entrySet()) {
 //            db.WritetoDB(entry.getKey(), entry.getValue(), matchingExpression);
-//        }
+            db.writetoJson(entry.getValue());
+        }
+
 
     }
 

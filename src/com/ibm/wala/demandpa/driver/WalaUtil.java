@@ -57,7 +57,7 @@ import com.ibm.wala.ssa.IR;
 public class WalaUtil {
 
 
-  public static void dumpAllIR(CallGraph cg, String benchName, Properties p) throws IllegalArgumentException, IllegalArgumentException {
+  public static void dumpAllIR(CallGraph cg, String benchName, Properties p) throws IllegalArgumentException {
     if (cg == null) {
       throw new IllegalArgumentException("cg == null");
     }

@@ -26,7 +26,7 @@ public class CustomVisitor extends ASTVisitor {
                 bindingName = node.resolveMethodBinding() != null? node.resolveMethodBinding().toString(): "";
                 nodeArguments.addAll(node.arguments());
                 StringBuilder sb = new StringBuilder();
-                sb.append(new String().format("%s.%s", node.getExpression(), node.getName()));
+                sb.append(String.format("%s.%s", node.getExpression(), node.getName()));
                 for (int i = 0; i < nodeArguments.size(); i++) {
                     if (i == 0) sb.append("(");
                     if (i != 0) sb.append(",");

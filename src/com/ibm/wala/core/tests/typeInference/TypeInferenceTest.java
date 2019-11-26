@@ -143,7 +143,7 @@ public class TypeInferenceTest extends WalaTestCase {
     TypeInference ti = TypeInference.make(ir, false);
     TypeAbstraction type = ti.getType(4);
     Assert.assertNotNull("null type abstraction", type);
-    Assert.assertTrue("inferred wrong type " + type, type instanceof ConeType && ((ConeType)type).getTypeReference().getName().toString().equals("Ljava/lang/String"));
+    Assert.assertTrue("inferred wrong type " + type, type instanceof ConeType && type.getTypeReference().getName().toString().equals("Ljava/lang/String"));
   }
 
 

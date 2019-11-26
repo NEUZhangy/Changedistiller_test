@@ -41,11 +41,7 @@ public abstract class WalaTestCase {
 
   public static boolean useShortProfile() {
     String profile = System.getProperty("com.ibm.wala.junit.profile", "long");
-    if (profile.equals("short")) {
-      return true;
-    } else {
-      return false;
-    }
+      return profile.equals("short");
   }
 
   public static boolean analyzingJar() {

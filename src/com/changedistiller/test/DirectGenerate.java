@@ -27,7 +27,7 @@ public class DirectGenerate {
         file_path = "src/test.java";
         cu = StaticJavaParser.parse(new File(file_path));
         List<MethodCallExpr> statementList = new ArrayList<>();
-        AtomicReference<String> binding = new AtomicReference<>(new String());
+        AtomicReference<String> binding = new AtomicReference<>("");
         cu.findAll(MethodCallExpr.class).forEach(ae -> {
             ResolvedType resolvedType = ae.calculateResolvedType();
             //binding.set(ae.resolveInvokedMethod().getQualifiedSignature());

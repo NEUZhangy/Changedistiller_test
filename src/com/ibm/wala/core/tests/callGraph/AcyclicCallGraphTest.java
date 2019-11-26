@@ -47,7 +47,7 @@ public class AcyclicCallGraphTest extends WalaTestCase {
     for (IntPair p : backEdges) {
       CGNode src = cg.getNode(p.getX());
       if (!cgBackEdges.containsKey(src)) {
-        cgBackEdges.put(src, HashSetFactory.<CGNode>make());
+        cgBackEdges.put(src, HashSetFactory.make());
       }
       cgBackEdges.get(src).add(cg.getNode(p.getY()));
     }

@@ -15,8 +15,8 @@ public class BackwardSlicerTest {
         String caller = "main";
 
         String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyBBCase1";
-        String callee = "<init>";
-        String functionType = "SecretKeySpec";
+        String callee = "setSeed";
+        String functionType = "SecureRandom";
 
 //        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
 //        String callee = "getInstance";
@@ -25,7 +25,7 @@ public class BackwardSlicerTest {
 //        BackwardSlicer backwardSlicer = new BackwardSlicer();
 //        backwardSlicer.run(path, mainClass, callee, caller, functionType);
 
-        BackwardSlicer2 backwardSlicer = new BackwardSlicer2();
+        BackwardSlice backwardSlicer = new BackwardSlice();
         backwardSlicer.run(path, callee, functionType);
 
 

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ParameterPattern implements CodePattern {
     private int pos = 0;
-    private String bindingType = new String();
+    private String bindingType = "";
     private Set<String> correctParametersSet = new HashSet<>();
     private Set<String> incorrectParameterSet = new HashSet<>();
 
@@ -58,7 +58,7 @@ public class ParameterPattern implements CodePattern {
     }
 
     public String toString() {
-        return new String().format("%s_%d", this.bindingType, this.pos);
+        return String.format("%s_%d", this.bindingType, this.pos);
     }
 
     @Override

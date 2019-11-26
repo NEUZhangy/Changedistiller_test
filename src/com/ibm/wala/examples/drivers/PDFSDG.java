@@ -169,11 +169,7 @@ public class PDFSDG {
     Predicate<Statement> f = s -> {
       if (s.getNode().equals(sdg.getCallGraph().getFakeRootNode())) {
         return false;
-      } else if (s instanceof MethodExitStatement || s instanceof MethodEntryStatement) {
-        return false;
-      } else {
-        return true;
-      }
+      } else return !(s instanceof MethodExitStatement) && !(s instanceof MethodEntryStatement);
     };
     return GraphSlicer.prune(sdg, f);
   }

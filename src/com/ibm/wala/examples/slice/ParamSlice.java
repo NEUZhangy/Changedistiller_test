@@ -148,7 +148,7 @@ public class ParamSlice {
 //            for (Statement statement:g){
 //                try {
 //                    SSAInstruction ssain = ((StatementWithInstructionIndex) statement).getInstruction();
-//                    int linenumber = statement.getNode().getMethod().getLineNumber(ssain.iindex);
+//                    int linenumber = statement.getNode().getMethod().getLineNumber(ssain.iIndex());
 //                    if(linenumber == 12 ){
 //                        System.out.println(statement);
 //                    }
@@ -228,7 +228,7 @@ public class ParamSlice {
         IR ir = n.getIR();
         if (ir == null) return null;
         //int nodesize = pdg.getNumberOfNodes();
-        //node.getNode().getMethod().getLineNumber(call.iindex)
+        //node.getNode().getMethod().getLineNumber(call.iIndex())
         //Statement[] calleestatement = pdg.getParamCalleeStatements();
 //        for(Statement s: calleestatement){
 //            System.out.println("callee at some where:" + s.getNode());
@@ -357,7 +357,7 @@ public class ParamSlice {
             SymbolTable sy = node.getNode().getIR().getSymbolTable();
             try {
                 SSAInstruction call = ((StatementWithInstructionIndex) node).getInstruction();
-                System.out.println("Line number:" + node.getNode().getMethod().getLineNumber(call.iindex));
+                System.out.println("Line number:" + node.getNode().getMethod().getLineNumber(call.iIndex()));
                 //debug use;
                 for (int i = 0; i <= sy.getMaxValueNumber(); i++) {
                     if (sy.isConstant(i)) {
@@ -378,8 +378,7 @@ public class ParamSlice {
                 Iterator<Integer> it = defs.iterator();
                 while(it.hasNext()) {
                     int tmp = it.next();
-                    if(uses.contains(tmp))
-                        uses.remove(tmp);
+                    uses.remove(tmp);
                 }
 
                 System.out.println("--USE--");

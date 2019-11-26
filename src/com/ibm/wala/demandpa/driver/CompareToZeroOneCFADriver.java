@@ -217,9 +217,7 @@ public class CompareToZeroOneCFADriver {
     if (key instanceof InstanceKeyWithNode) {
       CGNode node = ((InstanceKeyWithNode) key).getNode();
       MethodReference methodRef = node.getMethod().getReference();
-      if (methodRef.toString().equals("< Primordial, Ljava/lang/Object, clone()Ljava/lang/Object; >")) {
-        return true;
-      }
+        return methodRef.toString().equals("< Primordial, Ljava/lang/Object, clone()Ljava/lang/Object; >");
     }
     return false;
   }

@@ -26,15 +26,15 @@ public class CompositePattern implements CodePattern{
                 public boolean visit(VariableDeclarationStatement node) {
                     VariableDeclarationFragment vdf = (VariableDeclarationFragment) node.fragments().get(0);
                     if (!variableMap.containsKey(vdf.getName().toString())) {
-                        variableMap.put(vdf.getName().toString(), new String().format("\\$v_%d", varCount));
-                        System.out.println(vdf.getName().toString() + new String().format("\\$v_%d", varCount));
+                        variableMap.put(vdf.getName().toString(), String.format("\\$v_%d", varCount));
+                        System.out.println(vdf.getName().toString() + String.format("\\$v_%d", varCount));
                         varCount++;
                     }
                     vdf.getInitializer().accept(new ASTVisitor() {
                         @Override
                         public boolean visit(MethodInvocation node) {
                             if (node.getExpression() instanceof StringLiteral) {
-                                constantMap.put(node.getExpression().toString(), new String().format("\\$c_%d", constantCount));
+                                constantMap.put(node.getExpression().toString(), String.format("\\$c_%d", constantCount));
                                 constantCount++;
                             }
                             return super.visit(node);
@@ -65,7 +65,7 @@ public class CompositePattern implements CodePattern{
                     for (Object para:node.parameters()) {
                         if (para instanceof SingleVariableDeclaration) {
                             if (!variableMap.containsKey(para.toString())) {
-                                variableMap.put(((SingleVariableDeclaration) para).getName().toString(), new String().format("\\$v_%d", varCount));
+                                variableMap.put(((SingleVariableDeclaration) para).getName().toString(), String.format("\\$v_%d", varCount));
                                 // System.out.println(((SingleVariableDeclaration) para).getName().toString() + new String().format("\\$v_%d", varCount));
                                 varCount++;
                             }
@@ -82,14 +82,14 @@ public class CompositePattern implements CodePattern{
                 public boolean visit(VariableDeclarationStatement node) {
                     VariableDeclarationFragment vdf = (VariableDeclarationFragment) node.fragments().get(0);
                     if (!variableMap.containsKey(vdf.getName().toString())) {
-                        variableMap.put(vdf.getName().toString(), new String().format("\\$v_%d", varCount));
+                        variableMap.put(vdf.getName().toString(), String.format("\\$v_%d", varCount));
                         varCount++;
                     }
                     vdf.getInitializer().accept(new ASTVisitor() {
                         @Override
                         public boolean visit(MethodInvocation node) {
                             if (node.getExpression() instanceof StringLiteral) {
-                                constantMap.put(node.getExpression().toString(), new String().format("\\$c_%d", constantCount));
+                                constantMap.put(node.getExpression().toString(), String.format("\\$c_%d", constantCount));
                                 constantCount++;
                             }
                             return super.visit(node);
@@ -117,7 +117,7 @@ public class CompositePattern implements CodePattern{
                     for (Object para:node.parameters()) {
                         if (para instanceof SingleVariableDeclaration) {
                             if (!variableMap.containsKey(para.toString())) {
-                                variableMap.put(((SingleVariableDeclaration) para).getName().toString(), new String().format("\\$v_%d", varCount));
+                                variableMap.put(((SingleVariableDeclaration) para).getName().toString(), String.format("\\$v_%d", varCount));
                                 //System.out.println(((SingleVariableDeclaration) para).getName().toString() + new String().format("\\$v_%d", varCount));
                                 varCount++;
                             }

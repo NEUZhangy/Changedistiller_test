@@ -10,8 +10,8 @@ import java.io.File;
 
 public class FiletoAST {
 
-    private String classpath[] = {"C:\\Program Files\\Java\\jre1.8.0_202\\lib\\rt.jar"};
-    private String encodings[] = {"utf-8"};
+    private String[] classpath = {"C:\\Program Files\\Java\\jre1.8.0_202\\lib\\rt.jar"};
+    private String[] encodings = {"utf-8"};
     private final CompilationUnit cu;
 
     FiletoAST(String[] sourcepath, File file, String filename) throws Exception{

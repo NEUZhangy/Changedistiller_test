@@ -56,7 +56,7 @@ public class NumberPattern implements CodePattern{
     }
 
     public String toString() {
-        return new String().format("%s_%d", this.bindingType, this.pos);
+        return String.format("%s_%d", this.bindingType, this.pos);
     }
 
     public Set<String> getSecureParametersSet() {

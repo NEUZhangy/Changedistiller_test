@@ -423,8 +423,8 @@ public class PDFSlice {
                     SymbolTable symbolTable = ir.getSymbolTable();
                     if (symbolTable.isConstant(inst.getUse(i))) {
 //                        System.out.println(symbolTable.getStringValue(inst.getUse(i)));
-                        if (ir.getLocalNames(inst.iindex, usedVar) != null) {
-                            this.paramMap.put(ir.getLocalNames(inst.iindex, usedVar)[0], symbolTable.getStringValue(inst.getUse(i)));
+                        if (ir.getLocalNames(inst.iIndex(), usedVar) != null) {
+                            this.paramMap.put(ir.getLocalNames(inst.iIndex(), usedVar)[0], symbolTable.getStringValue(inst.getUse(i)));
                         }
                         else {
                             this.paramMap.put("#" + i, symbolTable.getStringValue(inst.getUse(i)));
