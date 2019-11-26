@@ -53,7 +53,7 @@ public class Java7CallGraphTest extends DynamicCallGraphTestBase {
     scope.addToScope(ClassLoaderReference.Application, new JarFile(F, false));
     
     ClassHierarchy cha = ClassHierarchyFactory.make(scope);
-    Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha, "Lpack/ocamljavaMain");
+    Iterable<Entrypoint> entrypoints = Util.makeMainEntrypoints(scope, cha, "Lpack/ocamljavaMain");
     AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
     options.setUseConstantSpecificKeys(true);
     IAnalysisCacheView cache = new AnalysisCacheImpl();

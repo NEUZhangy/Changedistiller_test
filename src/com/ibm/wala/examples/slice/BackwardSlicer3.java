@@ -59,6 +59,7 @@ public class BackwardSlicer3 {
     ) throws IOException, ClassHierarchyException, CancelException {
         Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.NO_HEAP;
         Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.FULL;
+
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         ClassHierarchy cha = ClassHierarchyFactory.make(scope);
@@ -414,7 +415,7 @@ public class BackwardSlicer3 {
                         *   if same: then get the use number and get the value from st, can;t find in st, use the usenumber futher trace back;
                         * possible 1: change the fieldname(use-def is getstatic) getstatic; 2 passin parameter
                        done here*/
-                        StatementWithInstructionIndex putfield = getPutStmt(stmtInBlock, inst.iindex, fieldRef, stm);
+                        StatementWithInstructionIndex putfield = getPutStmt(stmtInBlock, inst.iIndex(), fieldRef, stm);
                         int use = ((SSAPutInstruction)inst).getUse(pos);
                         if (putfield == null) {
                             /*no put, lose the use trace, should use the fieldname as trace; go back the upper layer and check stmt one by one*/

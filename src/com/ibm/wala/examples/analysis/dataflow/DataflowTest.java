@@ -11,6 +11,7 @@
 package com.ibm.wala.examples.analysis.dataflow;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public class DataflowTest extends WalaTestCase {
 
     scope = AnalysisScopeReader.readJavaScope(TestConstants.WALA_TESTDATA, null, DataflowTest.class.getClassLoader());
 
-    scope.setExclusions(new FileOfClasses(new ByteArrayInputStream(EXCLUSIONS.getBytes("UTF-8"))));
+    scope.setExclusions(new FileOfClasses(new ByteArrayInputStream(EXCLUSIONS.getBytes(StandardCharsets.UTF_8))));
     try {
       cha = ClassHierarchyFactory.make(scope);
     } catch (ClassHierarchyException e) {

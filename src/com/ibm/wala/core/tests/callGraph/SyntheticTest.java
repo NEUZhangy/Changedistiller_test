@@ -49,7 +49,7 @@ public class SyntheticTest extends WalaTestCase {
     IMethod m = cha.resolveMethod(mref);
     assert m != null;
     SubtypesEntrypoint e = new SubtypesEntrypoint(m, cha);
-    AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, Collections.<Entrypoint>singleton(e));
+    AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, Collections.singleton(e));
 
     CallGraph cg = CallGraphTestUtil.buildZeroCFA(options, new AnalysisCacheImpl(), cha, scope, false);
     

@@ -1,6 +1,7 @@
 package com.ibm.wala.examples.slice;
 
 import com.google.inject.internal.util.$ObjectArrays;
+import com.ibm.wala.cast.java.translator.jdt.ecj.ECJClassLoaderFactory;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
@@ -8,10 +9,8 @@ import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
 import com.ibm.wala.ipa.callgraph.impl.DefaultEntrypoint;
 import com.ibm.wala.ipa.callgraph.impl.Util;
-import com.ibm.wala.ipa.callgraph.propagation.HeapModel;
-import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
-import com.ibm.wala.ipa.callgraph.propagation.PointerAnalysis;
-import com.ibm.wala.ipa.callgraph.propagation.PointerKey;
+import com.ibm.wala.ipa.callgraph.propagation.*;
+import com.ibm.wala.ipa.callgraph.pruned.PrunedCallGraph;
 import com.ibm.wala.ipa.cha.ClassHierarchy;
 import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.cha.ClassHierarchyFactory;
@@ -53,11 +52,12 @@ public class BackwardSlicer4 {
     private FieldReference fieldRef;
     private ClassHierarchy cha;
     private PointerAnalysis<InstanceKey> pa;
+
     public void run(String path,
                     String callee,
                     String functionType
     ) throws IOException, ClassHierarchyException, CancelException {
-        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.NO_HEAP;
+        Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.FULL;
         Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.FULL;
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
@@ -76,6 +76,13 @@ public class BackwardSlicer4 {
         CallGraphBuilder<InstanceKey> builder = Util.makeZeroOneCFABuilder(Language.JAVA, options,
                 cache, cha, scope);
         completeCG = builder.makeCallGraph(options, null);
+        Set<CGNode> keep = new HashSet<>();
+        for (CGNode n: completeCG) {
+            if (!isPrimordial(n))
+                keep.add(n);
+        }
+        PrunedCallGraph pcg = new PrunedCallGraph(completeCG, keep);
+        completeCG = pcg;
         completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
         pa = builder.getPointerAnalysis();
         this.heapModel = pa.getHeapModel();
@@ -98,7 +105,8 @@ public class BackwardSlicer4 {
 
             Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
                     dataDependenceOptions, controlDependenceOptions);
-            // Filter all non application stmts
+//             Filter all non application stmts
+//            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(completeSDG, targetStmt);
             List<Statement> stmtList = filterStatement(relatedStmts);
             //Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
             setParamValue(targetStmt, stmtList);
@@ -244,7 +252,7 @@ public class BackwardSlicer4 {
         StatementWithInstructionIndex getFieldStmt = checkStaticField(targetStmt, use, uses, stmtList);
         if (getFieldStmt != null) {
             SSAGetInstruction getinst = (SSAGetInstruction) getFieldStmt.getInstruction();
-            int indexnumber = getinst.iindex;
+            int indexnumber = getinst.iIndex();
             FieldReference fieldRef = getinst.getDeclaredField();
             SSAInstruction targetInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
             if (!fieldNames.isEmpty())
@@ -379,29 +387,47 @@ public class BackwardSlicer4 {
 
     int i = 0;
 
+
     public void checkPutStatic(StatementWithInstructionIndex getStmt, Statement targetStmt, StatementWithInstructionIndex putstmt, Set<Integer> uses, int use, List<Statement> stmtList, Set<Integer> visited, List<Object> ans, int pos) {
         if (putstmt == null) {
-            if(fieldNames.isEmpty()) return;
-            /*TODO::complecated case 2) loop stmtinblock no put, lose the use trace, should use the fieldname as trace; go back the upper layer and check stmt one by one*/
-            uses.remove(use);
-            Statement methodentry = getMethodEntry(targetStmt, stmtList); //here should get the callermethod node
-            System.out.println("-----------No putinst found, loop Stmt " + i + "in block, check callsit before getstmt..-------");
-            i++;
-            //checkCallSiteInst(methodentry,getStmt);
-            checkCallsite(getStmt, methodentry, targetStmt, uses, use, stmtList, visited, ans, pos);
+//            if(fieldNames.isEmpty()) return;
+//            /*TODO::complecated case 2) loop stmtinblock no put, lose the use trace, should use the fieldname as trace; go back the upper layer and check stmt one by one*/
+//            uses.remove(use);
+//            Statement methodentry = getMethodEntry(targetStmt, stmtList); //here should get the callermethod node
+//            System.out.println("-----------No putinst found, loop Stmt " + i + "in block, check callsit before getstmt..-------");
+//            i++;
+//            //checkCallSiteInst(methodentry,getStmt);
+//            checkCallsite(getStmt, methodentry, targetStmt, uses, use, stmtList, visited, ans, pos);
+//
+//            if (!fieldNames.isEmpty()) {
+//                System.out.println("-----------not found with in block, check the caller block-------");
+//                targetStmt = getCalleePosition(methodentry);
+//                methodentry = getMethodEntry(targetStmt, null);
+//                if (targetStmt != null) {
+//                    loopStatementWithStaticField(getStmt, methodentry, targetStmt, uses, use, stmtList, visited, ans, pos);
+//                    //setParamValue(targetStmt,stmtList,fieldNames);
+//                } else {
+//                    System.out.println("Can't find the value, out of scope");
+//                }
+//            }
+//            return;
 
-            if (!fieldNames.isEmpty()) {
-                System.out.println("-----------not found with in block, check the caller block-------");
-                targetStmt = getCalleePosition(methodentry);
-                methodentry = getMethodEntry(targetStmt, null);
-                if (targetStmt != null) {
-                    loopStatementWithStaticField(getStmt, methodentry, targetStmt, uses, use, stmtList, visited, ans, pos);
-                    //setParamValue(targetStmt,stmtList,fieldNames);
-                } else {
-                    System.out.println("Can't find the value, out of scope");
+            System.out.println("not in the block, check heap_param_callee");
+            Iterator<Statement> heapCallees = completeSDG.getPredNodes(getStmt);
+            while (heapCallees.hasNext()){
+                Statement callee = heapCallees.next();
+                if(callee instanceof HeapStatement.HeapParamCallee){
+                    HeapStatement.HeapParamCallee heapcallee = (HeapStatement.HeapParamCallee) callee;
+                    PointerKey  loc= heapcallee.getLocation();
+                    if(loc instanceof StaticFieldKey){
+                        StaticFieldKey staticLoc = (StaticFieldKey) loc;
+                        if(fieldNames.contains(staticLoc.getField().getName().toString())){
+
+                        }
+                    }
                 }
             }
-            return;
+
         } else {
             CGNode putnode = putstmt.getNode();
             SymbolTable st = putnode.getIR().getSymbolTable();
@@ -417,24 +443,26 @@ public class BackwardSlicer4 {
     }
 
 
-    public void checkCallSiteInst(Statement targetStmt, Statement endUseStmt){
 
-        CGNode targetNode= targetStmt.getNode();
+//    public void checkCallSiteInst(Statement targetStmt, Statement endUseStmt){
+//
+//        CGNode targetNode= targetStmt.getNode();
+//
+//        int index = ((StatementWithInstructionIndex)endUseStmt).getInstructionIndex();
+//        List<SSAAbstractInvokeInstruction> reverseOrderSite = new ArrayList<>();
+//        List<SSAAbstractInvokeInstruction> callSiteInst = getCallSiteInst(targetNode);
+//
+//        for(SSAAbstractInvokeInstruction inst: callSiteInst ){
+//            if(inst.iindex < index && inst instanceof  SSAInvokeInstruction)
+//                reverseOrderSite.add(inst);
+//        }
+//        Collections.reverse(reverseOrderSite);
+//        if(reverseOrderSite.isEmpty()) return;
+//        for(SSAAbstractInvokeInstruction inst: reverseOrderSite){
+//            checkEachCGnode(inst);
+//        }
+//    }
 
-        int index = ((StatementWithInstructionIndex)endUseStmt).getInstructionIndex();
-        List<SSAAbstractInvokeInstruction> reverseOrderSite = new ArrayList<>();
-        List<SSAAbstractInvokeInstruction> callSiteInst = getCallSiteInst(targetNode);
-
-        for(SSAAbstractInvokeInstruction inst: callSiteInst ){
-            if(inst.iindex < index && inst instanceof  SSAInvokeInstruction)
-                reverseOrderSite.add(inst);
-        }
-        Collections.reverse(reverseOrderSite);
-        if(reverseOrderSite.isEmpty()) return;
-        for(SSAAbstractInvokeInstruction inst: reverseOrderSite){
-            checkEachCGnode(inst);
-        }
-    }
     public List<SSAAbstractInvokeInstruction> getCallSiteInst(CGNode targetNode){
         IR callerIR = targetNode.getIR();
         Iterator<CallSiteReference> callSiteRefs = targetNode.iterateCallSites();
@@ -659,5 +687,13 @@ public class BackwardSlicer4 {
         if (inst instanceof SSAPutInstruction) return ((SSAPutInstruction) inst).isStatic();
         //abstractinvoke from 0;
         return false;
+    }
+
+    public boolean isPrimordial(CGNode n) {
+        return n.getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial");
+    }
+
+    public boolean isPrimordial(Statement s) {
+        return s.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial");
     }
 }

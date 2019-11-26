@@ -501,9 +501,9 @@ public class NumberSlice {
                     tmpInst = instArray[i];
                     if (tmpInst == null)
                         continue;
-                    bcIndex = ((ShrikeBTMethod) keyMethod).getBytecodeIndex(tmpInst.iindex); //bytecode index
+                    bcIndex = ((ShrikeBTMethod) keyMethod).getBytecodeIndex(tmpInst.iIndex()); //bytecode index
                     src_line_number = keyMethod.getLineNumber(bcIndex);
-                    instMap.put(tmpInst.iindex, tmpInst);//save all instruction into map with its index number
+                    instMap.put(tmpInst.iIndex(), tmpInst);//save all instruction into map with its index number
                     if (src_line_number == key_line_number) {
                         listInst.add(tmpInst);
                     }
@@ -614,9 +614,9 @@ public class NumberSlice {
 //                            }
 //                        }
 //                    }
-                    bcIndex = ((ShrikeBTMethod) keyMethod).getBytecodeIndex(tmpInst.iindex); //bytecode index
+                    bcIndex = ((ShrikeBTMethod) keyMethod).getBytecodeIndex(tmpInst.iIndex()); //bytecode index
                     src_line_number = keyMethod.getLineNumber(bcIndex);
-                    instMap.put(tmpInst.iindex, tmpInst);//save all instruction into map with its index number
+                    instMap.put(tmpInst.iIndex(), tmpInst);//save all instruction into map with its index number
                     if (src_line_number == key_line_number) {
                         listInst.add(tmpInst);
                     }

@@ -13,13 +13,13 @@ public class VariableDeclarationVisitor extends VoidVisitorAdapter<Map<String, S
     public void visit(ClassOrInterfaceDeclaration n, Map<String, String> arg) {
         super.visit(n, arg);
         n.getFields().stream().forEach(x -> {
-            x.getVariables().stream().forEach(a-> arg.put(a.getNameAsString(), "$v" + "_" + Integer.toString(trace++)));
+            x.getVariables().stream().forEach(a-> arg.put(a.getNameAsString(), "$v" + "_" + trace++));
         });
     }
 
     @Override
     public void visit(VariableDeclarationExpr n, Map<String, String> arg) {
         super.visit(n, arg);
-        n.getVariables().stream().forEach(x -> arg.put(x.getNameAsString(), "$v" + "_" + Integer.toString(trace++)));
+        n.getVariables().stream().forEach(x -> arg.put(x.getNameAsString(), "$v" + "_" + trace++));
     }
 }

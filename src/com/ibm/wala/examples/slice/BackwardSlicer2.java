@@ -1,6 +1,7 @@
 
 package com.ibm.wala.examples.slice;
 
+import com.google.inject.internal.cglib.core.$CollectionUtils;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
@@ -36,6 +37,7 @@ import java.util.function.Predicate;
         private List<String> classorder = new ArrayList<>();
         private Map<String, String> classInitmap = new HashMap<>();
         private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
+        private Statement targetStmt;
 
         /* to handle the different behavior WALA backward slicing, when only one block in the slicing result,
         the slicing list is reversed. When multi function is in the list, the order is not reversed.
@@ -70,144 +72,35 @@ import java.util.function.Predicate;
                     cache, cha, scope);
             CallGraph completeCG = builder.makeCallGraph(options, null);
             SDG<InstanceKey> completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
-            Set<SSAInstruction> visitedInst = new HashSet<>();
-
             for (CGNode node: completeCG) {
-//            Statement stmt = findCallTo(node, callee, functionType, mainClass);
                 findAllCallTo(node, callee, functionType);
-//            if (stmt != null) {
-//                targetStmt = stmt;
-//                break;
-//            }
             }
 
-            for (Statement targetStmt: allRelatedStmt) {
+            for (Statement stmt: allRelatedStmt) {
+                targetStmt = stmt;
                 clearInit();
                 cache.clear();
                 String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
-//                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
-//                System.out.println(className);
+                if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/Crypto") != 0) continue;
                 Collection<CGNode> roots = new ArrayList<>();
                 roots.add(targetStmt.getNode());
+
                 Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
                         dataDependenceOptions, controlDependenceOptions);
-                Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
-                List<Statement> sorted_g = new ArrayList<>();
-                Map<String, List<Statement>> funMap = new HashMap<>();
-
-                for (Statement stmt: g) {
-                    String funName = stmt.getNode().getMethod().getReference().toString();
-                    if (funName.contains("<init>")) classInitmap.put(funName.split(",")[1], funName);
-                    List<Statement> l = funMap.get(funName);
-                    if (l == null) l = new ArrayList<>();
-                    l.add(stmt);
-                    funMap.put(funName, l);
-                }
-                String previous = null;
-                for (String str: classorder) {
-                    if (!funMap.containsKey(str)) continue;
-                    String cur = str.split(",")[1];
-                    if (previous == null || previous.compareTo(cur) != 0 ) {
-                        sorted_g.addAll(funMap.get(classInitmap.get(cur)));
-                        previous = cur;
-                    }
-                    sorted_g.addAll(funMap.get(str));
-                }
-
-                for (Statement stmt : sorted_g) {
-                    if (!(stmt instanceof StatementWithInstructionIndex)) continue;
-                    SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
-                    if (visitedInst.contains(inst)) continue;
-                    visitedInst.add(inst);
-                    CGNode node = stmt.getNode();
-                    SymbolTable st = node.getIR().getSymbolTable();
-                    DefUse du = node.getDU();
-                    if (inst instanceof SSAPutInstruction) {
-                        SSAPutInstruction putinst = (SSAPutInstruction) inst;
-                        int use = ((SSAPutInstruction) inst).getVal();
-                        if (st.isConstant(use)) {
-                            varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
-                        } else {
-                            Set<SSAInstruction> visitInst = new HashSet<>();
-                            for (SSAInstruction definst = du.getDef(use); definst != null && !st.isConstant(use); ) {
-                                if(visitInst.contains(definst)) break;
-                                visitInst.add(definst);
-                                int start = 1;
-                                if (definst instanceof SSAInvokeInstruction) {
-                                    SSAInvokeInstruction invoke = (SSAInvokeInstruction) definst;
-                                    if (invoke.isStatic()) start = 0;
-                                }
-                                if (definst instanceof SSAAbstractInvokeInstruction) {
-                                    start = 0;
-                                }
-                                if (definst instanceof SSAGetInstruction) {
-                                    String name = ((SSAGetInstruction) definst).getDeclaredField().getName().toString();
-                                    st.setConstantValue(use, new ConstantValue(varMap.get(name)));
-                                    instValMap.put(definst, varMap.get(name));
-                                    break;
-                                }
-                                if (definst.getNumberOfUses() > 0)
-                                    use = definst.getUse(start);
-                                else
-                                    definst = null;
-                            }
-                            if (st.isConstant(use)) {
-                                varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
-                                instValMap.put(inst, st.getConstantValue(use));
-                            }
-                        }
-                    }
-                    if (inst instanceof SSAGetInstruction) {
-                        Object value = "";
-                        String name = ((SSAGetInstruction) inst).getDeclaredField().getName().toString();
-                        if (varMap.containsKey(name)) value = varMap.get(name);
-                        else value = instValMap.get(inst);
-                        instValMap.put(inst, value);
-                    }
-
-                }
-
                 // Filter all non application stmts
                 filterStatement(relatedStmts);
+
+                Graph<Statement> g = pruneCG(completeCG, completeSDG, targetStmt.getNode());
+
                 setParamValue(targetStmt);
-                // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement
-                // Use SSAInstruction instead
-                StatementWithInstructionIndex stmtwithindex = (StatementWithInstructionIndex) targetStmt;
-                SSAInstruction inst = stmtwithindex.getInstruction();
-
-                int neg = 0;
-                for (int i = 0; i < inst.getNumberOfUses(); i++) {
-                    if (inst instanceof SSAInvokeInstruction && !((SSAInvokeInstruction)inst).isStatic() && i == 0) {
-                        neg = -1;
-                        continue;
-                    }
-                    try{
-                        getParameter(i+neg);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Index out of bound");
-                    } catch (IllegalArgumentException e) {
-                        System.err.println(e.getMessage());
-                    }
-                }
-                classVarMap.put(className, (Map<Integer, List<Object>>) paramValue.clone());
-
+                //Vulnerfinder(stmtList,g,targetStmt, className);
             }
 
         }
 
-        /**
-         This function is to get the parameter value.
-         It will contains five situations:
-         TODO:
-         1. the use-index is already in the symboltable.
-         2. Intra-procedure case/ array ref (double check if the array included in this case)
-         3. Inter-procedure case.
-         4. Static / class field case.
-         5. MultiClass Case.
-         set the value into ParaValue list
-         */
+
         public void getParameter(int i) {
-//            System.out.println("This is the " + i + "th parameter for the target function: " + paramValue.get(i));
+            System.out.println("This is the " + i + "th parameter for the target function: " + paramValue.get(i));
         }
 
         public void setParamValue(Statement targetStmt){
@@ -251,6 +144,7 @@ import java.util.function.Predicate;
                                 stmtInBlock.add(stmt);
                             }
                             else {
+                                loopStatementInBlock(targetStmt, uses, stmtInBlock, i + neg);
                                 blockNeedReverse = isStmtinOrder(stmtInBlock);
                                 setParamValue(targetStmt, uses, stmtInBlock, i + neg);
                                 stmtInBlock.clear();
@@ -273,6 +167,108 @@ import java.util.function.Predicate;
         //   1. if slice statement is within one single block (no passin. ) - done
         //   2. cross the block (pass in, ssaput_)
         //   3. for pass in param, use negative number of mark the position of variables.
+
+
+        public Set<Integer> getDU(Set<Integer> uses, int pos, IR ir, SymbolTable st, Set<Integer> visited, List<Object> ans, DefUse du){
+            for(Integer use1: uses) {
+                if (du.getDef(use1) != null) {
+                    SSAInstruction inst = du.getDef(use1);
+                    uses.remove(use1);
+                    for (int j = 0; j < inst.getNumberOfUses(); j++) {
+                        int use = inst.getUse(j);
+                        if (j == 0 && (inst instanceof SSAInvokeInstruction)
+                                && ((SSAInvokeInstruction) inst).getDeclaredTarget().getSelector().getName().toString().contains("getBytes")) {
+                            if (!st.isConstant(use)) {
+                                uses.add(use);
+                                //if (du.getDef(use) != null) definsts.add(du.getDef(use));
+                            } else {
+                                //System.out.println("\t" + use + " " + st.getConstantValue(use));
+                                if (uses.size() == 0 && !visited.contains(use)) {
+                                    ans.add(st.getConstantValue(use));
+                                    this.paramValue.put(pos, ans);
+                                    visited.add(use);
+                                }
+                            }
+                            break;
+                        }
+                        if (j == 0 && ((inst instanceof SSAInvokeInstruction
+                                && !((SSAInvokeInstruction) inst).isStatic()) || !(inst instanceof SSAAbstractInvokeInstruction))
+                                && !st.isConstant(use)
+                                && !(inst instanceof SSAPutInstruction) &&!(inst instanceof SSAPhiInstruction))
+                            continue;
+
+                        if (!st.isConstant(use)) {
+                            uses.add(use);
+                            //if (du.getDef(use) != null) definsts.add(du.getDef(use));
+                        } else {
+                            //System.out.println("\t" + use + " " + st.getConstantValue(use));
+                            if (uses.size() == 0 && !visited.contains(use)) {
+                                ans.add(st.getConstantValue(use));
+                                this.paramValue.put(pos, ans);
+                                visited.add(use);
+                            }
+                        }
+                    }
+                    getDU(uses, pos, ir, st, visited, ans, du); //problem here, defaultkey lost, should more deal with that?
+                } else continue;
+            }
+
+            return uses;
+        }
+
+        public Statement isPassin(int use, List<Statement> stmtInBlock,Set<Integer> uses){
+            // if caller, which means it's a passin para
+            for (int i =0; i<stmtInBlock.size(); i++){
+                Statement stm = stmtInBlock.get(i);
+                if(stm.getKind() == Statement.Kind.PARAM_CALLER){
+                    ParamCaller paramCaller = (ParamCaller) stm;
+                    int valNum = paramCaller.getValueNumber();
+                    SymbolTable st = paramCaller.getNode().getIR().getSymbolTable();
+                    if (use == valNum) {
+                        continue;
+                    }
+                }
+                // paramter be called by others
+                if (stm.getKind() == Statement.Kind.PARAM_CALLEE) {
+
+                    ParamCallee paramCallee = (ParamCallee) stm;
+                    int valnum = paramCallee.getValueNumber();
+                    if (valnum == use) {
+                        uses.remove(use);
+                       return stm;
+                    }
+                    continue;
+                }
+            }
+            return null;
+        }
+
+
+        public void loopStatementInBlock(Statement targetStmt, Set<Integer> uses,
+                                  List<Statement> stmtInBlock, int pos){
+            Iterator<SSAInstruction> definsts = null;
+            Set<Integer> visited = new HashSet<>();
+            List<Object> ans = new ArrayList<>();
+            IR ir = targetStmt.getNode().getIR();
+            SymbolTable st = ir.getSymbolTable();
+            CGNode currentnode = targetStmt.getNode();
+            DefUse du = targetStmt.getNode().getDU();
+          //  SSAInstruction targetInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
+            uses = getDU(uses, pos,ir,st,visited,ans,du);
+            for(int use: uses){
+                definsts = du.getUses(use); // multi use same use;
+                for(int i =0; i<stmtInBlock.size();i++){
+                    Statement tmp = isPassin(use, stmtInBlock,uses);
+                    if(tmp !=null){
+                        targetStmt = tmp;
+                    }
+                    else{
+                        System.out.println("aaaa");
+                    }
+                }
+            }
+        }
+
         public void setParamValue(Statement targetStmt, Set<Integer> uses,
                                   List<Statement> stmtInBlock, int pos) { int calleeCount = 0, callerCount = 0;
             if (blockNeedReverse) {
@@ -531,13 +527,18 @@ import java.util.function.Predicate;
                 relatedClass.add(head.getMethod().getReference().getDeclaringClass().getName().toString());
                 while(itnode.hasNext()) {
                     CGNode n = itnode.next();
+                    IR callerIR = n.getIR();
 //                    System.out.println("\t" + n);
                     tmpClassOrder.clear();
                     if (n.getMethod().getDeclaringClass().getName().toString().contains("FakeRootClass")) continue;
                     tmpClassOrder.add(n.getMethod().getReference().toString());
+
                     Iterator<CallSiteReference> callIter = n.iterateCallSites();
+
                     while (callIter.hasNext()) {
                         CallSiteReference csRef = callIter.next();
+                        SSAAbstractInvokeInstruction callInstrs[] = callerIR.getCalls(csRef);
+                        System.out.println(callInstrs[0]);
                         if (csRef.getDeclaredTarget().getName().toString().contains("fakeWorldClinit")) continue;
                         MethodReference mRef = csRef.getDeclaredTarget();
                         if (mRef.getDeclaringClass().getClassLoader().getName().toString().contains("Primordial")) continue;
@@ -616,6 +617,110 @@ import java.util.function.Predicate;
             List<Object> ans = paramValue.get(pos);
             ans.add(o);
             this.paramValue.put(pos, ans);
+        }
+
+
+        public void Vulnerfinder(List<Statement> stmtList, Graph<Statement> g, Statement targetStmt,String className){
+            //all the following should be changed to callee callsite;
+            Set<SSAInstruction> visitedInst = new HashSet<>();
+            List<Statement> sorted_g = new ArrayList<>();
+            Map<String, List<Statement>> funMap = new HashMap<>();
+
+            for (Statement stmt: g) {
+                String funName = stmt.getNode().getMethod().getReference().toString();
+                if (funName.contains("<init>")) classInitmap.put(funName.split(",")[1], funName);
+                List<Statement> l = funMap.get(funName);
+                if (l == null) l = new ArrayList<>();
+                l.add(stmt);
+                funMap.put(funName, l);
+            }
+
+            String previous = null;
+            for (String str: classorder) {
+                if (!funMap.containsKey(str)) continue;
+                String cur = str.split(",")[1];
+                if (previous == null || previous.compareTo(cur) != 0 ) {
+                    sorted_g.addAll(funMap.get(classInitmap.get(cur)));
+                    previous = cur;
+                }
+                sorted_g.addAll(funMap.get(str));
+            }
+
+            for (Statement stmt : sorted_g) {
+                if (!(stmt instanceof StatementWithInstructionIndex)) continue;
+                SSAInstruction inst = ((StatementWithInstructionIndex) stmt).getInstruction();
+                if (visitedInst.contains(inst)) continue;
+                visitedInst.add(inst);
+                CGNode node = stmt.getNode();
+                SymbolTable st = node.getIR().getSymbolTable();
+                DefUse du = node.getDU();
+                if (inst instanceof SSAPutInstruction) {
+                    SSAPutInstruction putinst = (SSAPutInstruction) inst;
+                    int use = ((SSAPutInstruction) inst).getVal();
+                    if (st.isConstant(use)) {
+                        varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
+                    } else {
+                        Set<SSAInstruction> visitInst = new HashSet<>();
+                        for (SSAInstruction definst = du.getDef(use); definst != null && !st.isConstant(use); ) {
+                            if(visitInst.contains(definst)) break;
+                            visitInst.add(definst);
+                            int start = 1;
+                            if (definst instanceof SSAInvokeInstruction) {
+                                SSAInvokeInstruction invoke = (SSAInvokeInstruction) definst;
+                                if (invoke.isStatic()) start = 0;
+                            }
+                            if (definst instanceof SSAAbstractInvokeInstruction) {
+                                start = 0;
+                            }
+                            if (definst instanceof SSAGetInstruction) {
+                                String name = ((SSAGetInstruction) definst).getDeclaredField().getName().toString();
+                                st.setConstantValue(use, new ConstantValue(varMap.get(name)));
+                                instValMap.put(definst, varMap.get(name));
+                                break;
+                            }
+                            if (definst.getNumberOfUses() > 0)
+                                use = definst.getUse(start);
+                            else
+                                definst = null;
+                        }
+                        if (st.isConstant(use)) {
+                            varMap.put(putinst.getDeclaredField().getName().toString(), st.getConstantValue(use));
+                            instValMap.put(inst, st.getConstantValue(use));
+                        }
+                    }
+                }
+                if (inst instanceof SSAGetInstruction) {
+                    Object value = "";
+                    String name = ((SSAGetInstruction) inst).getDeclaredField().getName().toString();
+                    if (varMap.containsKey(name)) value = varMap.get(name);
+                    else value = instValMap.get(inst);
+                    instValMap.put(inst, value);
+                }
+
+            }
+
+
+            setParamValue(targetStmt);
+            // Cannot use targetStmt.getNode().getMethod(). It is not equal to the original statement
+            // Use SSAInstruction instead
+            StatementWithInstructionIndex stmtwithindex = (StatementWithInstructionIndex) targetStmt;
+            SSAInstruction inst = stmtwithindex.getInstruction();
+
+            int neg = 0;
+            for (int i = 0; i < inst.getNumberOfUses(); i++) {
+                if (inst instanceof SSAInvokeInstruction && !((SSAInvokeInstruction)inst).isStatic() && i == 0) {
+                    neg = -1;
+                    continue;
+                }
+                try{
+                    getParameter(i+neg);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Index out of bound");
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+            classVarMap.put(className, (Map<Integer, List<Object>>) paramValue.clone());
         }
     }
 

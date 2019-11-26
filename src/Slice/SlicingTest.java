@@ -14,7 +14,7 @@ public class SlicingTest {
 
     @Test
     public void run() throws ClassHierarchyException, IOException, CancelException {
-        String[] args = new String("-appJar D:\\work\\Java\\cipherJar\\out\\artifacts\\cipherJar_jar\\cipherJar.jar -mainClass LSampleCipher1 -srcCaller main -srcCallee getInstance -dd full -cd full -dir backward").split(" ");
+        String[] args = "-appJar D:\\work\\Java\\cipherJar\\out\\artifacts\\cipherJar_jar\\cipherJar.jar -mainClass LSampleCipher1 -srcCaller main -srcCallee getInstance -dd full -cd full -dir backward".split(" ");
         Properties p = CommandLine.parse(args);
         Slicing slice = new Slicing();
         slice.run(p.getProperty("appJar"), p.getProperty("mainClass"), p.getProperty("srcCaller"), p.getProperty("srcCallee"),
