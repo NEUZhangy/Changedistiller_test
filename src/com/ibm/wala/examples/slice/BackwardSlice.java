@@ -1,14 +1,8 @@
 package com.ibm.wala.examples.slice;
 
-import com.google.inject.internal.cglib.core.$CollectionUtils;
-import com.google.inject.internal.util.$ObjectArrays;
-import com.ibm.wala.cast.java.translator.jdt.ecj.ECJClassLoaderFactory;
-import com.ibm.wala.cast.tree.CAstType;
-import com.ibm.wala.cfg.exc.intra.NullPointerState;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
-import com.ibm.wala.demandpa.alg.statemachine.StateMachine;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
 import com.ibm.wala.ipa.callgraph.impl.DefaultEntrypoint;
@@ -27,13 +21,8 @@ import com.ibm.wala.util.collections.Iterator2Iterable;
 import com.ibm.wala.util.collections.Pair;
 import com.ibm.wala.util.config.AnalysisScopeReader;
 import com.ibm.wala.util.debug.Assertions;
-import com.ibm.wala.util.graph.Graph;
 import com.ibm.wala.util.intset.IntSet;
-import com.ibm.wala.util.intset.OrdinalSet;
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
-import jdk.internal.dynalink.CallSiteDescriptor;
 
-import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 import java.util.*;
 
@@ -47,7 +36,6 @@ public class BackwardSlice {
     private PointerAnalysis<InstanceKey> pa;
 
     private HashMap<Integer, List<Object>> paramValue = new HashMap<>();
-    //private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
     private Set<String> fieldNames = new HashSet<>();
     private Set<String> instanceFieldNames = new HashSet<>();
     private Map<String, Object> varMap = new HashMap<>(); //for save the field value
@@ -59,8 +47,6 @@ public class BackwardSlice {
 
     //private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
     //private Statement targetStmt;
-
-    //private FieldReference fieldRef;
 
 
     public void run(String path,
@@ -93,6 +79,7 @@ public class BackwardSlice {
         }
         PrunedCallGraph pcg = new PrunedCallGraph(completeCG, keep);
         completeCG = pcg;
+
         completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
         pa = builder.getPointerAnalysis();
         this.heapModel = pa.getHeapModel();
@@ -109,7 +96,7 @@ public class BackwardSlice {
             cache.clear();
             String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
 
-            if (className.compareTo("Lorg/cryptoapi/bench/predictableseeds/PredictableSeedsABICase3") != 0)
+            if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2") != 0)
                 continue;
 
             Collection<CGNode> roots = new ArrayList<>();
@@ -132,6 +119,7 @@ public class BackwardSlice {
 
 
     public void setParamValue(Statement targetStmt, List<Statement> stmtList) {
+
         SSAInstruction targetInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
         Set<Integer> uses = new HashSet<>();
         CGNode targetNode = targetStmt.getNode();
@@ -176,7 +164,6 @@ public class BackwardSlice {
         q.addAll(uses);
         while (!q.isEmpty()) {
         Set<Integer> conUse = new HashSet<>();
-
             for(Integer i: uses){
                 if(st.isConstant(i)){
                     ans.add(st.getConstantValue(i));
@@ -395,6 +382,7 @@ public class BackwardSlice {
         }
         if (uses.isEmpty()) return;
         StatementWithInstructionIndex getFieldStmt = checkStaticField(targetStmt, use, uses, stmtList, pos, visited, ans);
+
         if (getFieldStmt != null) {
             SSAGetInstruction getinst = (SSAGetInstruction) getFieldStmt.getInstruction();
             FieldReference fieldRef = getinst.getDeclaredField();
@@ -882,8 +870,8 @@ public class BackwardSlice {
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
                 // Get the information binding
                 String methodT = call.getCallSite().getDeclaredTarget().getSignature();
-                if (call.getCallSite().getDeclaredTarget().getName().toString().compareTo(methodName) == 0
-                        && methodT.contains(methodType)) {
+                String methodN = call.getCallSite().getDeclaredTarget().getName().toString();
+                if (methodN.equals(methodName) && methodT.contains(methodType)) {
                     // 一个例子
                     //if (call.getCallSite().getDeclaredTarget().getSignature().contains("Cipher")) continue;
                     IntSet indices = ir.getCallInstructionIndices(((SSAInvokeInstruction) s).getCallSite());

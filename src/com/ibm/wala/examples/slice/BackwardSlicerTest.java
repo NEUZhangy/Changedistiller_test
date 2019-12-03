@@ -14,9 +14,9 @@ public class BackwardSlicerTest {
         String path = Constant.FILEPATH;
         String caller = "main";
 
-        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyBBCase1";
-        String callee = "setSeed";
-        String functionType = "SecureRandom";
+        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2";
+        String callee = "<init>";
+        String functionType = "SecretKeySpec";
 
 //        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
 //        String callee = "getInstance";
@@ -25,8 +25,11 @@ public class BackwardSlicerTest {
 //        BackwardSlicer backwardSlicer = new BackwardSlicer();
 //        backwardSlicer.run(path, mainClass, callee, caller, functionType);
 
-        BackwardSlice backwardSlicer = new BackwardSlice();
-        backwardSlicer.run(path, callee, functionType);
+//        BackwardSlice backwardSlicer = new BackwardSlice();
+//        backwardSlicer.run(path, callee, functionType);
+
+        InterRetrive interRetrive = new InterRetrive();
+        interRetrive.start(path, callee, functionType);
 
 
     }
