@@ -1,6 +1,5 @@
 package com.changedistiller.test.SSLDetect;
 
-
 import com.Constant;
 import com.github.javaparser.JavaToken;
 import com.github.javaparser.StaticJavaParser;
@@ -41,6 +40,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Detection {
 
@@ -109,7 +110,7 @@ public class Detection {
             IOException {
         try {
             // create an analysis scope representing the appJar as a J2SE application
-             AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile(Constant.EXCLUDES));
+            AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile(Constant.EXCLUDES));
             //slice 不要进包内slice
             ExampleUtil.addDefaultExclusions(scope);
 
@@ -141,7 +142,7 @@ public class Detection {
             List<Integer> lineNum = new ArrayList<>();
             for (Statement stmt: slice) {
                 if (stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().compareToIgnoreCase("primordial") == 0
-                || stmt.getKind() != Statement.Kind.NORMAL)
+                        || stmt.getKind() != Statement.Kind.NORMAL)
                     continue;
                 lineNum.add(getLineNumber(stmt));
                 System.out.println(getLineNumber(stmt));
@@ -149,7 +150,7 @@ public class Detection {
             // create a view of the SDG restricted to nodes in the slice
             Graph<Statement> g = pruneSDG(sdg, slice);
             sanityCheck(slice, g);
-            String filePath = "E:\\Code\\Java\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\dummyhostnameverifier\\HostnameVerifierCase2.java";
+            String filePath = "C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\dummyhostnameverifier\\HostnameVerifierCase2.java";
             //String filePath = "C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\predictablecryptographickey\\keypair.java";
 
             // The following part is to get the matching statements from the source code:
@@ -160,6 +161,9 @@ public class Detection {
             Map<String, String> varList = new HashMap<>();
             VoidVisitor<Map<String, String>> visitor = new VariableDeclarationVisitor();
             cu.accept(visitor, varList);
+            for (Map.Entry<String, String> entry: varList.entrySet()) {
+                paramMap.put("\\" + entry.getValue(), entry.getKey());
+            }
             int prev = -1;
             List<String> matchingStmt = new ArrayList<>();
             String str = "";
@@ -185,8 +189,8 @@ public class Detection {
 
             //correct template
             List<String> correctstmts = new ArrayList<>();
-//            correctstmts.add(" KeyPairGenerator $v_0 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
-//            correctstmts.add(" $v_0.initialize(2048);");// can't handle number, name insensitive
+            correctstmts.add(" KeyPairGenerator $v_9 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
+            correctstmts.add(" $v_9.initialize(2048);");
 //            correctstmts.add("SSLSocket $v_1 = (SSLSocket) $v_0.createSocket(\"mail.google.com\", 443);");
 //            correctstmts.add("HostnameVerifier $v_2  = HttpsURLConnection.getDefaultHostnameVerifier();");
 //            correctstmts.add("SSLSession $v_3 = socket.getSession();");
@@ -196,19 +200,28 @@ public class Detection {
 
             // get the matching ratio
             Set<Integer> visited = new HashSet<>();
+            HashMap<String, String> varMap = new HashMap<>();
             for(int i = 0; i < matchingStmt.size(); i++) {
                 for (int j = 0; j < correctstmts.size(); j++) {
                     if (visited.contains(j)) continue;
                     double result = ss.calculateSimilarity(matchingStmt.get(i), correctstmts.get(j));
                     if (result >= 0.9) {
                         visited.add(j);
+                        String oriVar = getVar(matchingStmt.get(i));
+                        String descVar = getVar(correctstmts.get(j));
+                        varMap.put(oriVar, '\\' + descVar);
                     }
                 }
             }
-
             for (int j = 0; j<correctstmts.size(); j++) {
                 if (visited.contains(j)) continue;
-                System.out.println("MISSING: " + correctstmts.get(j));
+                String stmtwithvar = correctstmts.get(j);
+                for (Map.Entry<String, String> entry: paramMap.entrySet()) {
+                    if (varMap.containsKey(entry.getKey().substring(1))) {
+                        stmtwithvar = stmtwithvar.replaceAll(varMap.get(entry.getKey().substring(1)), entry.getValue());
+                    }
+                }
+                System.out.println("MISSING: " + stmtwithvar);
             }
 
             return null;
@@ -219,6 +232,16 @@ public class Detection {
         }
     }
 
+    private String getVar(String s) {
+        String pattern = "(.*)(\\$v_\\d+)(.*)";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(s);
+        if (m.find()) {
+            return m.group(2);
+        }
+        else
+            return "";
+    }
 
     /**
      * check that g is a well-formed graph, and that it contains exactly the number of nodes in the slice
@@ -281,7 +304,7 @@ public class Detection {
                 if (((SSAInvokeInstruction) s).getCallSite().getDeclaredTarget().getDeclaringClass().
                         getClassLoader().getName().toString().compareToIgnoreCase("primordial") == 0)
                     continue;
-                System.out.println(s);
+//                System.out.println(s);
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
                 // Get the information binding
                 String methodT = call.getCallSite().getDeclaredTarget().getSignature();
