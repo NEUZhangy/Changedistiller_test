@@ -1,10 +1,9 @@
 package com.changedistiller.test.SSLDetect;
 
-
 import com.Constant;
-import com.github.javaparser.JavaToken;
-import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.*;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.ibm.wala.classLoader.IClassLoader;
 import com.ibm.wala.classLoader.Language;
@@ -41,6 +40,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.github.javaparser.Providers.provider;
 
 public class Detection {
 
@@ -109,7 +112,7 @@ public class Detection {
             IOException {
         try {
             // create an analysis scope representing the appJar as a J2SE application
-             AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile(Constant.EXCLUDES));
+            AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile(Constant.EXCLUDES));
             //slice 不要进包内slice
             ExampleUtil.addDefaultExclusions(scope);
 
@@ -160,6 +163,9 @@ public class Detection {
             Map<String, String> varList = new HashMap<>();
             VoidVisitor<Map<String, String>> visitor = new VariableDeclarationVisitor();
             cu.accept(visitor, varList);
+            for (Map.Entry<String, String> entry: varList.entrySet()) {
+                paramMap.put("\\" + entry.getValue(), entry.getKey());
+            }
             int prev = -1;
             List<String> matchingStmt = new ArrayList<>();
             String str = "";
@@ -185,8 +191,8 @@ public class Detection {
 
             //correct template
             List<String> correctstmts = new ArrayList<>();
-//            correctstmts.add(" KeyPairGenerator $v_0 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
-//            correctstmts.add(" $v_0.initialize(2048);");// can't handle number, name insensitive
+            correctstmts.add(" KeyPairGenerator $v_0 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
+            correctstmts.add(" $v_0.initialize(2048);");// can't handle number, name insensitive
 //            correctstmts.add("SSLSocket $v_1 = (SSLSocket) $v_0.createSocket(\"mail.google.com\", 443);");
 //            correctstmts.add("HostnameVerifier $v_2  = HttpsURLConnection.getDefaultHostnameVerifier();");
 //            correctstmts.add("SSLSession $v_3 = socket.getSession();");
@@ -205,10 +211,13 @@ public class Detection {
                     }
                 }
             }
-
             for (int j = 0; j<correctstmts.size(); j++) {
                 if (visited.contains(j)) continue;
-                System.out.println("MISSING: " + correctstmts.get(j));
+                String stmtwithvar = correctstmts.get(j);
+                for (Map.Entry<String, String> entry: paramMap.entrySet()) {
+                    stmtwithvar = stmtwithvar.replaceAll(entry.getKey(), entry.getValue());
+                }
+                System.out.println("MISSING: " + stmtwithvar);
             }
 
             return null;
@@ -218,7 +227,6 @@ public class Detection {
             return null;
         }
     }
-
 
     /**
      * check that g is a well-formed graph, and that it contains exactly the number of nodes in the slice
@@ -281,7 +289,7 @@ public class Detection {
                 if (((SSAInvokeInstruction) s).getCallSite().getDeclaredTarget().getDeclaringClass().
                         getClassLoader().getName().toString().compareToIgnoreCase("primordial") == 0)
                     continue;
-                System.out.println(s);
+//                System.out.println(s);
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
                 // Get the information binding
                 String methodT = call.getCallSite().getDeclaredTarget().getSignature();
