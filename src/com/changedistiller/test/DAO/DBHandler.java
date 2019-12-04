@@ -1,5 +1,6 @@
 package com.changedistiller.test.DAO;
 
+import com.Constant;
 import com.changedistiller.test.*;
 import redis.clients.jedis.Jedis;
 
@@ -106,7 +107,7 @@ public class DBHandler {
 
     public void writetoJson(CodePattern codePattern) {
         try (Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://192.168.32.129/InsecureFix", "root", "123456")) {
+                Constant.DB_CONNECTION, Constant.DB_USER, Constant.DB_PASSWORD)) {
             if (conn != null) {
                 String query = "insert into InsecureFix (Name, JsonString) " + "values (?,?)";
                 PreparedStatement stmt = conn.prepareStatement(query);

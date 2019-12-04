@@ -1,14 +1,8 @@
 package com.ibm.wala.examples.slice;
 
-import com.google.inject.internal.cglib.core.$CollectionUtils;
-import com.google.inject.internal.util.$ObjectArrays;
-import com.ibm.wala.cast.java.translator.jdt.ecj.ECJClassLoaderFactory;
-import com.ibm.wala.cast.tree.CAstType;
-import com.ibm.wala.cfg.exc.intra.NullPointerState;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
-import com.ibm.wala.demandpa.alg.statemachine.StateMachine;
 import com.ibm.wala.examples.ExampleUtil;
 import com.ibm.wala.ipa.callgraph.*;
 import com.ibm.wala.ipa.callgraph.impl.DefaultEntrypoint;
@@ -19,6 +13,7 @@ import com.ibm.wala.ipa.cha.ClassHierarchy;
 import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.cha.ClassHierarchyFactory;
 import com.ibm.wala.ipa.slicer.*;
+import com.ibm.wala.shrikeCT.InvalidClassFileException;
 import com.ibm.wala.ssa.*;
 import com.ibm.wala.types.FieldReference;
 import com.ibm.wala.types.MethodReference;
@@ -27,13 +22,8 @@ import com.ibm.wala.util.collections.Iterator2Iterable;
 import com.ibm.wala.util.collections.Pair;
 import com.ibm.wala.util.config.AnalysisScopeReader;
 import com.ibm.wala.util.debug.Assertions;
-import com.ibm.wala.util.graph.Graph;
 import com.ibm.wala.util.intset.IntSet;
-import com.ibm.wala.util.intset.OrdinalSet;
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
-import jdk.internal.dynalink.CallSiteDescriptor;
 
-import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 import java.util.*;
 
@@ -45,8 +35,8 @@ public class BackwardSlice {
     private SDG<InstanceKey> completeSDG;
     private ClassHierarchy cha;
     private PointerAnalysis<InstanceKey> pa;
-
     private HashMap<Integer, List<Object>> paramValue = new HashMap<>();
+    private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
     //private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
     private Set<String> fieldNames = new HashSet<>();
     private Set<String> instanceFieldNames = new HashSet<>();
@@ -55,7 +45,9 @@ public class BackwardSlice {
     private Set<Statement> allRelatedStmt = new HashSet<>();
     private List<String> classorder = new ArrayList<>();
     private Map<String, String> classInitmap = new HashMap<>();
-
+    private ArrayList<Integer> sourceLineNums = new ArrayList<>();
+    private HashMap<Integer, List<Integer>> paramsSourceLineNumsMap = new HashMap<>();
+    private Map<String, HashMap<Integer, List<Integer>>> classParamsLinesNumsMap = new HashMap<>();
 
     //private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
     //private Statement targetStmt;
@@ -109,8 +101,8 @@ public class BackwardSlice {
             cache.clear();
             String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
 
-            if (className.compareTo("Lorg/cryptoapi/bench/predictableseeds/PredictableSeedsABICase3") != 0)
-                continue;
+//            if (className.compareTo("Lorg/cryptoapi/bench/predictableseeds/PredictableSeedsABICase3") != 0)
+//                continue;
 
             Collection<CGNode> roots = new ArrayList<>();
             roots.add(targetStmt.getNode());
@@ -124,8 +116,9 @@ public class BackwardSlice {
             System.out.println(targetStmt.getNode().getMethod().getReference().getSignature());
             for (int i = 0; i < paramValue.size(); i++) {
                 System.out.println("target parameter is : " + paramValue.get(i));
-
             }
+            classVarMap.put(className, (Map<Integer, List<Object>>) paramValue.clone());
+            classParamsLinesNumsMap.put(className, (HashMap<Integer, List<Integer>>) paramsSourceLineNumsMap.clone());
         }
 
     }
@@ -147,13 +140,15 @@ public class BackwardSlice {
             //get all parameter, by process one by one
             while (i < numOfUse) {
                 List<Object> ans = new ArrayList<>(); //have more possible value;
+                sourceLineNums.clear();
                 int use = targetInst.getUse(i);
                 if (st.isConstant(use)) { //can get the para directly, put in Value map
                     ans.add(st.getConstantValue(use));
                     paramValue.put(i + neg, ans);
+                    sourceLineNums.add(getLineNumber(targetInst, targetIR));
                 } else {
                     uses.add(use);
-                    uses = getDU(targetStmt,uses, i + neg, st, visited, ans, du);// can't get the parameter within one block;
+                    uses = getDU(targetStmt, uses, i + neg, st, visited, ans, du);// can't get the parameter within one block;
                     if (!uses.isEmpty()) {
                         List<Statement> stmtInBlock = new ArrayList<>();
                         useCheckHelper(targetStmt, uses, stmtList, visited, ans, i + neg);
@@ -161,7 +156,9 @@ public class BackwardSlice {
                     }
                     //setParamValue(targetStmt, uses, stmtInBlock, i + neg);
                 }
+                paramsSourceLineNumsMap.put(i + neg, (List<Integer>) sourceLineNums.clone());
                 i++;
+
             }
             if (paramValue.size() == numOfUse)
                 return;
@@ -175,12 +172,13 @@ public class BackwardSlice {
         Queue<Integer> q = new LinkedList<>();
         q.addAll(uses);
         while (!q.isEmpty()) {
-        Set<Integer> conUse = new HashSet<>();
+            Set<Integer> conUse = new HashSet<>();
 
-            for(Integer i: uses){
-                if(st.isConstant(i)){
+            for (Integer i : uses) {
+                if (st.isConstant(i)) {
                     ans.add(st.getConstantValue(i));
-                    paramValue.put(pos,ans);
+                    paramValue.put(pos, ans);
+                    sourceLineNums.add(getLineNumber(du.getDef(i), targetStmt.getNode().getIR()));
                     //uses.remove(i);
                     conUse.add(i);
                     q.remove(i);
@@ -188,7 +186,7 @@ public class BackwardSlice {
                 }
             }
 
-            if(q.isEmpty()) {
+            if (q.isEmpty()) {
                 uses.clear();
                 return uses;
             }
@@ -222,12 +220,12 @@ public class BackwardSlice {
                     continue;
                 }
 
-                if(inst instanceof SSANewInstruction){//TODO: how to get the prenode;
-                    Iterator<SSAInstruction> insts =  du.getUses(use1);
-                    while(insts.hasNext()){
-                        SSAInstruction targetInst  = insts.next();
-                        if(targetInst instanceof SSAArrayStoreInstruction){
-                            if(use1 == ((SSAArrayStoreInstruction) targetInst).getArrayRef()){
+                if (inst instanceof SSANewInstruction) {//TODO: how to get the prenode;
+                    Iterator<SSAInstruction> insts = du.getUses(use1);
+                    while (insts.hasNext()) {
+                        SSAInstruction targetInst = insts.next();
+                        if (targetInst instanceof SSAArrayStoreInstruction) {
+                            if (use1 == ((SSAArrayStoreInstruction) targetInst).getArrayRef()) {
                                 uses.remove(use1);
                                 visited.add(use1);
                                 q.add(((SSAArrayStoreInstruction) targetInst).getValue());
@@ -236,12 +234,12 @@ public class BackwardSlice {
                             }
                         }
 
-                        if(targetInst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) targetInst).getDeclaredTarget().getName().toString().contains("<init>")){
-                            for(int i =0; i< targetInst.getNumberOfUses(); i++){
-                                if(use1 == targetInst.getUse(0)){
+                        if (targetInst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) targetInst).getDeclaredTarget().getName().toString().contains("<init>")) {
+                            for (int i = 0; i < targetInst.getNumberOfUses(); i++) {
+                                if (use1 == targetInst.getUse(0)) {
                                     uses.remove(use1);
                                     visited.add(use1);
-                                    for(int j = i+1; j< targetInst.getNumberOfUses(); j++){
+                                    for (int j = i + 1; j < targetInst.getNumberOfUses(); j++) {
                                         q.add(targetInst.getUse(j));
                                         uses.add(targetInst.getUse(j));
                                     }
@@ -257,16 +255,16 @@ public class BackwardSlice {
                 }
 
 
-
                 if (inst instanceof SSANewInstruction && ((SSANewInstruction) inst).getNewSite().getDeclaredType().getName().toString().contains("SecureRandom")) {
                     uses.remove(use1);
                     ans.add("random value");
                     paramValue.put(pos, ans);
+                    sourceLineNums.add(getLineNumber(inst, targetStmt.getNode().getIR()));
                     uses.remove(use1);
                     continue;
                 }
 
-                if(inst.getNumberOfUses() ==0) return uses;
+                if (inst.getNumberOfUses() == 0) return uses;
                 uses.remove(use1);
                 for (int j = 0; j < inst.getNumberOfUses(); j++) {
                     Integer use = inst.getUse(j);
@@ -283,6 +281,7 @@ public class BackwardSlice {
                         if (uses.size() == 0 && !visited.contains(use)) {
                             ans.add(st.getConstantValue(use));
                             this.paramValue.put(pos, ans);
+                            sourceLineNums.add(getLineNumber(inst, targetStmt.getNode().getIR()));
                             visited.add(use);
                         }
                     }
@@ -303,7 +302,7 @@ public class BackwardSlice {
         }
     }
 
-    public boolean checkSpecialCase(Set<Integer>uses, int use, List<Statement> stmtList, int pos, Set<Integer> visited, List<Object> ans, DefUse du) {
+    public boolean checkSpecialCase(Set<Integer> uses, int use, List<Statement> stmtList, int pos, Set<Integer> visited, List<Object> ans, DefUse du) {
         Set<Integer> newUses = new HashSet<>();
         for (Statement st : stmtList) { //check map
             if (st instanceof StatementWithInstructionIndex) {
@@ -322,7 +321,7 @@ public class BackwardSlice {
                 }
             } else continue;
         }
-        if(newUses.isEmpty()) return false;
+        if (newUses.isEmpty()) return false;
 
         Set<Integer> pairUse = new HashSet<>();
 
@@ -340,9 +339,10 @@ public class BackwardSlice {
                         if (st.isConstant(i)) {
                             ans.add(st.getConstantValue(i));
                             paramValue.put(pos, ans);
+                            sourceLineNums.add(getLineNumber(put));
                             return true;
                         } else {
-                            uses = getDU(put,pairUse, pos, put.getNode().getIR().getSymbolTable(), visited, ans, put.getNode().getDU());
+                            uses = getDU(put, pairUse, pos, put.getNode().getIR().getSymbolTable(), visited, ans, put.getNode().getDU());
                             if (uses.isEmpty()) return true;
                             else {
                                 System.out.println("more process for hashmap");
@@ -351,7 +351,7 @@ public class BackwardSlice {
                         }
                     }
 
-                } else{
+                } else {
                     pairUse.clear();
                     continue;
                 }
@@ -373,6 +373,7 @@ public class BackwardSlice {
                     if (st.isConstant(curUse)) {
                         ans.add(st.getConstantValue(curUse));
                         paramValue.put(pos, ans);
+                        sourceLineNums.add(getLineNumber(curStmt));
                         return;// return or break, may have more possibility
                     } else {
                         uses.add(paraCaller.getValueNumber());
@@ -415,13 +416,13 @@ public class BackwardSlice {
             System.out.println("not static field, check special case field");
         }
         DefUse du = targetStmt.getNode().getDU();
-        if (checkSpecialCase(uses, use, stmtList, pos, visited, ans, du)){
+        if (checkSpecialCase(uses, use, stmtList, pos, visited, ans, du)) {
             uses.remove(use);
             return;
-        }
-        else{
+        } else {
             ans.add("no value");
             paramValue.put(pos, ans);
+            sourceLineNums.add(-1);
             System.out.println("no value assigned for this para");
             uses.remove(use);
             return;
@@ -441,8 +442,8 @@ public class BackwardSlice {
                     Collection<IField> fields = currStmt.getNode().getMethod().getDeclaringClass().getDeclaredInstanceFields();
                     InstanceFieldKey insLoc = (InstanceFieldKey) loc;
                     if (fields.contains(insLoc.getField())) {
-                        searchInit(currStmt, insLoc.getField(), pos, uses,visited);
-                            return;
+                        searchInit(currStmt, insLoc.getField(), pos, uses, visited);
+                        return;
 
                     }
                     //if current instance field can't retrive the value, need more process; site & node
@@ -456,14 +457,14 @@ public class BackwardSlice {
                         //get the newinst and find the previous stmt-> get parameter
                         int value = next.fst.getIR().peiMapping.get(new ProgramCounter(next.snd.getProgramCounter()));
                         SSAInstruction creation = next.fst.getIR().getInstructions()[value];//get the creation SSAinst
-                        int creDef= creation.getDef();
+                        int creDef = creation.getDef();
                         Set<Integer> newUse = new HashSet<>();
-                        for(SSAInstruction inst: next.fst.getIR().getInstructions()){
-                            if(inst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) inst).getDeclaredTarget().getName().toString().contains("<init>")){
-                                for(int i =0; i< inst.getNumberOfUses();i++){
-                                    if(inst.getUse(i) == creDef){
-                                        SSAInvokeInstruction targetNewInst= (SSAInvokeInstruction) inst;
-                                        for (int j =i+1; j< inst.getNumberOfUses(); j++){
+                        for (SSAInstruction inst : next.fst.getIR().getInstructions()) {
+                            if (inst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) inst).getDeclaredTarget().getName().toString().contains("<init>")) {
+                                for (int i = 0; i < inst.getNumberOfUses(); i++) {
+                                    if (inst.getUse(i) == creDef) {
+                                        SSAInvokeInstruction targetNewInst = (SSAInvokeInstruction) inst;
+                                        for (int j = i + 1; j < inst.getNumberOfUses(); j++) {
                                             newUse.add(inst.getUse(j));
                                         }
                                         break;
@@ -473,13 +474,14 @@ public class BackwardSlice {
                             continue;
                         }
 
-                        for(int use: newUse){
+                        for (int use : newUse) {
                             if (st.isConstant(use)) {
                                 ans.add(st.getConstantValue(use));
                                 paramValue.put(pos, ans);
+                                sourceLineNums.add(getLineNumber(currStmt));
                             } else {
-                                newUse = getDU(currStmt,newUse,pos,st,visited,ans,next.fst.getDU());
-                                if(newUse.isEmpty()) return;
+                                newUse = getDU(currStmt, newUse, pos, st, visited, ans, next.fst.getDU());
+                                if (newUse.isEmpty()) return;
                                 //TODO: need more deal here!!
                                 //processParaCallee(targetStmt, fieldName, stmtList, heapcallee, newUse, visited, ans, pos, stmtInBlock);
                             }
@@ -504,7 +506,7 @@ public class BackwardSlice {
                     if (curPut.getDeclaredField().getName().toString().compareTo(fieldName) == 0) {
                         uses.add(curPut.getVal());
                         targetStmt = currStmt;
-                        uses = getDU(currStmt,uses, pos, currStmt.getNode().getIR().getSymbolTable(), visited, ans, currStmt.getNode().getDU());
+                        uses = getDU(currStmt, uses, pos, currStmt.getNode().getIR().getSymbolTable(), visited, ans, currStmt.getNode().getDU());
                         useCheckHelper(targetStmt, uses, stmtList, visited, ans, pos);
                         return;
                     }
@@ -516,7 +518,7 @@ public class BackwardSlice {
     }
 
 
-    public Set<Integer> searchInit(Statement stmt, IField field, int pos, Set<Integer> uses, Set<Integer> visited){
+    public Set<Integer> searchInit(Statement stmt, IField field, int pos, Set<Integer> uses, Set<Integer> visited) {
         CGNode initNode = null;
         List<Object> ans = new ArrayList<>();
         Collection<? extends IMethod> methodList = stmt.getNode().getMethod().getDeclaringClass().getDeclaredMethods();
@@ -542,18 +544,20 @@ public class BackwardSlice {
                     if (st.isConstant(val)) {
                         ans.add(st.getConstantValue(val));
                         this.paramValue.put(pos, ans);
+                        sourceLineNums.add(getLineNumber(putInst, initNode.getIR()));
                         instanceFieldNames.remove(field.getName().toString());
                         uses.clear();
                         return uses;
                     } else {
                         uses.clear();
                         uses.add(val);
-                        uses =  getDU(stmt,uses,pos,st,visited,ans,du);
-                        if(!uses.isEmpty()){
-                            for(Integer i: uses){
+                        uses = getDU(stmt, uses, pos, st, visited, ans, du);
+                        if (!uses.isEmpty()) {
+                            for (Integer i : uses) {
                                 if (st.isConstant(i)) {
                                     ans.add(st.getConstantValue(i));
                                     this.paramValue.put(pos, ans);
+                                    sourceLineNums.add(getLineNumber(putInst, initNode.getIR()));
                                     uses.remove(i);
                                 }
                             }
@@ -610,13 +614,13 @@ public class BackwardSlice {
                 // backwardSuperGraph.getCalledNodes(heapReturnStmt);
             }
             //TODO: no method call it , not return caller?
-            if(currStmt.getKind() == Statement.Kind.HEAP_PARAM_CALLEE){
+            if (currStmt.getKind() == Statement.Kind.HEAP_PARAM_CALLEE) {
                 HeapStatement.HeapParamCallee hepcallee = (HeapStatement.HeapParamCallee) currStmt;
                 PointerKey loc = hepcallee.getLocation();
-                if(loc instanceof StaticFieldKey){
-                    StaticFieldKey staticLoc = (StaticFieldKey)loc;
-                    IField ifeild =  staticLoc.getField();
-                    Set<Integer> newUse = searchInit(currStmt,ifeild,pos,uses, visited);
+                if (loc instanceof StaticFieldKey) {
+                    StaticFieldKey staticLoc = (StaticFieldKey) loc;
+                    IField ifeild = staticLoc.getField();
+                    Set<Integer> newUse = searchInit(currStmt, ifeild, pos, uses, visited);
 
                 }
 
@@ -659,6 +663,7 @@ public class BackwardSlice {
                         if (st.isConstant(newUse)) {
                             ans.add(st.getConstantValue(newUse));
                             paramValue.put(pos, ans);
+                            sourceLineNums.add(getLineNumber(curStmt));
                             return;
                         } else {
                             uses.add(paraCaller.getValueNumber());
@@ -710,6 +715,7 @@ public class BackwardSlice {
                                 if (st.isConstant(arrayUse)) {
                                     ans.add(st.getConstantValue(arrayUse));
                                     paramValue.put(pos, ans);
+                                    sourceLineNums.add(getLineNumber(stmt));
                                 } else uses.add(arrayUse);
                             }
                         }
@@ -865,6 +871,7 @@ public class BackwardSlice {
         paramValue.clear();
         //stmtList.clear();
         this.classorder.clear();
+        sourceLineNums.clear();
     }
 
     /**
@@ -943,4 +950,48 @@ public class BackwardSlice {
         return n.getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial");
     }
 
+    public HashMap<Integer, List<Object>> getParamValue() {
+        return paramValue;
+    }
+
+    public Map<String, Map<Integer, List<Object>>> getClassVarMap() {
+        return classVarMap;
+    }
+
+    private int getLineNumber(SSAInstruction inst, IR ir) {
+        int sourceLineNum = -1;
+        try {
+            IBytecodeMethod method = (IBytecodeMethod)ir.getMethod();
+            int bytecodeIndex = method.getBytecodeIndex(inst.iIndex());
+            sourceLineNum = method.getLineNumber(bytecodeIndex);
+        } catch (InvalidClassFileException e) {
+            e.printStackTrace();
+        }
+
+        return sourceLineNum;
+    }
+
+    private int getLineNumber(Statement stmt) {
+        if (stmt.getKind() == Statement.Kind.NORMAL) { // ignore special kinds of statements
+            int bcIndex, instructionIndex = ((NormalStatement) stmt).getInstructionIndex();
+            try {
+                bcIndex = ((ShrikeBTMethod) stmt.getNode().getMethod()).getBytecodeIndex(instructionIndex);
+                try {
+                    int src_line_number = stmt.getNode().getMethod().getLineNumber(bcIndex);
+                    return src_line_number;
+                } catch (Exception e) {
+                    System.err.println("Bytecode index no good");
+                    System.err.println(e.getMessage());
+                }
+            } catch (Exception e ) {
+                System.err.println("it's probably not a BT method (e.g. it's a fakeroot method)");
+                System.err.println(e.getMessage());
+            }
+        }
+        return -1;
+    }
+
+    public Map<String, HashMap<Integer, List<Integer>>> getClassParamsLinesNumsMap() {
+        return classParamsLinesNumsMap;
+    }
 }
