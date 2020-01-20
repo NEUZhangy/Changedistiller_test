@@ -25,7 +25,7 @@ public class CodeCase {
     public List<Long> jsonArraytoList(Object o) {
         JSONArray arr = (JSONArray) o;
         List<Long> returnList = new ArrayList<>();
-        for (int i = 0; i<arr.size(); i++) {
+        for (int i = 0; i < arr.size(); i++) {
             returnList.add((Long) arr.get(i));
         }
         return returnList;
@@ -35,7 +35,7 @@ public class CodeCase {
         JSONArray arr = (JSONArray) o;
         Set<String> set = new HashSet<>();
         if (o == null) return null;
-        for (int i = 0; i<arr.size(); i++) {
+        for (int i = 0; i < arr.size(); i++) {
             set.add((String) arr.get(i));
         }
         return set;
@@ -44,18 +44,18 @@ public class CodeCase {
     public void checking(Map<String, Map<Integer, List<Object>>> classVarMap) {
         switch (this.type) {
             case "parameter":
-                for (String className: classVarMap.keySet()) {
+                for (String className : classVarMap.keySet()) {
                     System.out.println(className);
                     Map<Integer, List<Object>> variables = classVarMap.get(className);
                     List<Object> ans = variables.get(this.checkParameter.intValue());
+                    if (ans == null) continue;
                     if (incorrectSet == null && ans != null) {
-                        System.out.println("Parameter " + this.checkParameter + " " +  ans + "\n" +
+                        System.out.println("Parameter " + this.checkParameter + " " + ans + "\n" +
                                 "Suggest: " + this.correctSet);
-                    }
-                    else {
-                        for (Object o: ans) {
+                    } else {
+                        for (Object o : ans) {
                             if (incorrectSet.contains(o.toString())) {
-                                System.out.println("Parameter " + this.checkParameter + " " +  o + "\n" +
+                                System.out.println("Parameter " + this.checkParameter + " " + o + "\n" +
                                         "Suggest: " + this.correctSet);
                             }
                         }

@@ -1,10 +1,34 @@
 [
   {
+    "callee": "initialize",
+    "MethodType": "KeyPairGenerator",
+    "Type": "number",
+    "Check": 0,
+    "MinNum": 224,
+    "Correct": ["Value should greater than 224"],
+  },
+  {
     "callee": "<init>",
     "MethodType": "SecretKeySpec",
     "Type": "parameter",
     "Check": 0,
     "Incorrect": null,
-    "Correct": ["Parameter should not be fixed"],
+    "Correct": ["Parameter should not be a fixed value"],
   },
+  {
+    "callee": "getInstance",
+    "MethodType": "Cipher",
+    "Type": "parameter",
+    "Check": 0,
+    "Incorrect": ["AES", "AES/ECB/PKCS5Padding", "AES/CBC/PKCS5PADDING", "blowfish", "MD2", "MD5", "RC2", "3DES", "DES/ECB/PKCS5Padding", "RC4", "IDEA"],
+    "Correct": ["AES/CFB/PKCS5Padding" ,"RSA", "AES/GCM/PKCS5Padding", "RSA/ECB/PKCS5Padding", "SHA-256" ],
+  },
+  {
+    "callee": "<init>",
+    "MethodType": "PBEParameterSpec",
+    "Type": "number",
+    "Check": 1,
+    "MinNum": 1000,
+    "Correct": ["Value should greater than 1000"],
+  }
 ]

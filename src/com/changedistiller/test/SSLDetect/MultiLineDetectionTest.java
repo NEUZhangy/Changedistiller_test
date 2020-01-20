@@ -1,21 +1,22 @@
 package com.changedistiller.test.SSLDetect;
 
+import com.Constant;
 import com.ibm.wala.util.CancelException;
 import org.junit.Test;
 
 import java.io.IOException;
 
-public class DetectionTest {
+public class MultiLineDetectionTest {
 
     @Test
     public void run() throws CancelException, IOException {
-        String path = "-appJar C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\rigorityj-samples.jar ";
+        String path = "-appJar " + Constant.FILEPATH + " ";
         String mainClass ="-mainClass Lorg/cryptoapi/bench/dummyhostnameverifier/HostnameVerifierCase2 ";
         String caller = "-srcCaller main ";
-        String callee = "-srcCallee getSession ";
-        String settings = "-dd NO_BASE_NO_HEAP_NO_EXCEPTIONS -cd full -dir forward";
+        String callee = "-srcCallee getInstance ";
+        String settings = "-dd full -cd full -dir forward";
 
-        Detection multiClass = new Detection(path+mainClass+callee+caller+settings, "SSLSocket");
+        MultiLineDetection multiClass = new MultiLineDetection(path+mainClass+callee+caller+settings, "KeyPairGenerator");
         //pdfSlice.runInit(path, mainClass,caller,callee,);
         multiClass.run();
     }

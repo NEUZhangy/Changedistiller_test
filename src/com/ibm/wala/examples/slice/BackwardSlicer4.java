@@ -1,7 +1,6 @@
 package com.ibm.wala.examples.slice;
 
 import com.google.inject.internal.util.$ObjectArrays;
-import com.ibm.wala.cast.java.translator.jdt.ecj.ECJClassLoaderFactory;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;

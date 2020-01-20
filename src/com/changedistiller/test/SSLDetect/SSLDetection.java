@@ -1,4 +1,4 @@
-package com.changedistiller.test;
+package com.changedistiller.test.SSLDetect;
 
 import org.eclipse.jdt.core.dom.*;
 
@@ -15,6 +15,7 @@ public class SSLDetection {
                    }
                 }
                 return super.visit(node);
+
             }
         });
 
