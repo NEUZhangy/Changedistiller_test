@@ -1,5 +1,6 @@
 package com.ibm.wala.examples.slice;
 
+import com.ibm.wala.cast.java.ipa.slicer.AstJavaSlicer;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
@@ -26,6 +27,8 @@ import com.ibm.wala.util.intset.IntSet;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class BackwardSlice {
@@ -52,11 +55,17 @@ public class BackwardSlice {
     private CallGraphBuilder<InstanceKey> builder;
     private Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.FULL;
     private Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.FULL;
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     //private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
     //private Statement targetStmt;
 
     //private FieldReference fieldRef;
 
+    public BackwardSlice(String path) throws ClassHierarchyException, CallGraphBuilderCancelException, IOException {
+        init();
+        completeCGBuilder(path, null, null);
+        LOGGER.setLevel(Level.WARNING);
+    }
 
     public void run(String path,
                     String callee,
@@ -64,15 +73,15 @@ public class BackwardSlice {
     ) throws IOException, ClassHierarchyException, CancelException {
 
         //clear the related parameters
-        init();
 
-        completeCGBuilder(path, callee, functionType);
 
         for (CGNode node : completeCG) {
             findAllCallTo(node, callee, functionType);
         }
+        LOGGER.info("FindAllCallTo finished");
 
         for (Statement stmt : allRelatedStmt) {
+            LOGGER.info("Processing " + stmt);
             Statement targetStmt = stmt;
             clearInit();
             String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
@@ -86,7 +95,7 @@ public class BackwardSlice {
             try {
                 Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
                         dataDependenceOptions, controlDependenceOptions);
-
+                LOGGER.info("Backward Slicing Finished");
                 List<Statement> stmtList = filterStatement(relatedStmts);
                 setParamValue(targetStmt, stmtList);
 
@@ -97,6 +106,7 @@ public class BackwardSlice {
                 }
                 classVarMap.put(className, (Map<Integer, List<Object>>) paramValue.clone());
                 classParamsLinesNumsMap.put(className, (HashMap<Integer, List<Integer>>) paramsSourceLineNumsMap.clone());
+                LOGGER.info("Finish");
             } catch (NullPointerException e) {
                 System.out.println("#Statement error#: " + targetStmt);
                 e.printStackTrace();
@@ -106,6 +116,7 @@ public class BackwardSlice {
     }
 
     private void init() {
+        LOGGER.info("Init");
         paramValue = new HashMap<>();
         classVarMap = new HashMap<>();
         //private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
@@ -122,6 +133,7 @@ public class BackwardSlice {
     }
 
     private void completeCGBuilder(String path, String callee, String functionType) throws IOException, ClassHierarchyException, CallGraphBuilderCancelException {
+        LOGGER.info("Build CG");
         if (completeCG != null) return;
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
@@ -155,6 +167,7 @@ public class BackwardSlice {
 
 
     public void setParamValue(Statement targetStmt, List<Statement> stmtList) {
+        LOGGER.info("Start finding the value");
         SSAInstruction targetInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
         Set<Integer> uses = new HashSet<>();
         CGNode targetNode = targetStmt.getNode();
@@ -169,6 +182,7 @@ public class BackwardSlice {
             int numOfUse = targetInst.getNumberOfUses();
             //get all parameter, by process one by one
             while (i < numOfUse) {
+                LOGGER.info("Finding the " + i + "th parameter");
                 List<Object> ans = new ArrayList<>(); //have more possible value;
                 sourceLineNums.clear();
                 int use = targetInst.getUse(i);
@@ -198,7 +212,7 @@ public class BackwardSlice {
 
     /* pass the use here as set, if the use can;t be retrive within one block, then should do the edge check*/
     public Set<Integer> getDU(Statement targetStmt, Set<Integer> uses, int pos, SymbolTable st, Set<Integer> visited, List<Object> ans, DefUse du) {
-
+        LOGGER.info("get the def-use chain");
         Queue<Integer> q = new LinkedList<>();
         q.addAll(uses);
         while (!q.isEmpty()) {
@@ -323,6 +337,7 @@ public class BackwardSlice {
 
     //Set<Integer> loopUses = new HashSet<>();
     public void useCheckHelper(Statement targetStmt, Set<Integer> uses, List<Statement> stmtList, Set<Integer> visited, List<Object> ans, int pos) {
+        LOGGER.info("useCheckHelper");
         HashSet<Integer> tempSet = new HashSet<>();
         tempSet = (HashSet<Integer>) ((HashSet) uses).clone();
         for (Integer use : tempSet) {
@@ -332,6 +347,7 @@ public class BackwardSlice {
     }
 
     public boolean checkSpecialCase(Set<Integer> uses, int use, List<Statement> stmtList, int pos, Set<Integer> visited, List<Object> ans, DefUse du) {
+        LOGGER.info("Checking special case");
         Set<Integer> newUses = new HashSet<>();
         for (Statement st : stmtList) { //check map
             if (st instanceof StatementWithInstructionIndex) {
@@ -390,6 +406,7 @@ public class BackwardSlice {
     }
 
     public void usechek(Integer use, Statement targetStmt, Set<Integer> uses, List<Statement> stmtList, Set<Integer> visited, List<Object> ans, int pos, List<Statement> stmtInBlock) {
+        LOGGER.info("useChek");
         Statement tmp = checkPassin(targetStmt, use, uses, stmtInBlock);
         if (tmp != null) {
             Iterator<Statement> callerStmt = backwardSuperGraph.getSuccNodes(tmp);
@@ -461,6 +478,7 @@ public class BackwardSlice {
     }
 
     public void processSuccStmt(Statement targetStmt, String fieldName, List<Statement> stmtList, Iterator<Statement> succStatement, Set<Integer> uses, Set<Integer> visited, List<Object> ans, int pos, List<Statement> stmtInBlock) {
+        LOGGER.info("Process succ stmt");
         while (succStatement.hasNext()) {
             Statement currStmt = succStatement.next();
             if (currStmt.getKind() == Statement.Kind.HEAP_PARAM_CALLEE) {
@@ -548,6 +566,7 @@ public class BackwardSlice {
 
 
     public Set<Integer> searchInit(Statement stmt, IField field, int pos, Set<Integer> uses, Set<Integer> visited) {
+        LOGGER.info("Search the constructor");
         CGNode initNode = null;
         List<Object> ans = new ArrayList<>();
         Collection<? extends IMethod> methodList = stmt.getNode().getMethod().getDeclaringClass().getDeclaredMethods();
@@ -602,7 +621,7 @@ public class BackwardSlice {
 
     //TODO: hre should be modify to deal with heap callee and para_callee
     public void processParaCallee(Statement targetStmt, String fieldname, List<Statement> StmtList, HeapStatement.HeapParamCallee heapParaCallee, Set<Integer> uses, Set<Integer> visited, List<Object> ans, int pos, List<Statement> stmtInBlock) {
-
+        LOGGER.info("Processing Callee");
         Iterator<Statement> succCallee = backwardSuperGraph.getSuccNodes(heapParaCallee);
         while (succCallee.hasNext()) {
             Statement curStmt = succCallee.next();
@@ -618,6 +637,7 @@ public class BackwardSlice {
     }
 
     public void processParaCaller(Statement targetStmt, String fieldname, List<Statement> StmtList, HeapStatement.HeapParamCaller heapParamCaller, Set<Integer> uses, Set<Integer> visited, List<Object> ans, int pos, List<Statement> stmtInBlock) {
+        LOGGER.info("Processing Caller");
         Iterator<Statement> succCaller = backwardSuperGraph.getSuccNodes(heapParamCaller);
         while (succCaller.hasNext()) {
             Statement currStmt = succCaller.next();
@@ -658,7 +678,7 @@ public class BackwardSlice {
     }
 
     public void processParaCaller(Statement targetStmt, int use, List<Statement> StmtList, ParamCaller paramCaller, Set<Integer> uses, Set<Integer> visited, List<Object> ans, int pos, List<Statement> stmtInBlock) {
-
+        LOGGER.info("Processing Caller");
         Iterator<Statement> succCaller = backwardSuperGraph.getSuccNodes(paramCaller);
         while (succCaller.hasNext()) {
             Statement currStmt = succCaller.next();
@@ -762,6 +782,7 @@ public class BackwardSlice {
 
 
     public Statement checkPassin(Statement targetStmt, int use, Set<Integer> uses, List<Statement> stmtList) {
+        LOGGER.info("Check passin parameter");
         String func = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString() + " " +
                 targetStmt.getNode().getMethod().getSelector().getName().toString();
 
@@ -799,6 +820,7 @@ public class BackwardSlice {
     }
 
     public StatementWithInstructionIndex checkStaticField(Statement targetStmt, int use, Set<Integer> uses, List<Statement> stmtList, int pos, Set<Integer> visited, List<Object> ans) {
+        LOGGER.info("Check Static Field");
         String func = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString() + " " +
                 targetStmt.getNode().getMethod().getSelector().getName().toString();
         CGNode node = targetStmt.getNode();
@@ -861,6 +883,7 @@ public class BackwardSlice {
 
 
     public List<Statement> filterStatement(Collection<Statement> relatedStmts) {
+        LOGGER.info("filter statement");
         List<Statement> stmtList = new ArrayList<>();
         for (Statement stmt : relatedStmts) {
             if (!stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial")) {
@@ -913,6 +936,7 @@ public class BackwardSlice {
     public void findAllCallTo(CGNode n, String methodName, String methodType) {
         IR ir = n.getIR();
         if (ir == null) return;
+
         for (SSAInstruction s : Iterator2Iterable.make(ir.iterateAllInstructions())) {
             if (s instanceof SSAInvokeInstruction) {
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
