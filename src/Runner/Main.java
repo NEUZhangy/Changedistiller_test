@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class Main {
         PrintStream stream = new PrintStream(file);
         System.setOut(stream);
         System.setErr(stream);
+        Files.write(Paths.get("result.txt"), "".getBytes());
         JSONParser jsonParser = new JSONParser();
         FileReader reader = new FileReader("src/caller.json");
         Object obj = jsonParser.parse(reader);
@@ -49,6 +53,9 @@ public class Main {
     }
 
     public static void runCaseChecking(String filePath, JSONArray checkingCase) throws ClassHierarchyException, CancelException, IOException {
+        int count = 0;
+        Map<Integer, String> caseName = new HashMap<>();
+        Map<Integer, Integer> caseCount = new HashMap<>();
         for (Object o: checkingCase) {
             CodeCase codeCase = new CodeCase((JSONObject)o);
             System.out.println("\n=====" + codeCase.type + " " + codeCase.methodType + " " + codeCase.callee + "=====");
@@ -58,8 +65,20 @@ public class Main {
             Map<String, Map<Integer, List<Object>>> varMap = backwardSlicer.getClassVarMap();
             Map<String, HashMap<Integer, List<Integer>>> classLineNums = backwardSlicer.getClassParamsLinesNumsMap();
 //            System.err.println(classLineNums);
-            codeCase.checking(varMap);
+            caseCount.put(count, codeCase.checking(varMap));
+            caseName.put(count, codeCase.methodType + " " + codeCase.callee);
+            count ++;
         }
+        // output the summary
+        writetoFile("############################################################\n");
+        writetoFile(filePath + "\n");
+        for (Map.Entry<Integer, Integer> e: caseCount.entrySet()) {
+//            System.out.printf("Rule %s: %d\n", caseName.get(e.getKey()), e.getValue());
+            writetoFile(String.format("Rule %s: %d\n", caseName.get(e.getKey()), e.getValue()));
+        }
+    }
 
+    public static void writetoFile(String str) throws IOException {
+        Files.write(Paths.get("result.txt"), str.getBytes(), StandardOpenOption.APPEND);
     }
 }

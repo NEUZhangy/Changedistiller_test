@@ -45,7 +45,8 @@ public class CodeCase {
         return set;
     }
 
-    public void checking(Map<String, Map<Integer, List<Object>>> classVarMap) {
+    public int checking(Map<String, Map<Integer, List<Object>>> classVarMap) {
+        int count = 0;
         switch (this.type) {
             case "parameter":
                 for (String className : classVarMap.keySet()) {
@@ -56,6 +57,7 @@ public class CodeCase {
                     if (incorrectSet == null && ans != null) {
                         System.out.println("Parameter " + this.checkParameter + " " + ans + "\n" +
                                 "Suggest: " + this.correctSet);
+                        count++;
                     } else {
                         for (Object o : ans) {
 //                            if (incorrectSet.contains(o.toString())) {
@@ -67,11 +69,13 @@ public class CodeCase {
                                     if (p.equals("#" + o.toString())) {
                                         System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
                                                 "Suggest: " + this.correctSet);
+                                        count++;
                                     }
                                 }
                                 else if (Pattern.matches(p, o.toString())) {
                                     System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
                                         "Suggest: " + this.correctSet);
+                                    count++;
                                 }
                             }
                         }
@@ -89,6 +93,7 @@ public class CodeCase {
                             if (Integer.parseInt(o.toString()) < minNum) {
                                 System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
                                         "Suggest: " + "Should Greater Than " + minNum);
+                                count++;
                             }
                         } catch (Exception e) {
                             continue;
@@ -103,9 +108,11 @@ public class CodeCase {
                     Map<Integer, List<Object>> variables = classVarMap.get(className);
                     System.out.println("Find " + this.methodType);
                     System.out.println("Suggest: Function should use: " + this.correctSet);
+                    count++;
                 }
                 break;
         }
+        return count;
     }
 
     @Override

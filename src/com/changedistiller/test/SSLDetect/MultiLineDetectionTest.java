@@ -13,10 +13,10 @@ public class MultiLineDetectionTest {
         String path = "-appJar " + Constant.FILEPATH + " ";
         String mainClass ="-mainClass Lorg/cryptoapi/bench/dummyhostnameverifier/HostnameVerifierCase2 ";
         String caller = "-srcCaller main ";
-        String callee = "-srcCallee getInstance ";
+        String callee = "-srcCallee createSocket ";
         String settings = "-dd full -cd full -dir forward";
 
-        MultiLineDetection multiClass = new MultiLineDetection(path+mainClass+callee+caller+settings, "KeyPairGenerator");
+        MultiLineDetection multiClass = new MultiLineDetection(path+mainClass+callee+caller+settings, "SocketFactory");
         //pdfSlice.runInit(path, mainClass,caller,callee,);
         multiClass.run();
     }

@@ -8,15 +8,8 @@ public class StringSimilarity {
         double targetLen = target.length();
         double maxDistance = 0d;
 
-        if (targetLen == sourceLen) {
-            maxDistance = sourceLen;
-        } else if (targetLen > sourceLen) {
-            maxDistance = sourceLen;
-            maxDistance += targetLen - sourceLen;
-        } else {
-            maxDistance = targetLen;
-            maxDistance += sourceLen - targetLen;
-        }
+        maxDistance += Math.max(sourceLen, targetLen);
+
         return maxDistance;
     }
 

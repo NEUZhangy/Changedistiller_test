@@ -184,14 +184,14 @@ public class MultiLineDetection {
     private List<String> getCorrectstmts() {
         //correct template
         List<String> correctstmts = new ArrayList<>();
-        correctstmts.add(" KeyPairGenerator $v_11 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
-        correctstmts.add(" $v_11.initialize(2048);");
-//        correctstmts.add("SSLSocket $v_1 = (SSLSocket) $v_0.createSocket(\"mail.google.com\", 443);");
-//            correctstmts.add("HostnameVerifier $v_2  = HttpsURLConnection.getDefaultHostnameVerifier();");
-//            correctstmts.add("SSLSession $v_3 = socket.getSession();");
-//            correctstmts.add("if (!$v_2.verify(\"mail.google.com\", $v_3)) {");
-//            correctstmts.add("throw new SSLHandshakeException(\"Expected mail.google.com, not found \" +\n" +
-//                    "\t\t\t\t\ts.getPeerPrincipal());}");
+//        correctstmts.add(" KeyPairGenerator $v_11 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
+//        correctstmts.add(" $v_11.initialize(2048);");
+        correctstmts.add("SSLSocket $v_1 = (SSLSocket) $v_0.createSocket(\"mail.google.com\", 443);");
+            correctstmts.add("HostnameVerifier $v_2  = HttpsURLConnection.getDefaultHostnameVerifier();");
+            correctstmts.add("SSLSession $v_3 = socket.getSession();");
+            correctstmts.add("if (!$v_2.verify(\"mail.google.com\", $v_3)) {");
+            correctstmts.add("throw new SSLHandshakeException(\"Expected mail.google.com, not found \" +\n" +
+                    "\t\t\t\t\ts.getPeerPrincipal());}");
         return correctstmts;
     }
 

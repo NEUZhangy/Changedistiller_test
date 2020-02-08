@@ -99,16 +99,16 @@ public class BackwardSlice {
                 List<Statement> stmtList = filterStatement(relatedStmts);
                 setParamValue(targetStmt, stmtList);
 
-                System.out.println("--------------------------------------------");
-                System.out.println(targetStmt.getNode().getMethod().getReference().getSignature());
+                //System.out.println("--------------------------------------------");
+                //System.out.println(targetStmt.getNode().getMethod().getReference().getSignature());
                 for (int i = 0; i < paramValue.size(); i++) {
-                    System.out.println("target parameter is : " + paramValue.get(i));
+                    //System.out.println("target parameter is : " + paramValue.get(i));
                 }
                 classVarMap.put(className, (Map<Integer, List<Object>>) paramValue.clone());
                 classParamsLinesNumsMap.put(className, (HashMap<Integer, List<Integer>>) paramsSourceLineNumsMap.clone());
                 LOGGER.info("Finish");
             } catch (NullPointerException e) {
-                System.out.println("#Statement error#: " + targetStmt);
+                //System.out.println("#Statement error#: " + targetStmt);
                 e.printStackTrace();
             }
         }
@@ -390,7 +390,7 @@ public class BackwardSlice {
                             uses = getDU(put, pairUse, pos, put.getNode().getIR().getSymbolTable(), visited, ans, put.getNode().getDU());
                             if (uses.isEmpty()) return true;
                             else {
-                                System.out.println("more process for hashmap");
+                                //System.out.println("more process for hashmap");
                                 return true;
                             }
                         }
@@ -435,10 +435,10 @@ public class BackwardSlice {
                     continue;
                 }
             }
-            System.out.println("no caller for callee, method not call");
+            //System.out.println("no caller for callee, method not call");
             return;
         } else {
-            System.out.println("not passin, checkStaticField");
+            //System.out.println("not passin, checkStaticField");
         }
         if (uses.isEmpty()) return;
         StatementWithInstructionIndex getFieldStmt = checkStaticField(targetStmt, use, uses, stmtList, pos, visited, ans);
@@ -459,7 +459,7 @@ public class BackwardSlice {
             return;
 
         } else {
-            System.out.println("not static field, check special case field");
+            //System.out.println("not static field, check special case field");
         }
         DefUse du = targetStmt.getNode().getDU();
         if (checkSpecialCase(uses, use, stmtList, pos, visited, ans, du)) {
@@ -469,7 +469,7 @@ public class BackwardSlice {
             ans.add("no value");
             paramValue.put(pos, ans);
             sourceLineNums.add(-1);
-            System.out.println("no value assigned for this para");
+            //System.out.println("no value assigned for this para");
             uses.remove(use);
             return;
         }
@@ -485,7 +485,7 @@ public class BackwardSlice {
                 HeapStatement.HeapParamCallee heapcallee = (HeapStatement.HeapParamCallee) currStmt;
                 PointerKey loc = heapcallee.getLocation();
                 if (loc instanceof InstanceFieldKey) {
-                    System.out.println("instance field check");
+                    //System.out.println("instance field check");
                     Collection<IField> fields = currStmt.getNode().getMethod().getDeclaringClass().getDeclaredInstanceFields();
                     InstanceFieldKey insLoc = (InstanceFieldKey) loc;
                     if (fields.contains(insLoc.getField())) {
@@ -543,7 +543,7 @@ public class BackwardSlice {
                 return;
             }
             if (currStmt.getKind() == Statement.Kind.PARAM_CALLEE) {
-                System.out.println(" I don't want deal with this case now");
+                //System.out.println(" I don't want deal with this case now");
                 continue;
             }
             if (currStmt instanceof StatementWithInstructionIndex) {
@@ -610,7 +610,7 @@ public class BackwardSlice {
                                 }
                             }
                         }
-                        System.out.println("Cannot find the value directly");
+                        //System.out.println("Cannot find the value directly");
                         return uses;
                     }
                 }
@@ -773,7 +773,7 @@ public class BackwardSlice {
                 }
 
             } else {
-                System.out.println("more process here fro:" + currStmt.getKind());
+                //System.out.println("more process here fro:" + currStmt.getKind());
                 return;
             }
             //TODO: no method call it , not return caller?
@@ -846,7 +846,7 @@ public class BackwardSlice {
                 }
 
                 if (getInst.getDef() == use && !(getInst.isStatic())) {
-                    System.out.println("instance field");
+                    //System.out.println("instance field");
                     String instanceField = getInst.getDeclaredField().getName().toString();
                     uses.remove(use);
 //                    Set<Integer> newUse = new HashSet<>();
@@ -981,7 +981,7 @@ public class BackwardSlice {
                 }
             }
         }
-//        System.out.println(ans);
+//        //System.out.println(ans);
 //        for (int i = 0; i < stmtInBlock.size(); i++) {
 //            Statement stm = stmtInBlock.get(i);
 //            if (stm.getKind() == Statement.Kind.METHOD_ENTRY && stm.getNode().getMethod().getSignature().compareToIgnoreCase(signature) == 0) {
