@@ -1,13 +1,17 @@
 package com.ibm.wala.examples.slice;
 
 import com.ibm.wala.classLoader.IField;
+import com.ibm.wala.classLoader.NewSiteReference;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
+import com.ibm.wala.ipa.callgraph.CGNode;
 import com.ibm.wala.ipa.callgraph.CallGraph;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceFieldKey;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
 import com.ibm.wala.ipa.callgraph.propagation.PointerKey;
 import com.ibm.wala.ipa.callgraph.propagation.StaticFieldKey;
 import com.ibm.wala.ipa.slicer.*;
+import com.ibm.wala.ssa.*;
+import com.ibm.wala.util.collections.Pair;
 
 import java.util.*;
 
@@ -23,6 +27,7 @@ public class EdgeProce {
     private HashMap<Integer, Statement> statementWithIndex = new HashMap<>();
     private CallGraph completeCG;
     private HashMap<Integer,Statement> newReMap = new HashMap<>();
+    public Set<Statement> visited = new HashSet<>();
 
     public EdgeProce(ISupergraph<Statement, PDG<? extends InstanceKey>> backwardSuperGraph, HashMap<Integer, Statement> resultMap, Integer use
     ,List<Statement> reachingStmts, HashMap<Integer, List<Object>> paramValue, CallGraph cg){
@@ -37,10 +42,11 @@ public class EdgeProce {
     public IntraResult edgeSolver(int use, int pos, List<Object> ans){
         this.targetStmt = getCurStmt();
         if(targetStmt != null){
-            Set<Statement> visited = new HashSet<>();
-           Boolean result = checkEdges(pos, ans, targetStmt,use, completeCG, visited);
-           IntraResult intraResult = new IntraResult(targetStmt,paramValue, uses, result,targetStmt.getNode().getIR(), newReMap);
-           return  intraResult;
+            //Set<Statement> visited = new HashSet<>();
+            Boolean result = checkEdges(pos, ans, targetStmt,use, completeCG, this.visited);
+           // this.visited.addAll(visited);
+            IntraResult intraResult = new IntraResult(getCurStmt(),paramValue, uses, result,targetStmt.getNode().getIR(), newReMap);
+            return  intraResult;
 
         }else{
             System.out.println("no matching stmt; check the resultmap in intraRetrive");
@@ -54,7 +60,7 @@ public class EdgeProce {
         Iterator<Statement> edges = backwardSuperGraph.getSuccNodes(stmt);
         while (edges.hasNext()){
             Statement curEdge = edges.next();
-            if(visited.contains(curEdge)) break;
+            if(visited.contains(curEdge)) continue;
             visited.add(curEdge);
             switch (curEdge.getKind()) {
                 case HEAP_PARAM_CALLEE:
@@ -67,58 +73,84 @@ public class EdgeProce {
                     }
                     if(loc instanceof InstanceFieldKey){
                         InstanceFieldKey fieldLoc = (InstanceFieldKey) loc;
+                        InstanceKey insKey = fieldLoc.getInstanceKey();
+
+                        Iterator<Pair<CGNode, NewSiteReference>> siteIn = insKey.getCreationSites(completeCG);
+                        if(siteIn.hasNext()){
+                            Pair<CGNode, NewSiteReference> next = siteIn.next();
+                            if (isPrimordial(next.fst)) break;
+                        }
                         iField = fieldLoc.getField();
                     }
+
                     System.out.println("--------------checkfiled within class first--------" + iField.getName().toString());
                     Collection<IField> fields = curEdge.getNode().getMethod().getDeclaringClass().getDeclaredInstanceFields();
+
                     if (fields.contains(iField)) { // search the init function within current class
                         InitRetrive initRetrive = new InitRetrive(curEdge, iField, loc,paramValue,backwardSuperGraph);
                         Set<Integer> uses = new HashSet<>();
                         uses.add(use);
                         Set<Integer> visiteduse = new HashSet<>();
                         if(initRetrive.setValues(completeCG, pos,ans,uses, visiteduse)){
-                            continue;
+                            System.out.println("just check one init value");
+                            result = false;
+                            return result;
+                            //break;
                         }
                         else{
-                            checkEdges(pos, ans, curEdge,use, completeCG,visited);
+                            result =checkEdges(pos, ans, curEdge,use, completeCG,visited);
                             break;
                         }
                     }
                     else{
-                        checkEdges(pos, ans, curEdge,use, completeCG,visited);
+                        result =checkEdges(pos, ans, curEdge,use, completeCG,visited);
                         break;
                     }
 
 
                 case HEAP_PARAM_CALLER:
-                    checkEdges(pos, ans, curEdge,use, completeCG,visited);
+                    result =checkEdges(pos, ans, curEdge,use, completeCG,visited);
                     break;
                 case HEAP_RET_CALLER:
-                    checkEdges(pos, ans, curEdge, use, completeCG,visited);
+                    result =checkEdges(pos, ans, curEdge, use, completeCG,visited);
                     break;
                 case HEAP_RET_CALLEE:
-                    checkEdges(pos, ans, curEdge,use,completeCG,visited);
+                    result =checkEdges(pos, ans, curEdge,use,completeCG,visited);
                     break;
 
                 case PARAM_CALLEE:
                     ParamCallee paramCallee =(ParamCallee) curEdge;
                     int valNum = paramCallee.getValueNumber();
                     if(valNum == use){
-                        checkEdges(pos, ans,curEdge,use,completeCG,visited);
-                        continue;
+                        result =checkEdges(pos, ans,curEdge,use,completeCG,visited);
+                        break;
                     }
                     else continue;
                 case NORMAL_RET_CALLER:
-                    checkEdges(pos, ans, curEdge,use, completeCG,visited);
+                    result =checkEdges(pos, ans, curEdge,use, completeCG,visited);
                     break;
                 case NORMAL_RET_CALLEE:
-                    checkEdges(pos, ans, curEdge,use, completeCG,visited);
+                    result =checkEdges(pos, ans, curEdge,use, completeCG,visited);
                     break;
 
                 case PARAM_CALLER:
                     ParamCaller paraCaller = (ParamCaller) curEdge;
                     int newUse = paraCaller.getValueNumber();
-                    checkEdges(pos, ans, curEdge, newUse, completeCG,visited);
+                    Iterator<Statement> suPcaller = backwardSuperGraph.getSuccNodes(curEdge);
+                    if(!suPcaller.hasNext()){
+                        this.targetStmt = curEdge;
+                        this.use = newUse;
+                        result = false;
+                        uses.add(this.use);
+                        newReMap.put(this.use, targetStmt);
+                        return result;
+                    }
+//                    this.targetStmt = curEdge;
+//                    resultMap.clear();
+//                    newReMap.put(newUse,curEdge);
+//                    uses.clear();
+//                    uses.add(newUse);
+                    result =checkEdges(pos, ans, curEdge, newUse, completeCG,visited);
                     break;
 
                 case METHOD_ENTRY:
@@ -127,9 +159,29 @@ public class EdgeProce {
                 case NORMAL:
                     this.targetStmt = curEdge;
                     this.use = use;
+                    if(targetStmt instanceof StatementWithInstructionIndex){
+                        SSAInstruction curInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
+                        if(curInst instanceof SSAPutInstruction){
+                            this.use = ((SSAPutInstruction) curInst).getVal();
+                        }
+
+                        if(curInst instanceof SSAConditionalBranchInstruction) {
+                            result = false;
+                            break;
+                        }
+                        if(curInst instanceof SSANewInstruction){
+                            result = true;
+                            break;
+                        }
+                        if(curInst instanceof SSAReturnInstruction){
+                            SSAReturnInstruction reInst = (SSAReturnInstruction)curInst;
+                            this.use = reInst.getResult();
+                        }
+                    }
+
                     result = false;
-                    uses.add(use);
-                    newReMap.put(use, targetStmt);
+                    uses.add(this.use);
+                    newReMap.put(this.use, targetStmt);
                     return result;
             }
 //            if(curEdge.getKind() == HEAP_PARAM_CALLEE){
@@ -200,11 +252,29 @@ public class EdgeProce {
 //
 //
         }
+
+        if(!result) return result;
+
+        if(!(edges.hasNext())){
+            if(stmt.getKind() == Statement.Kind.NORMAL_RET_CALLER ) {
+                this.targetStmt = stmt;
+                this.use = use;
+                uses.add(use);
+                newReMap.put(use, stmt);
+            }
+                return false;
+        }
+
         if(resultMap.isEmpty()){
             System.out.println("No succNode for curedge: " + stmt);
+            ans.add("fail retrive");
+            paramValue.put(pos,ans);
+            result = false;
         }
         return  result;
     }
+
+
 
     public Statement getCurStmt(){
         if(resultMap.get(use)!= null)
@@ -213,5 +283,7 @@ public class EdgeProce {
             return null;
     }
 
-
+    public boolean isPrimordial(CGNode n) {
+        return n.getMethod().getDeclaringClass().getClassLoader().getName().toString().equals("Primordial");
+    }
 }

@@ -14,9 +14,9 @@ public class BackwardSlicerTest {
         String path = Constant.FILEPATH;
         String caller = "main";
 
-        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2";
-        String callee = "<init>";
-        String functionType = "SecretKeySpec";
+        String mainClass ="Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase1";
+        String callee = "initialize";
+        String functionType = "KeyPairGenerator";
 
 //        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
 //        String callee = "getInstance";
