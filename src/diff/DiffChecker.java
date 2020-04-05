@@ -2,25 +2,21 @@ package diff;
 
 import com.changedistiller.test.SSLDetect.VariableDeclarationVisitor;
 import com.github.javaparser.JavaToken;
+import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.Range;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
-import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
-import com.ibm.wala.cast.tree.CAstType;
 import utils.StringSimilarity;
 
 import java.io.File;
@@ -46,8 +42,8 @@ public class DiffChecker {
     }
 
     public void run() throws FileNotFoundException {
-        String left_file_path = "C:\\Users\\LinG\\Desktop\\case\\left.java";
-        String right_file_path = "C:\\Users\\LinG\\Desktop\\case\\right.java";
+        String left_file_path = "C:\\Users\\LinG\\Desktop\\case\\pbei.java";
+        String right_file_path = "C:\\Users\\LinG\\Desktop\\case\\pbes.java";
         CompilationUnit leftCU = getCU(left_file_path);
         CompilationUnit rightCU = getCU(right_file_path);
         Map<Range, Expression> leftStmts = getStatements(leftCU);
@@ -58,14 +54,22 @@ public class DiffChecker {
         DiffType diff = null;
         // 这里需不需要判断相等存疑，可以直接进行匹配
         if (leftStmts.size() == rightStmts.size()) {
-            lineMap = getMatchStmts(leftStmts, rightStmts, leftCU, rightCU, 0.8f);
+            lineMap = getMatchStmts(leftStmts, rightStmts, leftCU, rightCU, 0.69f);
             diff = extractDiff(lineMap, leftStmts, rightStmts);
         } else {
             // 判断多行情况
             lineMap = getMatchStmts(leftStmts, rightStmts, leftCU, rightCU, 0.6f);
             diff = extractMultiDiff(lineMap, leftStmts, rightStmts, leftCU, rightCU);
         }
-        extractTargetStmt(diff, leftCU, rightStmts, lineMap);
+        if (leftStmts.size() != 0)
+            extractTargetStmt(diff, leftCU, rightStmts, lineMap);
+        else {
+            extractTargetStmt(diff, rightCU, rightStmts, lineMap);
+        }
+        // 如果方法类型是keypairgenerator，特殊处理
+        if (diff.methodType.compareTo("KeyPairGenerator") == 0) {
+            extractKPG(diff, leftStmts, leftCU);
+        }
         log.info(diff.toString());
     }
 
@@ -95,8 +99,7 @@ public class DiffChecker {
         return new DiffType();
     }
 
-
-    //get the similat stmt in multi-line case
+    // get the similat stmt in multi-line case
     private DiffType extractMultiDiff(
             HashMap<Range, Range> lineMap,
             Map<Range, Expression> leftStmts,
@@ -115,14 +118,12 @@ public class DiffChecker {
         }
         if (leftStmts_.size() > 0) {
             diff.action = Action.DELETE;
-            addStmtToDiff(diff, leftStmts_, leftCU);
         } else if (rightStmts_.size() > 0) {
             diff.action = Action.ADD;
-            addStmtToDiff(diff, rightStmts_, rightCU);
         }
+        addStmtToDiff(diff, rightStmts, rightCU);
         return diff;
     }
-
 
     private void extractVars(
             Map<Range, Expression> stmts,
@@ -142,11 +143,11 @@ public class DiffChecker {
     }
 
     private void extractPos(Expression expr, DiffType diff) {
+        if (diff.pos != -1) return;
         Set<String> vars = eToVL.get(expr);
         for (String v : vars) {
             TreeSet<Expression> expressions = lVarMap.get(v);
-            if (!isSecurityAPI(resolveType(expr)))
-                expressions.remove(expr);
+            if (!isSecurityAPI(resolveType(expr))) expressions.remove(expr);
             for (Expression exp : expressions) {
                 if (exp instanceof VariableDeclarationExpr) {
                     VariableDeclarationExpr VDExp = (VariableDeclarationExpr) exp;
@@ -183,7 +184,7 @@ public class DiffChecker {
                             String.valueOf(((IntegerLiteralExpr) rNode).getValue()),
                             null,
                             null,
-                            -1,
+                            extractPosDirectly(lNode),
                             null,
                             null);
                 }
@@ -220,8 +221,8 @@ public class DiffChecker {
                     log.info("MethodName Err");
                     return new DiffType(
                             Pattern.NAME,
-                            String.valueOf(((LiteralStringValueExpr) lNode).getValue()),
-                            String.valueOf(((LiteralStringValueExpr) rNode).getValue()),
+                            String.valueOf(lName.toString()),
+                            String.valueOf(rName.toString()),
                             null,
                             null,
                             -1,
@@ -231,6 +232,32 @@ public class DiffChecker {
             }
         }
         return new DiffType();
+    }
+
+    private void extractKPG(DiffType diff, Map<Range, Expression> stmts, CompilationUnit cu) {
+        log.info("Meet KeyPairGenerator");
+        // change callee to initialize for backward slicing
+        diff.callee = "initialize";
+        // need to check the value of kpg.getInstance
+        if (diff.pattern == Pattern.NUMBER) diff.pos = 0;
+        //        Expression getInstance = null;
+        //        for (Expression e: stmts.values()) {
+        //            if (e.toString().contains("getInstance")) {
+        //                getInstance = e;
+        //                break;
+        //            }
+        //        }
+        //        String algo =
+        // getInstance.findFirst(MethodCallExpr.class).get().getArgument(0).toString();
+        //        System.out.println(algo);
+        Map<Range, String> normalizeStmts = normalizeStmts(cu, stmts);
+        HashSet<String> matchStmts = new HashSet<>();
+        for (String stmt : normalizeStmts.values()) {
+            if (stmt.contains("getInstance")) {
+                matchStmts.add(stmt);
+            }
+        }
+        diff.stmts = matchStmts;
     }
 
     private void addStmtToDiff(DiffType diff, Map<Range, Expression> stmts, CompilationUnit cu) {
@@ -270,8 +297,13 @@ public class DiffChecker {
                 diff.methodType = type.substring(type.lastIndexOf(".") + 1);
                 diff.callee = extractCallee(exp);
                 if (diff.pattern == Pattern.COMPOSITE) {
-                    diff.pos = extractCompositePos(exp, getRightExp(exp, rightStmts, lineMap), diff);
+                    diff.pos =
+                            extractCompositePos(exp, getRightExp(exp, rightStmts, lineMap), diff);
                 }
+            }
+            if (type.contains("Random")) {
+                diff.methodType = type.substring(type.lastIndexOf(".") + 1);
+                diff.callee = "<init>";
             }
         }
     }
@@ -279,12 +311,13 @@ public class DiffChecker {
     private Expression getRightExp(
             Expression exp, Map<Range, Expression> rightStmts, HashMap<Range, Range> lineMap) {
         Node parent = exp.getParentNode().get();
-        while(!(parent instanceof ExpressionStmt)) {
+        while (!(parent instanceof ExpressionStmt)) {
             parent = parent.getParentNode().get();
         }
         log.info(parent.toString());
         Expression rightExp = rightStmts.get(lineMap.get(parent.getRange().get()));
-        for (Expression e: rightExp.findAll(exp.getClass())) {
+        if (rightExp == null) return exp;
+        for (Expression e : rightExp.findAll(exp.getClass())) {
             return e;
         }
         return null;
@@ -298,25 +331,23 @@ public class DiffChecker {
             for (int i = 0; i < leftArgs.size(); i++) {
                 Expression leftExp = leftArgs.get(i);
                 Expression rightExp = rightArgs.get(i);
-                if (leftExp.getClass() != rightExp.getClass()){
-                    diff.incorrect ="static";
+                if (leftExp.getClass() != rightExp.getClass()) {
+                    diff.incorrect = "static";
                     return i;
                 }
-
             }
         }
 
-        if(left instanceof MethodCallExpr){
+        if (left instanceof MethodCallExpr) {
             NodeList<Expression> leftArgs = ((MethodCallExpr) left).getArguments();
             NodeList<Expression> rightArgs = ((MethodCallExpr) right).getArguments();
             for (int j = 0; j < leftArgs.size(); j++) {
                 Expression leftExp = leftArgs.get(j);
                 Expression rightExp = rightArgs.get(j);
-                if (leftExp.getClass() == rightExp.getClass()){
-                    //diff.incorrect ="static";
+                if (leftExp.getClass() == rightExp.getClass()) {
+                    // diff.incorrect ="static";
                     return j;
                 }
-
             }
         }
         return -1;
@@ -414,7 +445,7 @@ public class DiffChecker {
             return "<init>";
         }
         if (exp instanceof MethodCallExpr) {
-            //ResolvedType type = (MethodCallExpr) exp.calculateResolvedType().describe();
+            // ResolvedType type = (MethodCallExpr) exp.calculateResolvedType().describe();
             return ((MethodCallExpr) exp).getName().toString();
         }
         return "";
@@ -440,5 +471,18 @@ public class DiffChecker {
     private String resolveType(Expression expr) {
         ResolvedType type = expr.calculateResolvedType();
         return type.describe();
+    }
+
+    private int extractPosDirectly(Node lNode) {
+        Node parentNode = lNode.getParentNode().get();
+        String type = "";
+        if (parentNode instanceof Expression) {
+            type = resolveType((Expression) parentNode);
+        }
+        if (!isSecurityAPI(type)) return -1;
+        int pos = -1;
+        NodeList<Expression> children = ((ObjectCreationExpr) parentNode).getArguments();
+        pos = children.indexOf(lNode);
+        return pos;
     }
 }
