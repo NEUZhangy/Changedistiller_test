@@ -46,8 +46,8 @@ public class DiffChecker {
     }
 
     public void run() throws FileNotFoundException {
-        String left_file_path = "C:\\Users\\LinG\\Desktop\\case\\getinstance_i.java";
-        String right_file_path = "C:\\Users\\LinG\\Desktop\\case\\getinstance_s.java";
+        String left_file_path = "C:\\Users\\LinG\\Desktop\\case\\left.java";
+        String right_file_path = "C:\\Users\\LinG\\Desktop\\case\\right.java";
         CompilationUnit leftCU = getCU(left_file_path);
         CompilationUnit rightCU = getCU(right_file_path);
         Map<Range, Expression> leftStmts = getStatements(leftCU);
@@ -145,7 +145,8 @@ public class DiffChecker {
         Set<String> vars = eToVL.get(expr);
         for (String v : vars) {
             TreeSet<Expression> expressions = lVarMap.get(v);
-            expressions.remove(expr);
+            if (!isSecurityAPI(resolveType(expr)))
+                expressions.remove(expr);
             for (Expression exp : expressions) {
                 if (exp instanceof VariableDeclarationExpr) {
                     VariableDeclarationExpr VDExp = (VariableDeclarationExpr) exp;
@@ -434,5 +435,10 @@ public class DiffChecker {
             l.add(e);
             varMap.put(v, l);
         }
+    }
+
+    private String resolveType(Expression expr) {
+        ResolvedType type = expr.calculateResolvedType();
+        return type.describe();
     }
 }

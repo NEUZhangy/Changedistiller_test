@@ -39,6 +39,7 @@ public class ProBuilder {
         this.scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);
         ExampleUtil.addDefaultExclusions(scope);
         this.cha = ClassHierarchyFactory.make(scope);
+
         this.entryPoints = getEntryPoints(cha);
         this.options = new AnalysisOptions(scope, entryPoints);
         this.cache = new AnalysisCacheImpl();
@@ -53,7 +54,7 @@ public class ProBuilder {
         }
         PrunedCallGraph pcg = new PrunedCallGraph(CG, keep);
         this.completeCG = pcg;
-        this. completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
+        this.completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
         SDGSupergraph forwards = new SDGSupergraph(completeSDG, true);
         this.backwardSuperGraph = BackwardsSupergraph.make(forwards);
     }
@@ -79,9 +80,13 @@ public class ProBuilder {
         return builder;
     }
 
+    /*get entrypoints while filter out the primordial class*/
     public Set<Entrypoint> getEntryPoints(ClassHierarchy cha){
         Set<Entrypoint> entryPoints = new HashSet<>();
         for (IClass klass : cha) {
+            if (klass.getReference().getName().toString().contains("DFSNetworkTopology")) {
+                System.out.println("321321");
+            }
             if (!klass.isInterface() && !klass.getClassLoader().getName().toString().contains("Primordial")) {
                 for (IMethod method : klass.getDeclaredMethods()) {
                     entryPoints.add(new DefaultEntrypoint(method, cha));

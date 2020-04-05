@@ -12,6 +12,7 @@ public class IntraResult {
     public IR ir;
     public boolean result = false;
     public Statement targetStmt = null;
+    public Set<Statement> visitedStmt = new HashSet<>();
 
     public List<Statement> stmtsInBlock = new ArrayList<>();
     public int pos;
@@ -22,11 +23,14 @@ public class IntraResult {
         this.uses = uses;
         this.targetStmt = targetStmt;
         this.result = result;
-        this.ir = ir;
+         this.ir = ir;
         this.resultMap = resultMap;
 
     }
 
+    public void setVisitedStmt(Set<Statement> visited){
+        this.visitedStmt.addAll(visited);
+    }
     public HashMap<Integer, List<Object>> getParamValue() {
         return paramValue;
     }

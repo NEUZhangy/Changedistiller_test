@@ -35,14 +35,8 @@ public class InitRetrive {
         Set<CGNode> initNodes = searchInit(completeCG);
         Boolean result = false;
 
-        if(loc instanceof InstanceFieldKey){
-            InstanceFieldKey insLoc = (InstanceFieldKey)loc;
-            if(setInstValue(insLoc, pos, ans,completeCG)){
-                result =true;
-                return result;
-            }
 
-        }
+        /*here need remove the duplicate init node check*/
 
         for(CGNode initNode: initNodes){
             if(setInitValue(initNode, pos, ans, uses,visited)){
@@ -50,6 +44,17 @@ public class InitRetrive {
                 continue;
             }
         }
+        if(result) return result;
+
+        if(loc instanceof InstanceFieldKey){
+            InstanceFieldKey insLoc = (InstanceFieldKey)loc;
+            if(setInstValue(insLoc, pos, ans,completeCG)){
+                result =true;
+                //return result;
+            }
+
+        }
+
 
         return result;
     }
@@ -57,7 +62,9 @@ public class InitRetrive {
     public boolean setInitValue(CGNode initNode, int pos, List<Object>ans, Set<Integer> uses, Set<Integer> visited){
         SymbolTable st = initNode.getIR().getSymbolTable();
         DefUse du = initNode.getDU();
-        for (SSAInstruction inst : initNode.getIR().getInstructions()) {
+        SSAInstruction instList[] = initNode.getIR().getInstructions();
+        for (SSAInstruction inst : instList) {
+            if(inst== null) continue;
             if (inst instanceof SSAPutInstruction) {
                 SSAPutInstruction putInst = (SSAPutInstruction) inst;
                 if (putInst.getDeclaredField() == this.iField.getReference()) {
@@ -92,28 +99,51 @@ public class InitRetrive {
             if (isPrimordial(next.fst)) continue;
             SymbolTable st = next.fst.getIR().getSymbolTable();
             DefUse du = next.fst.getDU();
+//            if(!(next.fst.getMethod().getDeclaringClass().getAllFields().contains(iField))) {
+//                break;
+//            }
             int value = next.fst.getIR().peiMapping.get(new ProgramCounter(next.snd.getProgramCounter()));
-            SSAInstruction creation = next.fst.getIR().getInstructions()[value];//get the creation SSAinst
+            SSAInstruction creation = next.fst.getIR().getInstructions()[value];
             int creDef= creation.getDef();
+            Iterator<SSAInstruction> creInsts= du.getUses(creDef);
             Set<Integer> newUse = new HashSet<>();
-            for(SSAInstruction inst: next.fst.getIR().getInstructions()){ //find the allocation site
+
+            while(creInsts.hasNext()){
+                SSAInstruction inst = creInsts.next();
                 if(inst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) inst).getDeclaredTarget().getName().toString().contains("<init>")){
                     for(int i =0; i< inst.getNumberOfUses();i++){
-                        if(inst.getUse(i) == creDef){
-                            SSAInvokeInstruction targetNewInst= (SSAInvokeInstruction) inst;
-                            for (int j =i+1; j< inst.getNumberOfUses(); j++){
-                                newUse.add(inst.getUse(j));
-                            }
-                            break;
+                        SSAInvokeInstruction targetNewInst= (SSAInvokeInstruction) inst;
+                        for (int j =i+1; j< inst.getNumberOfUses(); j++){
+                            newUse.add(inst.getUse(j));
                         }
+                        break;
                     }
+                    break;
                 }
-                continue;
+
             }
+
+//            SSAInstruction[] instList = next.fst.getIR().getInstructions();
+//            for(SSAInstruction inst: instList){ //find the allocation site
+//                if(inst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) inst).getDeclaredTarget().getName().toString().contains("<init>")){
+//                    for(int i =0; i< inst.getNumberOfUses();i++){
+//                        if(inst.getUse(i) == creDef){
+//                            SSAInvokeInstruction targetNewInst= (SSAInvokeInstruction) inst;
+//                            for (int j =i+1; j< inst.getNumberOfUses(); j++){
+//                                newUse.add(inst.getUse(j));
+//                            }
+//                            break;
+//                        }
+//                    }
+//                    break;
+//                }
+//                continue;
+//            }
             for(int use: newUse){
                 if (st.isConstant(use)) {
                     ans.add(st.getConstantValue(use));
                     paramValue.put(pos, ans);
+                    return true;
                 } else {
                     Set<Integer> visited = new HashSet<>();
                     IntraRetrive intra = new IntraRetrive(du, st, use, backwardSuperGraph,paramValue);
@@ -129,11 +159,14 @@ public class InitRetrive {
     public Set<CGNode> searchInit(CallGraph completeCG) {
         CGNode initNode = null;
         Collection<? extends IMethod> methodList = targetStmt.getNode().getMethod().getDeclaringClass().getDeclaredMethods();
+
         for (IMethod m : methodList) {
             ShrikeCTMethod method = (ShrikeCTMethod) m;
             MethodReference mr = method.getReference();
+
             if (mr.getName().toString().contains("init")) {
                 Set<CGNode> nodes = completeCG.getNodes(mr);
+
                 return nodes;
             }
         }

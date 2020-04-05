@@ -49,8 +49,12 @@ public class IntraRetrive {
         String signature = targetStmt.getNode().getMethod().getSignature();
         List<Statement> stmtInBlock = getStmtInBlock(signature,reachingStmts);
         statementWithIndex(stmtInBlock);
+        if(stmtInBlock.isEmpty()){
+            System.out.println("method call by init here!");
+
+        }
         SSAInstruction targetInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
-        instVisited.add(targetInst.iIndex());
+        instVisited.add(targetInst.iIndex());/*only add the iindex right? dulpicate index in two different block*/
         Set<Integer> uses = new HashSet<>();
         Set<Integer> visited = new HashSet<>();
         Boolean result = true;
@@ -75,6 +79,10 @@ public class IntraRetrive {
     public Set<Integer> getDU(Set<Integer>uses, int pos, Set<Integer> visited, List<Object> ans){
         Queue<Integer> q = new LinkedList<>();
         q.addAll(uses);
+        if(targetStmt == null){
+            //.clear();
+            return uses;
+        }
         SSAInstruction curInst = ((StatementWithInstructionIndex)targetStmt).getInstruction();
         while (!q.isEmpty()) {
             Integer use1 = q.poll();
@@ -122,11 +130,12 @@ public class IntraRetrive {
                 }
                 if(inst instanceof SSAInvokeInstruction){
                     SSAInvokeInstruction call =(SSAInvokeInstruction) inst;
-                    String methodT = call.getCallSite().getDeclaredTarget().getSignature();
+                    String methodT = call.getDeclaredTarget().getDeclaringClass().toString();
                     String methodN = call.getCallSite().getDeclaredTarget().getName().toString();
-                    if(methodT.contains("Ljava/util/Map")&& methodN.equals("get")){
-                        uses.add(checkMap(call));
-                        q.add(checkMap(call));
+                    if(methodT.contains("java/util/Map")&& methodN.equals("get")){
+                        Integer tmpUse = checkMap(call);
+                        uses.add(tmpUse);
+                        q.add(tmpUse);
                         uses.remove(use1);
                         visited.add(use1);
                         curInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
@@ -134,6 +143,31 @@ public class IntraRetrive {
                     }
 
                 }
+
+
+
+//                if(inst instanceof SSANewInstruction) {
+//                    if (((SSANewInstruction) inst).getNewSite().getDeclaredType().getName().toString().contains("SecureRandom") && inst.getNumberOfUses() == 0) {
+//                        uses.remove(use1);
+//                        visited.add(use1);
+//                        ans.add("can be random value");
+//                        paramValue.put(pos, ans);
+//                        continue;
+//
+//                    }
+//                    if (((SSANewInstruction) inst).getNewSite().getDeclaredType().toString().endsWith("<Primordial,[B>")){
+//                        uses.remove(use1);
+//                        visited.add(use1);
+//                        if(inst.getNumberOfUses()>0){
+//                            int newUse = inst.getUse(0);
+//                            q.add(newUse);
+//                        }
+//                        ans.add("no value assigned");
+//                        paramValue.put(pos, ans);
+//                        continue;
+//                    }
+//
+//                }
                 //TODO:arraylength inst should be futher deal
                 if(inst instanceof SSANewInstruction){
                     Iterator<SSAInstruction> insts =  du.getUses(use1);
@@ -154,6 +188,13 @@ public class IntraRetrive {
                         if(targetInst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) targetInst).getDeclaredTarget().getName().toString().contains("<init>") && !instVisited.contains(targetInst.iIndex())){
                             String methodT = ((SSAInvokeInstruction) targetInst).getDeclaredTarget().getDeclaringClass().toString();
                             if(((SSANewInstruction) inst).getNewSite().getDeclaredType().toString().equals(methodT)){
+                                if(methodT.contains("<Application,Ljava/security/SecureRandom>") && inst.getNumberOfUses() ==0){
+                                    uses.remove(use1);
+                                    visited.add(use1);
+                                    ans.add("parameter can be random value");
+                                    paramValue.put(pos, ans);
+                                    continue;
+                                }
                                 for(int i =0; i< targetInst.getNumberOfUses(); i++){
                                     if(use1 == targetInst.getUse(0)){
                                         instVisited.add(targetInst.iIndex());
@@ -171,16 +212,31 @@ public class IntraRetrive {
                         }
                         continue;
                     }
-                    continue;
 
-                }
-                if(inst instanceof SSANewInstruction && ((SSANewInstruction) inst).getNewSite().getDeclaredType().getName().toString().contains("SecureRandom") && inst.getNumberOfUses() ==0) {
-                    uses.remove(use1);
-                    visited.add(use1);
-                    ans.add("can be random value");
-                    paramValue.put(pos, ans);
+                    if (((SSANewInstruction) inst).getNewSite().getDeclaredType().getName().toString().contains("SecureRandom") && inst.getNumberOfUses() == 0) {
+                        uses.remove(use1);
+                        visited.add(use1);
+                        ans.add("can be random value");
+                        paramValue.put(pos, ans);
+                        continue;
+
+                    }
+                    if (((SSANewInstruction) inst).getNewSite().getDeclaredType().toString().endsWith("<Primordial,[B>")){
+                        uses.remove(use1);
+                        visited.add(use1);
+                        if(inst.getNumberOfUses()>0){
+                            int newUse = inst.getUse(0);
+                            q.add(newUse);
+                        }
+                        ans.add("no value assigned");
+                        paramValue.put(pos, ans);
+                        continue;
+                    }
                     continue;
                 }
+
+
+
 
                 //no use here, maybe should remove
                 if(inst.getNumberOfUses() ==0) return uses;
@@ -192,6 +248,12 @@ public class IntraRetrive {
                     if (!st.isConstant(use)) {
                         uses.add(use);
                         q.add(use);
+                    }else {
+                        if(curInst.getNumberOfUses()==1){
+                            ans.add(st.getConstantValue(use));
+                            this.paramValue.put(pos, ans);
+                            visited.add(use);
+                        }
                     }
                 }
 
@@ -208,9 +270,22 @@ public class IntraRetrive {
                 }
             } else{
                 Statement curStmt = locateStatement(curInst);
+                if(curStmt ==null && curInst instanceof SSAPhiInstruction){
+                   Iterator<SSAInstruction> insts = du.getUses(use1);
+                   while (insts.hasNext()){
+                       SSAInstruction tmpInst = insts.next();
+                       if(instVisited.contains(tmpInst.iIndex())) continue;
+                       curInst = tmpInst;
+                       curStmt = locateStatement(curInst);
+                       break;
+                       //if(instVisited(insts.next())
+                   }
+                }
                 resultMap.put(use1, curStmt);
                 continue;
             }
+
+
 
         }
 
@@ -244,21 +319,21 @@ public class IntraRetrive {
         SSAInvokeInstruction putInst = null;
         int use =0;
         for(int i =0; i< call.getNumberOfUses();i++){
-            uses.add(i);
+            uses.add(call.getUse(i));
             if(i>0){
-                Iterator<SSAInstruction> useInst =  du.getUses(i);
+                Iterator<SSAInstruction> useInst =  du.getUses(call.getUse(i));
                 while (useInst.hasNext()){
                     SSAInstruction inst = useInst.next();
                     int index = inst.iIndex();
                     if(inst instanceof SSAInvokeInstruction && !instVisited.contains(index)){
                         putInst = (SSAInvokeInstruction)inst;
-                        String methodN = call.getCallSite().getDeclaredTarget().getName().toString();
-                        if(putInst.getCallSite().getDeclaredTarget().getSignature().contains("Ljava/util/Map") && methodN.equals("put")){
+                        String methodN = putInst.getCallSite().getDeclaredTarget().getName().toString();
+                        if(putInst.getDeclaredTarget().getDeclaringClass().toString().contains("Ljava/util/Map") && methodN.equals("put")){
                             instVisited.add(index);
                             this.targetStmt = statementWithIndex.get(index);
                             for(int j =0; j< putInst.getNumberOfUses();j++){
-                                if(uses.contains(j))continue;
-                                use =j;
+                                if(uses.contains(putInst.getUse(j)))continue;
+                                use =putInst.getUse(j);
                             }
                         }
                     }
@@ -281,7 +356,7 @@ public class IntraRetrive {
     }
 
 
-
+    /*get the stmt within one method*/
     public List<Statement> getStmtInBlock(String signature, List<Statement> StmtList) {
         List<Statement> stmtInBloack = new ArrayList<>();
         for (int i = 0; i < StmtList.size(); i++) {
@@ -295,7 +370,8 @@ public class IntraRetrive {
 
     public void statementWithIndex(List<Statement> stmtInBlock){
         for(Statement stmt: stmtInBlock){
-            if (stmt instanceof  StatementWithInstructionIndex){
+            if (stmt instanceof  StatementWithInstructionIndex && ((StatementWithInstructionIndex) stmt).getInstruction()!= null &&
+                    stmt.getKind()!= Statement.Kind.NORMAL_RET_CALLEE && stmt.getKind()!= Statement.Kind.NORMAL_RET_CALLER){
                 SSAInstruction inst =((StatementWithInstructionIndex) stmt).getInstruction();
                 this.statementWithIndex.put(inst.iIndex(),stmt);
             }
