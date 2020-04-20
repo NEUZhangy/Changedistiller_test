@@ -1,16 +1,22 @@
 package diff;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class DiffType {
     public Pattern pattern;
-    public String incorrect;
-    public String correct;
-    public String callee;
-    public String methodType;
+    public String incorrect; // change the type to list add the string
+    public String correct; // change the type to list add the string
+    public String callee; // change  parameter list
+    public String methodType; //
     public int pos = -1;
-    public HashSet<String> stmts;
+
+    //TODO: record stmt in incorrect template, callee infor and methodtype
+    public List<String> oldStmts = new ArrayList<>();
+    public HashSet<String> stmts = new HashSet<>(); //fix patch
     public Action action;
+    public String className = "";
 
     public DiffType() {}
 
@@ -34,8 +40,9 @@ public class DiffType {
                 ", callee='" + callee + '\'' +
                 ", methodType='" + methodType + '\'' +
                 ", pos=" + pos +
-                ", stmts=" + stmts +
                 ", action=" + action +
+                ", className=" + className +
+                ", stmts=" + stmts +
                 '}';
     }
 }
