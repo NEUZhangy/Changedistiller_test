@@ -26,15 +26,6 @@ public class CodeCase {
             this.minNum = (long) jsonObject.get("MinNum");
     }
 
-    public List<Long> jsonArraytoList(Object o) {
-        JSONArray arr = (JSONArray) o;
-        List<Long> returnList = new ArrayList<>();
-        for (int i = 0; i < arr.size(); i++) {
-            returnList.add((Long) arr.get(i));
-        }
-        return returnList;
-    }
-
     public Set<String> jsonArraytoSet(Object o) {
         JSONArray arr = (JSONArray) o;
         Set<String> set = new HashSet<>();
@@ -74,7 +65,7 @@ public class CodeCase {
                                 }
                                 else if (Pattern.matches(p, o.toString())) {
                                     System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
-                                        "Suggest: " + this.correctSet);
+                                            "Suggest: " + this.correctSet);
                                     count++;
                                 }
                             }

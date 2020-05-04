@@ -1,6 +1,5 @@
 package com.ibm.wala.examples.slice;
 
-import com.ibm.wala.cast.java.ipa.slicer.AstJavaSlicer;
 import com.ibm.wala.classLoader.*;
 import com.ibm.wala.dataflow.IFDS.BackwardsSupergraph;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
@@ -39,8 +38,6 @@ public class BackwardSlice {
     private ClassHierarchy cha;
     private PointerAnalysis<InstanceKey> pa;
     private HashMap<Integer, List<Object>> paramValue = new HashMap<>();
-    private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
-    //private List<Statement> stmtList = new ArrayList<>();// save the filter slice result
     private Set<String> fieldNames = new HashSet<>();
     private Set<String> instanceFieldNames = new HashSet<>();
     private Map<String, Object> varMap = new HashMap<>(); //for save the field value
@@ -59,13 +56,6 @@ public class BackwardSlice {
     //private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
     //private Statement targetStmt;
 
-    //private FieldReference fieldRef;
-
-    public BackwardSlice(String path) throws ClassHierarchyException, CallGraphBuilderCancelException, IOException {
-        init();
-        completeCGBuilder(path, null, null);
-        LOGGER.setLevel(Level.WARNING);
-    }
 
     public void run(String path,
                     String callee,
@@ -157,17 +147,49 @@ public class BackwardSlice {
             if (!isPrimordial(n))
                 keep.add(n);
         }
-        completeCG = new PrunedCallGraph(completeCG, keep);
+        PrunedCallGraph pcg = new PrunedCallGraph(completeCG, keep);
+        completeCG = pcg;
+
         completeSDG = new SDG<>(completeCG, builder.getPointerAnalysis(), dataDependenceOptions, controlDependenceOptions);
         pa = builder.getPointerAnalysis();
         this.heapModel = pa.getHeapModel();
         SDGSupergraph forwards = new SDGSupergraph(completeSDG, true);
         backwardSuperGraph = BackwardsSupergraph.make(forwards);
+
+        for (CGNode node : completeCG) {
+            findAllCallTo(node, callee, functionType);
+        }
+
+        for (Statement stmt : allRelatedStmt) {
+            Statement targetStmt = stmt;
+            clearInit();
+            cache.clear();
+            String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
+
+            if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2") != 0)
+                continue;
+
+            Collection<CGNode> roots = new ArrayList<>();
+            roots.add(targetStmt.getNode());
+
+            Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
+                    dataDependenceOptions, controlDependenceOptions);
+            List<Statement> stmtList = filterStatement(relatedStmts);
+            setParamValue(targetStmt, stmtList);
+
+            System.out.println("--------------------------------------------");
+            System.out.println(targetStmt.getNode().getMethod().getReference().getSignature());
+            for (int i = 0; i < paramValue.size(); i++) {
+                System.out.println("target parameter is : " + paramValue.get(i));
+
+            }
+        }
+
     }
 
 
     public void setParamValue(Statement targetStmt, List<Statement> stmtList) {
-        LOGGER.info("Start finding the value");
+
         SSAInstruction targetInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
         Set<Integer> uses = new HashSet<>();
         CGNode targetNode = targetStmt.getNode();
@@ -216,10 +238,9 @@ public class BackwardSlice {
         Queue<Integer> q = new LinkedList<>();
         q.addAll(uses);
         while (!q.isEmpty()) {
-            Set<Integer> conUse = new HashSet<>();
-
-            for (Integer i : uses) {
-                if (st.isConstant(i)) {
+        Set<Integer> conUse = new HashSet<>();
+            for(Integer i: uses){
+                if(st.isConstant(i)){
                     ans.add(st.getConstantValue(i));
                     paramValue.put(pos, ans);
                     sourceLineNums.add(getLineNumber(du.getDef(i), targetStmt.getNode().getIR()));
@@ -442,6 +463,7 @@ public class BackwardSlice {
         }
         if (uses.isEmpty()) return;
         StatementWithInstructionIndex getFieldStmt = checkStaticField(targetStmt, use, uses, stmtList, pos, visited, ans);
+
         if (getFieldStmt != null) {
             SSAGetInstruction getinst = (SSAGetInstruction) getFieldStmt.getInstruction();
             FieldReference fieldRef = getinst.getDeclaredField();
@@ -942,8 +964,8 @@ public class BackwardSlice {
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
                 // Get the information binding
                 String methodT = call.getCallSite().getDeclaredTarget().getSignature();
-                if (call.getCallSite().getDeclaredTarget().getName().toString().compareTo(methodName) == 0
-                        && methodT.contains(methodType)) {
+                String methodN = call.getCallSite().getDeclaredTarget().getName().toString();
+                if (methodN.equals(methodName) && methodT.contains(methodType)) {
                     // 一个例子
                     //if (call.getCallSite().getDeclaredTarget().getSignature().contains("Cipher")) continue;
                     IntSet indices = ir.getCallInstructionIndices(((SSAInvokeInstruction) s).getCallSite());

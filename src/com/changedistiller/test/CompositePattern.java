@@ -34,7 +34,7 @@ public class CompositePattern implements CodePattern{
                         @Override
                         public boolean visit(MethodInvocation node) {
                             if (node.getExpression() instanceof StringLiteral) {
-                                constantMap.put(node.getExpression().toString(), String.format("\\ %d", constantCount));
+                                constantMap.put(node.getExpression().toString(), String.format("\\$c_%d", constantCount));
                                 constantCount++;
                             }
                             return super.visit(node);

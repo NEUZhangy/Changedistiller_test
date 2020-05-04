@@ -15,7 +15,6 @@ import com.ibm.wala.ipa.callgraph.impl.Util;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
 import com.ibm.wala.ipa.callgraph.propagation.PointerAnalysis;
 import com.ibm.wala.ipa.cha.ClassHierarchy;
-import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.cha.ClassHierarchyFactory;
 import com.ibm.wala.ipa.slicer.NormalStatement;
 import com.ibm.wala.ipa.slicer.SDG;
@@ -38,26 +37,20 @@ import com.ibm.wala.util.io.FileProvider;
 import utils.StringSimilarity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MultiLineDetection {
+public class Detection {
 
     public String[] args;
     public String methodT; //method type
     public Map<String, String> paramMap = new HashMap<>();
     public List<Object> paramList = new ArrayList<>();
-    private final static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private String filePath = "E:\\Code\\Java\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\dummyhostnameverifier\\HostnameVerifierCase2.java";
 
-
-    public MultiLineDetection(String str, String type) {
+    public Detection(String str, String type) {
         args = str.split(" ");
         methodT = type;
     }
@@ -116,14 +109,121 @@ public class MultiLineDetection {
                        Slicer.DataDependenceOptions dOptions, Slicer.ControlDependenceOptions cOptions) throws IllegalArgumentException, CancelException,
             IOException {
         try {
-//            log.setLevel(Level.WARNING);
-            Collection<Statement> slice = getSliceStmts(appJar, mainClass, srcCaller, srcCallee, goBackward,
-                    dOptions, cOptions);
+            // create an analysis scope representing the appJar as a J2SE application
+            AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile(Constant.EXCLUDES));
+            //slice 不要进包内slice
+            ExampleUtil.addDefaultExclusions(scope);
+
+            // build a class hierarchy, call graph, and system dependence graph
+            ClassHierarchy cha = ClassHierarchyFactory.make(scope);
+            Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha, mainClass);
+            AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
+            options.setReflectionOptions(AnalysisOptions.ReflectionOptions.FULL);
+            CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options, new AnalysisCacheImpl(), cha, scope);
+            CallGraph cg = builder.makeCallGraph(options, null);
+            PointerAnalysis pa = builder.getPointerAnalysis();
+            SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dOptions, cOptions);
+            Statement s = null;
+            CGNode keyNode = null;
+            IClassLoader loader = null;
+            for (CGNode node : cg) {
+                Statement statement = findCallTo(node, srcCallee, methodT);
+                if (statement != null) {
+                    s = statement;
+                }
+            }
+            System.err.println("Statement: " + s);
+            Collection<Statement> slice = null;
+            final PointerAnalysis<InstanceKey> pointerAnalysis = builder.getPointerAnalysis();
+            slice = Slicer.computeForwardSlice(s, cg, pointerAnalysis, dOptions, cOptions);
+            //dumpSlice(slice);
+
             //get the line number in the source code
-            List<Integer> lineNum = getStmtLineNum(slice);
-            List<String> matchingStmt = getmatchStmts(lineNum, filePath);
-            List<String> correctstmts = getCorrectstmts();
-            getMissingStmts(correctstmts, matchingStmt, lineNum);
+            List<Integer> lineNum = new ArrayList<>();
+            for (Statement stmt: slice) {
+                if (stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().compareToIgnoreCase("primordial") == 0
+                        || stmt.getKind() != Statement.Kind.NORMAL)
+                    continue;
+                lineNum.add(getLineNumber(stmt));
+                System.out.println(getLineNumber(stmt));
+            }
+            // create a view of the SDG restricted to nodes in the slice
+            Graph<Statement> g = pruneSDG(sdg, slice);
+            sanityCheck(slice, g);
+            String filePath = "C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\dummyhostnameverifier\\HostnameVerifierCase2.java";
+            //String filePath = "C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\src\\main\\java\\org\\cryptoapi\\bench\\predictablecryptographickey\\keypair.java";
+
+            // The following part is to get the matching statements from the source code:
+            // Use javaparser
+            // 1. visit the file to get all the variables and save to the varList
+            // 2. normalize the statements by replacing the variables but leave the constants.
+            CompilationUnit cu = StaticJavaParser.parse(new File(filePath));
+            Map<String, String> varList = new HashMap<>();
+            VoidVisitor<Map<String, String>> visitor = new VariableDeclarationVisitor();
+            cu.accept(visitor, varList);
+            for (Map.Entry<String, String> entry: varList.entrySet()) {
+                paramMap.put("\\" + entry.getValue(), entry.getKey());
+            }
+            int prev = -1;
+            List<String> matchingStmt = new ArrayList<>();
+            String str = "";
+            for (JavaToken tr: cu.getTokenRange().get()) {
+                int nline = tr.getRange().get().begin.line;
+                if (lineNum.contains(nline)) {
+                    if (prev == -1) prev = nline;
+                    if (prev != nline) {
+                        matchingStmt.add(str.trim());
+                        str = "";
+                        prev = nline;
+                    }
+                    if (varList.containsKey(tr.getText())) {
+                        str += varList.get(tr.getText());
+                    }
+                    else {
+                        str += tr.getText();
+                    }
+                }
+            }
+            matchingStmt.add(str.trim());
+            StringSimilarity ss = new StringSimilarity();
+
+            //correct template
+            List<String> correctstmts = new ArrayList<>();
+            correctstmts.add(" KeyPairGenerator $v_9 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
+            correctstmts.add(" $v_9.initialize(2048);");
+//            correctstmts.add("SSLSocket $v_1 = (SSLSocket) $v_0.createSocket(\"mail.google.com\", 443);");
+//            correctstmts.add("HostnameVerifier $v_2  = HttpsURLConnection.getDefaultHostnameVerifier();");
+//            correctstmts.add("SSLSession $v_3 = socket.getSession();");
+//            correctstmts.add("if (!$v_2.verify(\"mail.google.com\", $v_3)) {");
+//            correctstmts.add("throw new SSLHandshakeException(\"Expected mail.google.com, not found \" +\n" +
+//                    "\t\t\t\t\ts.getPeerPrincipal());}");
+
+            // get the matching ratio
+            Set<Integer> visited = new HashSet<>();
+            HashMap<String, String> varMap = new HashMap<>();
+            for(int i = 0; i < matchingStmt.size(); i++) {
+                for (int j = 0; j < correctstmts.size(); j++) {
+                    if (visited.contains(j)) continue;
+                    double result = ss.calculateSimilarity(matchingStmt.get(i), correctstmts.get(j));
+                    if (result >= 0.9) {
+                        visited.add(j);
+                        String oriVar = getVar(matchingStmt.get(i));
+                        String descVar = getVar(correctstmts.get(j));
+                        varMap.put(oriVar, '\\' + descVar);
+                    }
+                }
+            }
+            for (int j = 0; j<correctstmts.size(); j++) {
+                if (visited.contains(j)) continue;
+                String stmtwithvar = correctstmts.get(j);
+                for (Map.Entry<String, String> entry: paramMap.entrySet()) {
+                    if (varMap.containsKey(entry.getKey().substring(1))) {
+                        stmtwithvar = stmtwithvar.replaceAll(varMap.get(entry.getKey().substring(1)), entry.getValue());
+                    }
+                }
+                System.out.println("MISSING: " + stmtwithvar);
+            }
+
             return null;
         } catch (WalaException e) {
             // something bad happened.
@@ -132,111 +232,14 @@ public class MultiLineDetection {
         }
     }
 
-    private List<Integer> getStmtLineNum(Collection<Statement> slice) {
-        List<Integer> lineNum = new ArrayList<>();
-        for (Statement stmt : slice) {
-            if (stmt.getNode().getMethod().getDeclaringClass().getClassLoader().getName().toString().compareToIgnoreCase("primordial") == 0
-                    || stmt.getKind() != Statement.Kind.NORMAL)
-                continue;
-            lineNum.add(getLineNumber(stmt));
-            log.log(Level.INFO, String.valueOf(getLineNumber(stmt)));
-        }
-        return lineNum;
-    }
-
-    private Collection<Statement> getSliceStmts(String appJar, String mainClass, String srcCaller, String srcCallee,
-                                                boolean goBackward,
-                                                Slicer.DataDependenceOptions dOptions, Slicer.ControlDependenceOptions cOptions)
-            throws IOException, ClassHierarchyException, CancelException {
-        // create an analysis scope representing the appJar as a J2SE application
-        AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(appJar, (new FileProvider()).getFile(Constant.EXCLUDES));
-        //slice 不要进包内slice
-        ExampleUtil.addDefaultExclusions(scope);
-
-        // build a class hierarchy, call graph, and system dependence graph
-        ClassHierarchy cha = ClassHierarchyFactory.make(scope);
-        Iterable<Entrypoint> entrypoints = com.ibm.wala.ipa.callgraph.impl.Util.makeMainEntrypoints(scope, cha, mainClass);
-        AnalysisOptions options = CallGraphTestUtil.makeAnalysisOptions(scope, entrypoints);
-        options.setReflectionOptions(AnalysisOptions.ReflectionOptions.FULL);
-        CallGraphBuilder<InstanceKey> builder = Util.makeVanillaZeroOneCFABuilder(Language.JAVA, options, new AnalysisCacheImpl(), cha, scope);
-        CallGraph cg = builder.makeCallGraph(options, null);
-        PointerAnalysis pa = builder.getPointerAnalysis();
-        SDG<InstanceKey> sdg = new SDG<>(cg, builder.getPointerAnalysis(), dOptions, cOptions);
-        Statement s = null;
-        CGNode keyNode = null;
-        IClassLoader loader = null;
-        for (CGNode node : cg) {
-            Statement statement = findCallTo(node, srcCallee, methodT);
-            if (statement != null) {
-                s = statement;
-            }
-        }
-        log.log(Level.INFO, "Statement: " + s);
-        Collection<Statement> slice = null;
-        final PointerAnalysis<InstanceKey> pointerAnalysis = builder.getPointerAnalysis();
-        slice = Slicer.computeForwardSlice(s, cg, pointerAnalysis, dOptions, cOptions);
-        //dumpSlice(slice);
-        Graph<Statement> g = pruneSDG(sdg, slice);
-        sanityCheck(slice, g);
-        return slice;
-    }
-
-    private List<String> getCorrectstmts() {
-        //correct template
-        List<String> correctstmts = new ArrayList<>();
-//        correctstmts.add(" KeyPairGenerator $v_11 = KeyPairGenerator.getInstance(\"JKS\");"); // can't detect the algorithm
-//        correctstmts.add(" $v_11.initialize(2048);");
-        correctstmts.add("SSLSocket $v_1 = (SSLSocket) $v_0.createSocket(\"mail.google.com\", 443);");
-            correctstmts.add("HostnameVerifier $v_2  = HttpsURLConnection.getDefaultHostnameVerifier();");
-            correctstmts.add("SSLSession $v_3 = socket.getSession();");
-            correctstmts.add("if (!$v_2.verify(\"mail.google.com\", $v_3)) {");
-            correctstmts.add("throw new SSLHandshakeException(\"Expected mail.google.com, not found \" +\n" +
-                    "\t\t\t\t\ts.getPeerPrincipal());}");
-        return correctstmts;
-    }
-
-    private List<String> getmatchStmts(List<Integer> lineNum, String filePath) throws FileNotFoundException {
-        // The following part is to get the matching statements from the source code:
-        // Use javaparser
-        // 1. visit the file to get all the variables and save to the varList
-        // 2. normalize the statements by replacing the variables but leave the constants.
-        CompilationUnit cu = StaticJavaParser.parse(new File(filePath));
-        Map<String, String> varList = new HashMap<>();
-        VoidVisitor<Map<String, String>> visitor = new VariableDeclarationVisitor();
-        cu.accept(visitor, varList);
-        for (Map.Entry<String, String> entry : varList.entrySet()) {
-            paramMap.put("\\" + entry.getValue(), entry.getKey());
-        }
-        int prev = -1;
-        List<String> matchingStmt = new ArrayList<>();
-        String str = "";
-        for (JavaToken tr : cu.getTokenRange().get()) {
-            int nline = tr.getRange().get().begin.line;
-            if (lineNum.contains(nline)) {
-                if (prev == -1) prev = nline;
-                if (prev != nline) {
-                    matchingStmt.add(str.trim());
-                    str = "";
-                    prev = nline;
-                }
-                if (varList.containsKey(tr.getText())) {
-                    str += varList.get(tr.getText());
-                } else {
-                    str += tr.getText();
-                }
-            }
-        }
-        matchingStmt.add(str.trim());
-        return matchingStmt;
-    }
-
     private String getVar(String s) {
         String pattern = "(.*)(\\$v_\\d+)(.*)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(s);
         if (m.find()) {
             return m.group(2);
-        } else
+        }
+        else
             return "";
     }
 
@@ -358,12 +361,12 @@ public class MultiLineDetection {
                     bcIndex = ((ShrikeBTMethod) s.getNode().getMethod()).getBytecodeIndex(instructionIndex);
                     try {
                         int src_line_number = s.getNode().getMethod().getLineNumber(bcIndex);
-                        System.err.println("Source line number = " + src_line_number);
+                        System.err.println ( "Source line number = " + src_line_number );
                     } catch (Exception e) {
                         System.err.println("Bytecode index no good");
                         System.err.println(e.getMessage());
                     }
-                } catch (Exception e) {
+                } catch (Exception e ) {
                     System.err.println("it's probably not a BT method (e.g. it's a fakeroot method)");
                     System.err.println(e.getMessage());
                 }
@@ -386,58 +389,11 @@ public class MultiLineDetection {
                 System.err.println("Bytecode index no good");
                 System.err.println(e.getMessage());
             }
-        } catch (Exception e) {
+        } catch (Exception e ) {
             System.err.println("it's probably not a BT method (e.g. it's a fakeroot method)");
             System.err.println(e.getMessage());
         }
         return -1;
-    }
-
-    private void getMissingStmts(List<String> correctstmts, List<String> matchingStmt, List<Integer> lineNum) {
-        StringSimilarity ss = new StringSimilarity();
-        // get the matching ratio
-        Set<Integer> visited = new HashSet<>();
-        // get the matching line
-        HashMap<Integer, Integer> addLines = new HashMap<>();
-        HashMap<String, String> varMap = new HashMap<>();
-        for (int i = 0; i < matchingStmt.size(); i++) {
-            for (int j = 0; j < correctstmts.size(); j++) {
-                if (visited.contains(j)) continue;
-                double result = ss.calculateSimilarity(matchingStmt.get(i), correctstmts.get(j));
-                if (result >= 0.9) {
-                    visited.add(j);
-                    String oriVar = getVar(matchingStmt.get(i));
-                    String descVar = getVar(correctstmts.get(j));
-                    varMap.put(oriVar, '\\' + descVar);
-                    addLines.put(j, lineNum.get(i));
-                }
-            }
-        }
-        //get insert after linenum
-        int pivot = -1;
-        for (int j = 0; j < correctstmts.size(); j++) {
-            if (visited.contains(j)) {
-                for (int i = 0; i < j && pivot == -1; i++) {
-                    String stmtwithvar = replaceVar(correctstmts.get(i), varMap);
-                    System.out.println(String.format("Add Statement before Line %d: %s", addLines.get(j), stmtwithvar));
-                }
-                pivot = addLines.get(j);
-                continue;
-            }
-            if (pivot == -1) continue;
-            String stmtwithvar = replaceVar(correctstmts.get(j), varMap);
-            System.out.println(String.format("Add Statement after Line %d: %s", pivot, stmtwithvar));
-        }
-    }
-
-    private String replaceVar(String stmtwithvar, HashMap<String, String> varMap) {
-        String s = null;
-        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-            if (varMap.containsKey(entry.getKey().substring(1))) {
-                s = stmtwithvar.replaceAll(varMap.get(entry.getKey().substring(1)), entry.getValue());
-            }
-        }
-        return s;
     }
 
 }

@@ -1,14 +1,16 @@
+import template.StringLiterals;
+
 import javax.crypto.Cipher;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class test {
 
     public void main(String[] args) throws Exception{
-        Set<String> s1 = new HashSet<>(Arrays.asList("a", "b"));
-        Set<String> s2 = new HashSet<>(Arrays.asList("a", "b"));
-        Cipher c = Cipher.getInstance("AES");
+        StringLiterals incorrects = new StringLiterals("DES", "MD5");
+        StringLiterals corrects = new StringLiterals("b", "a");
+        Cipher c = Cipher.getInstance(incorrects.getAString());
         int a = 1;
     }
 
