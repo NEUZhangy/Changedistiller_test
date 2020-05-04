@@ -1,8 +1,13 @@
 package Runner;
 
+import com.changedistiller.test.SSLDetect.MultiLineDetection;
+import com.ibm.wala.ipa.callgraph.CallGraphBuilderCancelException;
+import com.ibm.wala.ipa.cha.ClassHierarchyException;
+import com.ibm.wala.util.CancelException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -14,6 +19,8 @@ public class CodeCase {
     public Set<String> incorrectSet = new HashSet<>();
     public Set<String> correctSet = new HashSet<>();
     public long minNum;
+    public String jarPath = "";
+    public String projectSource = "";
 
     public CodeCase(JSONObject jsonObject) {
         callee = (String) jsonObject.get("callee");
@@ -22,8 +29,7 @@ public class CodeCase {
         checkParameter = (Long) jsonObject.get("Check");
         incorrectSet = this.jsonArraytoSet(jsonObject.get("Incorrect"));
         correctSet = this.jsonArraytoSet(jsonObject.get("Correct"));
-        if (jsonObject.get("MinNum") != null)
-            this.minNum = (long) jsonObject.get("MinNum");
+        if (jsonObject.get("MinNum") != null) this.minNum = (long) jsonObject.get("MinNum");
     }
 
     public Set<String> jsonArraytoSet(Object o) {
@@ -36,7 +42,8 @@ public class CodeCase {
         return set;
     }
 
-    public int checking(Map<String, Map<Integer, List<Object>>> classVarMap) {
+    public int checking(Map<String, Map<Integer, List<Object>>> classVarMap)
+            throws ClassHierarchyException, CancelException, IOException {
         int count = 0;
         switch (this.type) {
             case "parameter":
@@ -45,27 +52,53 @@ public class CodeCase {
                     Map<Integer, List<Object>> variables = classVarMap.get(className);
                     List<Object> ans = variables.get(this.checkParameter.intValue());
                     if (ans == null) continue;
-                    if (incorrectSet == null && ans != null) {
-                        System.out.println("Parameter " + this.checkParameter + " " + ans + "\n" +
-                                "Suggest: " + this.correctSet);
-                        count++;
+                    System.out.println("PARAMETER LIST: " + ans);
+                    if (incorrectSet == null) {
+                        for (Object o : ans) {
+                            String str = o.toString();
+                            if (str.startsWith("#")
+                                    || str.compareToIgnoreCase("no value assigned") == 0
+                                    || str.compareToIgnoreCase("parameter can be random value")
+                                            == 0) {
+                                continue;
+                            } else {
+                                System.out.println(
+                                        "Parameter " + this.checkParameter + " " + ans + "\n");
+                                if (projectSource == "") {
+                                    System.out.println("Suggest: " + this.correctSet);
+                                } else {
+                                    MultiLineDetection detection =
+                                            new MultiLineDetection(
+                                                    jarPath, projectSource, correctSet);
+                                    detection.start(callee, methodType);
+                                }
+                                count++;
+                            }
+                        }
                     } else {
                         for (Object o : ans) {
-//                            if (incorrectSet.contains(o.toString())) {
-//                                System.out.println("Parameter " + this.checkParameter + " " + o + "\n" +
-//                                        "Suggest: " + this.correctSet);
-//                            }
-                            for (String p: incorrectSet) {
+                            for (String p : incorrectSet) {
                                 if (p.startsWith("#")) {
                                     if (p.equals("#" + o.toString())) {
-                                        System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
-                                                "Suggest: " + this.correctSet);
+                                        System.out.println(
+                                                "Parameter "
+                                                        + this.checkParameter
+                                                        + ": "
+                                                        + o
+                                                        + "\n"
+                                                        + "Suggest: "
+                                                        + this.correctSet);
                                         count++;
                                     }
-                                }
-                                else if (Pattern.matches(p, o.toString())) {
-                                    System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
-                                            "Suggest: " + this.correctSet);
+                                } else if (Pattern.matches(p, o.toString())) {
+                                    System.out.println(
+                                            "Parameter "
+                                                    + this.checkParameter
+                                                    + ": "
+                                                    + o
+                                                    + "\n"
+                                                    + "Suggest: "
+                                                    + this.correctSet);
                                     count++;
                                 }
                             }
@@ -80,16 +113,22 @@ public class CodeCase {
                     List<Object> ans = variables.get(this.checkParameter.intValue());
                     if (ans == null) continue;
                     for (Object o : ans) {
-                        try{
+                        try {
                             if (Integer.parseInt(o.toString()) < minNum) {
-                                System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
-                                        "Suggest: " + "Should Greater Than " + minNum);
+                                System.out.println(
+                                        "Parameter "
+                                                + this.checkParameter
+                                                + ": "
+                                                + o
+                                                + "\n"
+                                                + "Suggest: "
+                                                + "Should Greater Than "
+                                                + minNum);
                                 count++;
                             }
                         } catch (Exception e) {
                             continue;
                         }
-
                     }
                 }
                 break;

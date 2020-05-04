@@ -1,22 +1,22 @@
 package com.changedistiller.test.SSLDetect;
 
+import com.Constant;
+import com.ibm.wala.ipa.callgraph.CallGraphBuilderCancelException;
+import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.util.CancelException;
 import org.junit.Test;
 
 import java.io.IOException;
 
-public class DetectionTest {
+public class MultiLineDetectionTest {
 
     @Test
-    public void run() throws CancelException, IOException {
-        String path = "-appJar C:\\Users\\ying\\Documents\\JAVA_CODE\\cryptoapi-bench\\rigorityj-samples.jar ";
-        String mainClass ="-mainClass Lorg/cryptoapi/bench/dummyhostnameverifier/HostnameVerifierCase2 ";
-        String caller = "-srcCaller main ";
-        String callee = "-srcCallee getInstance ";
-        String settings = "-dd full -cd full -dir forward";
-
-        Detection multiClass = new Detection(path+mainClass+callee+caller+settings, "KeyPairGenerator");
-        //pdfSlice.runInit(path, mainClass,caller,callee,);
-        multiClass.run();
+    public void start() throws ClassHierarchyException, CancelException, IOException {
+        String classPath = Constant.FILEPATH;
+        String callee = "<init>";
+        String functionType = "SecretKeySpec";
+        String projectSource = "E:\\Code\\Java\\cryptoapi-bench\\src\\main\\java\\";
+        MultiLineDetection detection = new MultiLineDetection(classPath, projectSource, null);
+        detection.start(callee, functionType);
     }
 }
