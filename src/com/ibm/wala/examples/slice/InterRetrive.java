@@ -32,8 +32,8 @@ public class InterRetrive {
         for(Statement stmt: allStartStmt){
 
             String className = stmt.getNode().getMethod().getDeclaringClass().getName().toString();
-//            if (className.compareTo("Lorg/cryptoapi/bench/predictableseeds/PredictableSeedsABHCase4") != 0)
-//                continue;
+            if (className.compareTo("Lorg/cryptoapi/bench/staticsalts/StaticSaltsABICase3") != 0)
+                continue;
             System.out.println("-----------------------------------"+className+"----------------------------------------------");
             BackwardResult backwardResult = new BackwardResult(completeCG,proBuilder.getBuilder().getPointerAnalysis(),completeSDG,dOptions,cOptions);
             backwardResult.setReachingStmts(stmt);
@@ -67,6 +67,7 @@ public class InterRetrive {
             //get all parameter, by process one by one
             while (i < numOfUse) {
                 targetStmt = newRStmt;
+                visitedStmt  .clear();
                 List<Object> ans = new ArrayList<>(); //have more possible value;
                 int use = targetInst.getUse(i);
                 boolean result = true;

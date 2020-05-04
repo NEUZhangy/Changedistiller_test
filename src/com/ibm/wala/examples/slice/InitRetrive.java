@@ -77,6 +77,28 @@ public class InitRetrive {
                     } else {
                         uses.clear();
                         uses.add(val);
+                        //check array store
+                        boolean flag = false;
+                        Iterator<SSAInstruction> useInst = initNode.getDU().getUses(val);
+                        while(useInst.hasNext()){
+                            SSAInstruction UInst = useInst.next();
+                            if(UInst instanceof SSAArrayStoreInstruction){
+                                SSAArrayStoreInstruction arrayInst = (SSAArrayStoreInstruction) UInst;
+                                int use = arrayInst.getValue();
+                                if(st.isConstant(use)){
+                                    ans.add(st.getConstantValue(use));
+                                    this.paramValue.put(pos, ans);
+                                    flag = true;
+                                }
+                            }
+                        }
+
+                        if(flag == true) {
+                            uses.clear();
+                            return true;
+                        }
+
+
                         IntraRetrive intra = new IntraRetrive(du, st, val, backwardSuperGraph,paramValue);
                         uses =  intra.getDU(uses,pos,visited,ans);
                         if(!uses.isEmpty()){
@@ -158,19 +180,32 @@ public class InitRetrive {
 
     public Set<CGNode> searchInit(CallGraph completeCG) {
         CGNode initNode = null;
-        Collection<? extends IMethod> methodList = targetStmt.getNode().getMethod().getDeclaringClass().getDeclaredMethods();
+        IClass curclass = targetStmt.getNode().getMethod().getDeclaringClass();
+        Collection<? extends IMethod> methodList =curclass.getDeclaredMethods();
 
+//        if(curclass.getSuperclass().isAbstract()){
+//            Collection<? extends IMethod> methodList1 = curclass.getSuperclass().getDeclaredMethods();
+//            //methodList.addAll()
+//            for (IMethod m : methodList1) {
+//                ShrikeCTMethod method = (ShrikeCTMethod) m;
+//                MethodReference mr = method.getReference();
+//
+//                if (mr.getName().toString().contains("init")) {
+//                    Set<CGNode> nodes = completeCG.getNodes(mr);
+//
+//                    return nodes;
+//                }
+//            }
+//        }
+        Set<CGNode> nodes = new HashSet<>();
         for (IMethod m : methodList) {
             ShrikeCTMethod method = (ShrikeCTMethod) m;
             MethodReference mr = method.getReference();
-
             if (mr.getName().toString().contains("init")) {
-                Set<CGNode> nodes = completeCG.getNodes(mr);
-
-                return nodes;
+                 nodes= completeCG.getNodes(mr);
             }
         }
-        return null;
+        return nodes;
     }
 
 

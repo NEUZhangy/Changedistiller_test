@@ -80,11 +80,12 @@ public class EdgeProce {
                             Pair<CGNode, NewSiteReference> next = siteIn.next();
                             if (isPrimordial(next.fst)) break;
                         }
-                        iField = fieldLoc.getField();
+
                     }
 
-                    System.out.println("--------------checkfiled within class first--------" + iField.getName().toString());
-                    Collection<IField> fields = curEdge.getNode().getMethod().getDeclaringClass().getDeclaredInstanceFields();
+               //     System.out.println("--------------checkfiled within class first--------" + iField.getName().toString());
+                    Collection<IField> fields = curEdge.getNode().getMethod().getDeclaringClass().getAllFields();
+
 
                     if (fields.contains(iField)) { // search the init function within current class
                         InitRetrive initRetrive = new InitRetrive(curEdge, iField, loc,paramValue,backwardSuperGraph);
@@ -170,8 +171,27 @@ public class EdgeProce {
                             break;
                         }
                         if(curInst instanceof SSANewInstruction){
-                            result = true;
-                            break;
+                            //new arraystore?
+                            if(((SSANewInstruction) curInst).getNewSite().getDeclaredType().toString().contains("<Primordial,[B>")){
+                                Iterator<Statement> stmts = backwardSuperGraph.getPredNodes(curEdge);
+                                while(stmts.hasNext()){
+                                    Statement s = stmts.next();
+                                    if(s instanceof StatementWithInstructionIndex){
+                                        SSAInstruction inst = ((StatementWithInstructionIndex) s).getInstruction();
+                                        if(inst instanceof SSAArrayStoreInstruction){
+                                            result = false;
+                                            uses.add(this.use);
+                                            newReMap.put(this.use, s);
+                                            return result;
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                result = true;
+                                break;
+                            }
+
                         }
                         if(curInst instanceof SSAReturnInstruction){
                             SSAReturnInstruction reInst = (SSAReturnInstruction)curInst;
