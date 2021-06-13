@@ -1,0 +1,1894 @@
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+finish
+target parameter is : [AES]
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+finish
+target parameter is : [AES]
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Parameter 0: AES
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+finish
+target parameter is : [SHA-256]
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+target parameter is : null
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+target parameter is : null
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+
+=====number PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+finish
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+finish
+target parameter is : [DESede/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+finish
+target parameter is : [AES/CTS/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum-------
+target parameter is : null
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum-------
+target parameter is : null
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+
+=====number PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+finish
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+finish
+target parameter is : [DESede/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+finish
+target parameter is : [AES/CTS/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum-------
+target parameter is : null
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0 [no value assigned, 8]
+Suggest: [key Parameter should not be a fixed value]
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum-------
+target parameter is : null
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 1: ARCFOUR
+Suggest: [use AES with 256 bit to generate secret key]
+
+=====number PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+finish
+target parameter is : [PBEWithMD5AndDES]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 0: PBEWithMD5AndDES
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Parameter 0: PBEWithMD5AndDES
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+finish
+target parameter is : [MD5]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 0: MD5
+Suggest: [SHA-3, SHA-256, SHA-512]
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+finish
+target parameter is : [PBEWithMD5AndDES]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 0: PBEWithMD5AndDES
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Parameter 0: PBEWithMD5AndDES
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+target parameter is : [MD5]
+target parameter is : [20]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 1: 20
+Suggest: Should Greater Than 1000
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+target parameter is : [MD5]
+target parameter is : [20]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 1: 20
+Suggest: Should Greater Than 1000
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+finish
+target parameter is : [AES/CBC/PKCS5Padding]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Parameter 0: AES/CBC/PKCS5Padding
+Suggest: [AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+finish
+target parameter is : [SHA]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+just check one init value
+target parameter is : [NowIsTheTime]
+target parameter is : null
+target parameter is : [1024]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Parameter 2 [1024]
+Suggest: [salt value should greater than 1000]
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+target parameter is : [no value assigned, 16]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Parameter 0 [no value assigned, 16]
+Suggest: [IV Parameter should not be a fixed value]
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+just check one init value
+target parameter is : [NowIsTheTime]
+target parameter is : null
+target parameter is : [1024]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Parameter 0 [NowIsTheTime]
+Suggest: [Parameter should not be a fixed value]
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+just check one init value
+target parameter is : [NowIsTheTime]
+target parameter is : null
+target parameter is : [1024]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+
+=====type Random <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+------start analysis Lorg/apache/manifoldcf/core/database/Database-------
+------done analysis for Lorg/apache/manifoldcf/core/database/Database
+------start analysis Lorg/apache/manifoldcf/core/connectorpool/ConnectorPool-------
+------done analysis for Lorg/apache/manifoldcf/core/connectorpool/ConnectorPool
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/manifoldcf/core/connectorpool/ConnectorPool
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/manifoldcf/core/database/Database
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+finish
+target parameter is : [AES/CBC/PKCS5Padding]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+finish
+target parameter is : [SHA]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+just check one init value
+target parameter is : [NowIsTheTime]
+target parameter is : null
+target parameter is : [1024]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+target parameter is : [no value assigned, 16]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Parameter 0 [no value assigned, 16]
+Suggest: [IV Parameter should not be a fixed value]
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+just check one init value
+target parameter is : [NowIsTheTime]
+target parameter is : null
+target parameter is : [1024]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Parameter 0 [NowIsTheTime]
+Suggest: [Parameter should not be a fixed value]
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+just check one init value
+target parameter is : [NowIsTheTime]
+target parameter is : null
+target parameter is : [1024]
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+
+=====type Random <init>=====
+------start analysis Lorg/apache/manifoldcf/core/system/ManifoldCF-------
+------done analysis for Lorg/apache/manifoldcf/core/system/ManifoldCF
+------start analysis Lorg/apache/manifoldcf/core/database/Database-------
+------done analysis for Lorg/apache/manifoldcf/core/database/Database
+------start analysis Lorg/apache/manifoldcf/core/connectorpool/ConnectorPool-------
+------done analysis for Lorg/apache/manifoldcf/core/connectorpool/ConnectorPool
+Lorg/apache/manifoldcf/core/system/ManifoldCF
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/manifoldcf/core/connectorpool/ConnectorPool
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/manifoldcf/core/database/Database
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+finish
+target parameter is : [DESede]
+------done analysis for Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Parameter 0: DESede
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Parameter 0: DESede
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+target parameter is : [119, 57, 25, 118, 111, -70, 57, 49, 47, 13, 74, -93, -112, 85, -2, 85, 101, 97, 19, 52, -126, 18, 23, -84, no value assigned, 24]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Parameter 0 [119, 57, 25, 118, 111, -70, 57, 49, 47, 13, 74, -93, -112, 85, -2, 85, 101, 97, 19, 52, -126, 18, 23, -84, no value assigned, 24]
+Suggest: [key Parameter should not be a fixed value]
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+finish
+target parameter is : [DESede]
+------done analysis for Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Parameter 0: DESede
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Parameter 0: DESede
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+target parameter is : [119, 57, 25, 118, 111, -70, 57, 49, 47, 13, 74, -93, -112, 85, -2, 85, 101, 97, 19, 52, -126, 18, 23, -84, no value assigned, 24]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Parameter 0 [119, 57, 25, 118, 111, -70, 57, 49, 47, 13, 74, -93, -112, 85, -2, 85, 101, 97, 19, 52, -126, 18, 23, -84, no value assigned, 24]
+Suggest: [key Parameter should not be a fixed value]
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1-------
+target parameter is : [119, 57, 25, 118, 111, -70, 57, 49, 47, 13, 74, -93, -112, 85, -2, 85, 101, 97, 19, 52, -126, 18, 23, -84, no value assigned, 24]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Lorg/apache/meecrowave/Meecrowave$ValueTransformers$1
+Parameter 1: DESede
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Parameter 1: DESede
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/spark_project/jetty/client/util/DigestAuthentication-------
+------done analysis for Lorg/spark_project/jetty/client/util/DigestAuthentication
+------start analysis Lorg/spark_project/jetty/util/security/Credential$MD5-------
+finish
+target parameter is : [MD5]
+------done analysis for Lorg/spark_project/jetty/util/security/Credential$MD5
+------start analysis Lorg/spark_project/jetty/util/security/Credential$MD5-------
+finish
+target parameter is : [MD5]
+------done analysis for Lorg/spark_project/jetty/util/security/Credential$MD5
+------start analysis Lorg/spark_project/jetty/security/authentication/DigestAuthenticator$Digest-------
+finish
+target parameter is : [MD5]
+------done analysis for Lorg/spark_project/jetty/security/authentication/DigestAuthenticator$Digest
+Lorg/spark_project/jetty/client/util/DigestAuthentication
+Parameter 0: MD5
+Suggest: [SHA-3, SHA-256, SHA-512]
+Lorg/spark_project/jetty/security/authentication/DigestAuthenticator$Digest
+Parameter 0: MD5
+Suggest: [SHA-3, SHA-256, SHA-512]
+Lorg/spark_project/jetty/util/security/Credential$MD5
+Parameter 0: MD5
+Suggest: [SHA-3, SHA-256, SHA-512]
+
+=====parameter SSLContext getInstance=====
+------start analysis Lorg/spark_project/jetty/util/ssl/SslContextFactory-------
+
+=====type Random <init>=====
+------start analysis Lorg/apache/spark/util/Utils$-------
+
+=====type Random <init>=====
+
+=====type Random <init>=====
+
+=====type Random <init>=====
+
+=====type Random <init>=====
+
+=====type Random <init>=====
+
+=====type Random <init>=====
+------start analysis Lorg/apache/spark/util/Utils$-------
+------done analysis for Lorg/apache/spark/util/Utils$
+------start analysis Lorg/spark_project/jetty/client/util/DigestAuthentication$DigestResult-------
+------done analysis for Lorg/spark_project/jetty/client/util/DigestAuthentication$DigestResult
+------start analysis Lorg/spark_project/jetty/client/util/MultiPartContentProvider-------
+------done analysis for Lorg/spark_project/jetty/client/util/MultiPartContentProvider
+------start analysis Lorg/apache/spark/util/random/BernoulliSampler-------
+------done analysis for Lorg/apache/spark/util/random/BernoulliSampler
+------start analysis Lorg/apache/spark/util/random/XORShiftRandom$-------
+target parameter is : [1]
+------done analysis for Lorg/apache/spark/util/random/XORShiftRandom$
+------start analysis Lorg/spark_project/jetty/server/session/AbstractSessionIdManager-------
+finish
+target parameter is : [1]
+------done analysis for Lorg/spark_project/jetty/server/session/AbstractSessionIdManager
+------start analysis Lorg/apache/spark/util/random/XORShiftRandom$-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====type Ljava/util/Random <init>=====
+------start analysis Lorg/apache/spark/rdd/PartitionwiseSampledRDD-------
+------done analysis for Lorg/apache/spark/rdd/PartitionwiseSampledRDD
+------start analysis Lorg/apache/spark/util/random/XORShiftRandom$-------
+------done analysis for Lorg/apache/spark/util/random/XORShiftRandom$
+------start analysis Lorg/apache/spark/util/random/BernoulliSampler-------
+------done analysis for Lorg/apache/spark/util/random/BernoulliSampler
+------start analysis Lorg/apache/spark/util/Utils$-------
+------done analysis for Lorg/apache/spark/util/Utils$
+------start analysis Lorg/apache/spark/util/SizeEstimator$-------
+------done analysis for Lorg/apache/spark/util/SizeEstimator$
+------start analysis Lorg/apache/spark/util/random/PoissonSampler-------
+------done analysis for Lorg/apache/spark/util/random/PoissonSampler
+------start analysis Lorg/apache/spark/util/random/XORShiftRandom$-------
+------done analysis for Lorg/apache/spark/util/random/XORShiftRandom$
+Lorg/apache/spark/util/SizeEstimator$
+Find Ljava/util/Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/spark/util/random/XORShiftRandom$
+Find Ljava/util/Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/spark/util/random/BernoulliSampler
+Find Ljava/util/Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/spark/util/Utils$
+Find Ljava/util/Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/spark/util/random/PoissonSampler
+Find Ljava/util/Random
+Suggest: Function should use: [Should use SecureRandom]
+Lorg/apache/spark/rdd/PartitionwiseSampledRDD
+Find Ljava/util/Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : null
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 1: 17
+Suggest: Should Greater Than 1000
+
+=====number PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : null
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+no matching stmt; check the resultmap in intraRetrive
+
+=====type Ljava.lang.util.Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 1: 17
+Suggest: Should Greater Than 1000
+
+=====number PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 0 [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+Suggest: [salt/password Parameter should not be a fixed value]
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====type Ljava.lang.util.Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 1: 17
+Suggest: Should Greater Than 1000
+
+=====number PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 0 [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+Suggest: [salt/password Parameter should not be a fixed value]
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====type Ljava/lang/util/Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 1: 17
+Suggest: Should Greater Than 1000
+
+=====number PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 0 [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+Suggest: [salt/password Parameter should not be a fixed value]
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====type Random <init>=====
+------start analysis Lorg/apache/wicket/util/diff/Diff-------
+------done analysis for Lorg/apache/wicket/util/diff/Diff
+------start analysis Lorg/apache/wicket/util/diff/Diff-------
+------done analysis for Lorg/apache/wicket/util/diff/Diff
+Lorg/apache/wicket/util/diff/Diff
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SecretKeyFactory getInstance=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 1: 17
+Suggest: Should Greater Than 1000
+
+=====number PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+target parameter is : [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+target parameter is : [17]
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+Parameter 0 [21, -116, -93, 74, 102, 81, 42, -68, no value assigned, 8]
+Suggest: [salt/password Parameter should not be a fixed value]
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/wicket/util/crypt/SunJceCrypt-------
+------done analysis for Lorg/apache/wicket/util/crypt/SunJceCrypt
+Lorg/apache/wicket/util/crypt/SunJceCrypt
+
+=====type Random <init>=====
+------start analysis Lorg/apache/wicket/util/diff/Diff-------
+------done analysis for Lorg/apache/wicket/util/diff/Diff
+------start analysis Lorg/apache/wicket/util/diff/Diff-------
+------done analysis for Lorg/apache/wicket/util/diff/Diff
+Lorg/apache/wicket/util/diff/Diff
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SecretKeyFactory getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SecretKeyFactory getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+finish
+target parameter is : [AES]
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+finish
+target parameter is : [AES]
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Parameter 0: AES
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+finish
+target parameter is : [SHA-256]
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+
+=====parameter SecretKeyFactory getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+target parameter is : null
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService-------
+target parameter is : null
+------done analysis for Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+Lorg/apache/deltaspike/core/impl/crypto/DefaultCipherService
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+finish
+target parameter is : [PBEWithMD5AndDES]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 0: PBEWithMD5AndDES
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Parameter 0: PBEWithMD5AndDES
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+finish
+target parameter is : [MD5]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 0: MD5
+Suggest: [SHA-3, SHA-256, SHA-512]
+
+=====parameter SecretKeyFactory getInstance=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+finish
+target parameter is : [PBEWithMD5AndDES]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 0: PBEWithMD5AndDES
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Parameter 0: PBEWithMD5AndDES
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+target parameter is : [MD5]
+target parameter is : [20]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 1: 20
+Suggest: Should Greater Than 1000
+
+=====number PBEKeySpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+target parameter is : [MD5]
+target parameter is : [20]
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Parameter 0 [MD5]
+Suggest: [salt/password Parameter should not be a fixed value]
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+
+=====parameter PBEKeySpec <init>=====
+------start analysis Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util-------
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+cannot find the value in the <init> function!
+------done analysis for Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+Lorg/apache/taverna/ui/perspectives/myexperiment/model/Util
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SecretKeyFactory getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+finish
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+finish
+target parameter is : [DESede/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+finish
+target parameter is : [AES/CTS/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+finish
+target parameter is : [DES/CBC/NoPadding]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0: DES/CBC/NoPadding
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0: DES/CBC/NoPadding
+Suggest: [RSA/CBC/PKCS5Padding, AES/CFB/PKCS5Padding, AES/GCM/PKCS5Padding, RSA/ECB/OAEPWithSHA-1AndMGF1Padding]
+
+=====parameter MessageDigest getInstance=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/RsaMd5Checksum
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+
+=====parameter SecretKeyFactory getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum-------
+target parameter is : null
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [128]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+target parameter is : [128]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+target parameter is : [128]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [128]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [128]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+target parameter is : [128]
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0 [128]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0 [128]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+Parameter 0 [128]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0 [128]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0 [128]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 0 [128]
+Suggest: [key Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0 [128]
+Suggest: [key Parameter should not be a fixed value]
+
+=====parameter SecretKeySpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum-------
+target parameter is : null
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [no value assigned, 8]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [128]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+target parameter is : [128]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+target parameter is : [128]
+target parameter is : [DES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+target parameter is : [128]
+target parameter is : [AES]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+target parameter is : [128]
+target parameter is : [DESede]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption-------
+target parameter is : [128]
+target parameter is : [ARCFOUR]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 1: ARCFOUR
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 1: ARCFOUR
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/checksum/HmacMd5Checksum
+Parameter 1: ARCFOUR
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 1: ARCFOUR
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 1: ARCFOUR
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/ArcFourHmacMd5Encryption
+Parameter 1: ARCFOUR
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 1: ARCFOUR
+Suggest: [PBEWithHmacSHA256AndAES_128, use AES with 256 bit to generate secret key]
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey-------
+target parameter is : [no value assigned, 8]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption-------
+just check one init value
+target parameter is : [0, 0, 0, 0, 0, 0, 0, 0]
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesStringToKey
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/AesCtsSha1Encryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcCrcEncryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/Des3CbcSha1KdEncryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/DesCbcMd5Encryption
+Parameter 0 [0, 0, 0, 0, 0, 0, 0, 0]
+Suggest: [IV Parameter should not be a fixed value]
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Random <init>=====
+------start analysis Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine-------
+------done analysis for Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine
+Lorg/apache/directory/server/kerberos/shared/crypto/encryption/EncryptionEngine
+Find Random
+Suggest: Function should use: [Should use SecureRandom]
+
+=====parameter KeyStore load=====
+
+=====parameter Cipher getInstance=====
+------start analysis Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABPSCase3-------
+finish
+target parameter is : [AES/CBC/PKCS5Padding]
+------done analysis for Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABPSCase3
+------start analysis Lorg/cryptoapi/bench/insecureasymmetriccrypto/InsecureAsymmetricCipherABICase3-------
+finish
+target parameter is : [RSA]
+------done analysis for Lorg/cryptoapi/bench/insecureasymmetriccrypto/InsecureAsymmetricCipherABICase3
+------start analysis Lorg/cryptoapi/bench/ecbcrypto/EcbInSymmCryptoABICase1-------
+finish
+target parameter is : [AES/ECB/PKCS5Padding]
+------done analysis for Lorg/cryptoapi/bench/ecbcrypto/EcbInSymmCryptoABICase1
+------start analysis Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase12-------
+finish
+target parameter is : [Blowfish]
+------done analysis for Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase12
+------start analysis Lorg/cryptoapi/bench/ecbcrypto/EcbInSymmCryptoABICase3-------
