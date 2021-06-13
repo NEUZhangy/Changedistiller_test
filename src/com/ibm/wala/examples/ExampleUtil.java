@@ -5,7 +5,6 @@ import com.ibm.wala.util.config.FileOfClasses;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 public class ExampleUtil {
@@ -22,7 +21,7 @@ public class ExampleUtil {
 			"org\\/openide\\/.*\n" +
 			"com\\/ibm\\/crypto\\/.*\n" +
 			"com\\/ibm\\/security\\/.*\n" +
-			"org\\/apache\\/xerces\\/.*\n" +
+			//"org\\/apache\\/xerces\\/.*\n" +
 			"java\\/security\\/.*\n" + //不再slice内部的类
 			"javax\\/crypto\\/.*\n" +
 			"java\\/util\\/.*\n" +

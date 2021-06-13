@@ -20,17 +20,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
-
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static void main(String []args) throws ClassHierarchyException, CancelException, IOException, ParseException {
-        boolean isRunApache = true;
-        PrintStream stream = new PrintStream(new FileOutputStream("output.txt", true));
+        boolean isRunApache = false;
+        PrintStream stream = new PrintStream(new FileOutputStream("out_put_find_file.txt" , true));
         System.setOut(stream);
         System.setErr(stream);
 //        Files.write(Paths.get("result.txt"), "".getBytes());
         JSONParser jsonParser = new JSONParser();
         FileReader reader = new FileReader("src/caller.json");
+        System.out.println("filename: " + args[0]);
         Object obj = jsonParser.parse(reader);
         JSONArray checkingCase = (JSONArray) obj;
         if (isRunApache) {
@@ -74,14 +77,14 @@ public class Main {
             //running apache case
             try {
                 InterRetrive backwardSlicer = new InterRetrive();
-                backwardSlicer.start(filePath, codeCase.callee, codeCase.methodType);
+                backwardSlicer.start(filePath, codeCase.callee, codeCase.methodType, codeCase.type);
                 Map<String, Map<Integer, List<Object>>> varMap = backwardSlicer.getClassVarMap();
 //                Map<String, HashMap<Integer, List<Integer>>> classLineNums = backwardSlicer.getClassParamsLinesNumsMap();
 //            System.err.println(classLineNums);
                 caseCount.put(count, codeCase.checking(varMap));
                 caseName.put(count, codeCase.methodType + " " + codeCase.callee);
             } catch (Throwable e) {
-                continue;
+                LOGGER.log(Level.WARNING, e.getMessage(), e);
             }
             count ++;
         }
@@ -95,6 +98,6 @@ public class Main {
     }
 
     public void writetoFile(String str) throws IOException {
-        Files.write(Paths.get("result.txt"), str.getBytes(), StandardOpenOption.APPEND);
+        Files.write(Paths.get("result_20210611.txt"), str.getBytes(), StandardOpenOption.APPEND);
     }
 }

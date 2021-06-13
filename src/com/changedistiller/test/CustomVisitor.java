@@ -3,6 +3,7 @@ package com.changedistiller.test;
 import org.eclipse.jdt.core.dom.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CustomVisitor extends ASTVisitor {
@@ -10,19 +11,17 @@ public class CustomVisitor extends ASTVisitor {
     public String bindingName;
     public String matchingExpression;
     public List<MethodDeclaration> methodDeclarList = new ArrayList<>();
+    public HashMap<String, Object> typeParameter = new HashMap<>();
+    public String parameterName = null;
 
     public CustomVisitor() {}
 
     public void VisitTarget(ASTNode cu, List<ASTNode> targetnode, List<ASTNode> nodeArguments) {
         targetnode.add(cu.getParent());
-        cu.accept(new ASTVisitor() {
 
+        cu.accept(new ASTVisitor() {
             @Override
             public boolean visit(MethodInvocation node) {
-//                System.out.println("method invocation++:" + node);
-//                System.out.println("MI_information: " + node.resolveMethodBinding());
-//                System.out.println("test Va: "+ node.getExpression().resolveConstantExpressionValue());
-//                constantExpression = node.getExpression().resolveConstantExpressionValue().toString();
                 bindingName = node.resolveMethodBinding() != null? node.resolveMethodBinding().toString(): "";
                 nodeArguments.addAll(node.arguments());
                 StringBuilder sb = new StringBuilder();
@@ -76,20 +75,6 @@ public class CustomVisitor extends ASTVisitor {
 
             @Override
             public boolean visit(ClassInstanceCreation node){
-//                System.out.println("varible type: " + node);
-//                System.out.println("nodeType: " + node.getType());
-//                System.out.println("Binding: " + node.resolveTypeBinding());
-//                //new method have some method declared in SSL case
-              //  AnonymousClassDeclaration anoclass =  node.getAnonymousClassDeclaration(); //tree node statement level.
-//                List bodyDeclarations = anoclass.bodyDeclarations();
-//                if(bodyDeclarations.size()>0){
-//                    for(Object decla: bodyDeclarations)
-//                        if(decla instanceof MethodDeclaration){
-//                            MethodDeclaration methodDeclaration = (MethodDeclaration) decla;
-//                            System.out.println("methoddeclartion within new body:" + methodDeclaration);
-//                            methodDeclarList.add(methodDeclaration);
-//                        }
-//                }
                 bindingName = node.getType().toString();
                 targetnode.add(node);
                 nodeArguments.addAll(node.arguments());
@@ -102,10 +87,21 @@ public class CustomVisitor extends ASTVisitor {
             public boolean visit(VariableDeclarationFragment node){
 //                System.out.println("test Va: "+ node.getInitializer().resolveConstantExpressionValue());
                 StringBuilder sb = new StringBuilder(node.getName().toString());
+                parameterName = node.getName().toString();
                 sb.append("=");
-                if (node.getInitializer().getNodeType() == ASTNode.ARRAY_CREATION)
+
+                if (node.getInitializer().getNodeType() == ASTNode.ARRAY_CREATION){
+                    ArrayCreation acNode = (ArrayCreation) node.getInitializer();
+                    if(!acNode.dimensions().isEmpty()) {
+                        Object a = acNode.dimensions().get(0);
+                        if (a instanceof NumberLiteral) {
+                            typeParameter.put("size", a);
+                        }
+                    }
                     sb.append(GetVariableWildcardName(node.getInitializer()));
-                bindingName = node.resolveBinding().getName();
+                }
+
+                bindingName = null;
                 matchingExpression = sb.toString();
                 System.out.println(matchingExpression);
                 return super.visit(node);
@@ -119,6 +115,11 @@ public class CustomVisitor extends ASTVisitor {
                 return super.visit(node);
             }
 
+            @Override
+            public boolean visit(Block node) {
+                System.out.println("aaa");
+                return super.visit(node);
+            }
         });
     }
 

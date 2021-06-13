@@ -9,7 +9,7 @@ import com.ibm.wala.ssa.*;
 
 import java.util.*;
 
-/*for intra case, consider normal case, static case, arraycase, newsite case*/
+/*for intra case, consider normal case, static case, Array_case, if branch case and Newsite case*/
 
 public class IntraRetrive {
     private Statement targetStmt = null;
@@ -54,7 +54,7 @@ public class IntraRetrive {
 
         }
         SSAInstruction targetInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
-        instVisited.add(targetInst.iIndex());/*only add the iindex right? dulpicate index in two different block*/
+        instVisited.add(targetInst.iIndex()); /*only add the iindex right? dulpicate index in two different block*/
         Set<Integer> uses = new HashSet<>();
         Set<Integer> visited = new HashSet<>();
         Boolean result = true;
@@ -83,6 +83,7 @@ public class IntraRetrive {
             //.clear();
             return uses;
         }
+
         SSAInstruction curInst = ((StatementWithInstructionIndex)targetStmt).getInstruction();
         while (!q.isEmpty()) {
             Integer use1 = q.poll();
@@ -91,14 +92,22 @@ public class IntraRetrive {
                 paramValue.put(pos, ans);
                 uses.remove(use1);
                 visited.add(use1);
-                continue;
+
+                //new added by Ying, if get the value, directly return, which may lower the precision;
+                if(uses.isEmpty())
+                    break;
+                else  continue;
+//                uses.remove(use1);
+//                visited.add(use1);
+//                continue;
             }
 
             if (du.getDef(use1) != null && !(visited.contains(use1))) {
                 SSAInstruction inst = du.getDef(use1);
-                curInst = inst;
                 instVisited.add(inst.iIndex());
-                if (inst instanceof SSAGetInstruction) { // if it is get inst, then no use traced, should check more
+                curInst = inst;
+                // if it is get inst, trace the put pair;
+                if (inst instanceof SSAGetInstruction) {
                     SSAGetInstruction getInst = (SSAGetInstruction)inst;
                     Integer use = checkFiled(getInst);
                     if(use!= null) {
@@ -112,6 +121,7 @@ public class IntraRetrive {
                     resultMap.put(use1, targetStmt);
                     continue;
                 }
+
                 if (inst instanceof SSAPhiInstruction) {
                     uses.remove(use1);
                     visited.add(use1);
@@ -121,6 +131,7 @@ public class IntraRetrive {
                     }
                     continue;
                 }
+
                 if (inst instanceof SSACheckCastInstruction) {
                     uses.remove(use1);
                     visited.add(use1);
@@ -128,6 +139,7 @@ public class IntraRetrive {
                     uses.add(((SSACheckCastInstruction) inst).getVal());
                     continue;
                 }
+
                 if(inst instanceof SSAInvokeInstruction){
                     SSAInvokeInstruction call =(SSAInvokeInstruction) inst;
                     String methodT = call.getDeclaredTarget().getDeclaringClass().toString();
@@ -144,6 +156,14 @@ public class IntraRetrive {
 
                 }
 
+                if(inst instanceof SSAArrayLoadInstruction) {
+                    Integer tmpUse =((SSAArrayLoadInstruction) inst).getArrayRef();
+                    uses.add(tmpUse);
+                    q.add(tmpUse);
+                    uses.remove(use1);
+                    visited.add(use1);
+                    continue;
+                }
 
 
 //                if(inst instanceof SSANewInstruction) {
@@ -168,50 +188,91 @@ public class IntraRetrive {
 //                    }
 //
 //                }
-                //TODO:arraylength inst should be futher deal
+                //TODO:arraylength inst should be further deal
                 if(inst instanceof SSANewInstruction){
                     Iterator<SSAInstruction> insts =  du.getUses(use1);
-                    while(insts.hasNext()){ //arrystore
+                    boolean flag = false;
+                    while(insts.hasNext()){//arrystore
                         SSAInstruction targetInst  = insts.next();
-                        if(targetInst instanceof SSAArrayStoreInstruction && !instVisited.contains(targetInst.iIndex())){
+                        if(instVisited.contains(targetInst.iIndex())) continue;
+                        if(targetInst instanceof SSAArrayStoreInstruction){
                             if(use1 == ((SSAArrayStoreInstruction) targetInst).getArrayRef()){
-                                uses.remove(use1);
-                                visited.add(use1);
-                                instVisited.add(targetInst.iIndex());
-                                curInst = targetInst;
-                                q.add(((SSAArrayStoreInstruction) targetInst).getValue());
-                                uses.add(((SSAArrayStoreInstruction) targetInst).getValue());
-                                continue;
-                            }
-                        }
-
-                        if(targetInst instanceof SSAInvokeInstruction && ((SSAInvokeInstruction) targetInst).getDeclaredTarget().getName().toString().contains("<init>") && !instVisited.contains(targetInst.iIndex())){
-                            String methodT = ((SSAInvokeInstruction) targetInst).getDeclaredTarget().getDeclaringClass().toString();
-                            if(((SSANewInstruction) inst).getNewSite().getDeclaredType().toString().equals(methodT)){
-                                if(methodT.contains("<Application,Ljava/security/SecureRandom>") && inst.getNumberOfUses() ==0){
+                                int k = ((SSAArrayStoreInstruction) targetInst).getValue();
+                                //refine code for code
+                                if(st.isConstant(k)) {
+                                    ans.add(st.getConstantValue(k));
+                                    paramValue.put(pos, ans);
+                                    instVisited.add(targetInst.iIndex());
                                     uses.remove(use1);
                                     visited.add(use1);
-                                    ans.add("parameter can be random value");
-                                    paramValue.put(pos, ans);
                                     continue;
                                 }
+
+                                else {
+                                    uses.remove(use1);
+                                    visited.add(use1);
+                                    instVisited.add(targetInst.iIndex());
+                                    curInst = targetInst;
+                                    inst = targetInst;
+                                    q.add(((SSAArrayStoreInstruction) targetInst).getValue());
+                                    uses.add(((SSAArrayStoreInstruction) targetInst).getValue());
+                                    flag = true;
+                                    break;
+                                }
+
+                            }
+                        }
+                        if(targetInst instanceof SSAInvokeInstruction){
+                            String methodT = ((SSAInvokeInstruction) targetInst).getDeclaredTarget().getDeclaringClass().toString();
+                            if(methodT.equals(((SSAInvokeInstruction) targetInst).getDeclaredTarget().getDeclaringClass().toString())) {
                                 for(int i =0; i< targetInst.getNumberOfUses(); i++){
-                                    if(use1 == targetInst.getUse(0)){
+                                    if(use1 == targetInst.getUse(i)){
                                         instVisited.add(targetInst.iIndex());
                                         curInst = targetInst;
                                         uses.remove(use1);
                                         visited.add(use1);
-                                        for(int j = i+1; j< targetInst.getNumberOfUses(); j++){
+                                        for(int j = 0; j< targetInst.getNumberOfUses(); j++){
+                                            if(targetInst.getUse(j) == use1) continue;
                                             q.add(targetInst.getUse(j));
                                             uses.add(targetInst.getUse(j));
+                                            flag = true;
                                         }
                                         break;
                                     }
                                 }
+                                break;
                             }
+                            if(methodT.contains("<Application,Ljava/security/SecureRandom>")) {
+                                if((((SSAInvokeInstruction) targetInst).getDeclaredTarget().getName().toString().contains("<init>") && inst.getNumberOfUses() ==0)) {
+                                    uses.remove(use1);
+                                    visited.add(use1);
+                                    ans.add("parameter can be random value");
+                                    paramValue.put(pos, ans);
+                                    break;
+                                } else {
+                                    for(int i =0; i< targetInst.getNumberOfUses(); i++){
+                                        if(use1 == targetInst.getUse(i)){
+                                            instVisited.add(targetInst.iIndex());
+                                            curInst = targetInst;
+                                            uses.remove(use1);
+                                            visited.add(use1);
+                                            for(int j = 0; j< targetInst.getNumberOfUses(); j++){
+                                                if(targetInst.getUse(j) == use1) continue;
+                                                q.add(targetInst.getUse(j));
+                                                uses.add(targetInst.getUse(j));
+                                                flag = true;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
                         }
+                        instVisited.add(targetInst.iIndex());
                         continue;
                     }
+                    if(flag) continue;
 
                     if (((SSANewInstruction) inst).getNewSite().getDeclaredType().getName().toString().contains("SecureRandom") && inst.getNumberOfUses() == 0) {
                         uses.remove(use1);
@@ -256,8 +317,8 @@ public class IntraRetrive {
                         }
                     }
                 }
-
                 if(!uses.isEmpty()) continue;
+
                 else{
                     for(int j =0; j< inst.getNumberOfUses(); j++){
                         Integer use = inst.getUse(j);
@@ -270,7 +331,7 @@ public class IntraRetrive {
                 }
             } else{
                 Statement curStmt = locateStatement(curInst);
-                if(curStmt ==null && curInst instanceof SSAPhiInstruction){
+                if(curStmt == null && curInst instanceof SSAPhiInstruction){
                    Iterator<SSAInstruction> insts = du.getUses(use1);
                    while (insts.hasNext()){
                        SSAInstruction tmpInst = insts.next();
@@ -284,9 +345,6 @@ public class IntraRetrive {
                 resultMap.put(use1, curStmt);
                 continue;
             }
-
-
-
         }
 
         return uses;

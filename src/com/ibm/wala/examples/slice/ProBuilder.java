@@ -41,6 +41,7 @@ public class ProBuilder {
         this.cha = ClassHierarchyFactory.make(scope);
         this.entryPoints = getEntryPoints(cha);
         this.options = new AnalysisOptions(scope, entryPoints);
+
         this.cache = new AnalysisCacheImpl();
         this.builder = Util.makeZeroOneCFABuilder(Language.JAVA, options,
                 cache, cha, scope);
@@ -48,8 +49,10 @@ public class ProBuilder {
         CallGraph CG = builder.makeCallGraph(options, null);
         Set<CGNode> keep = new HashSet<>();
         for (CGNode n : CG) {
-            if (!isPrimordial(n))
+            if (!isPrimordial(n)) {
                 keep.add(n);
+            }
+
         }
         PrunedCallGraph pcg = new PrunedCallGraph(CG, keep);
         this.completeCG = pcg;
@@ -83,13 +86,29 @@ public class ProBuilder {
     public Set<Entrypoint> getEntryPoints(ClassHierarchy cha){
         Set<Entrypoint> entryPoints = new HashSet<>();
         for (IClass klass : cha) {
-            if (!klass.isInterface() && !klass.getClassLoader().getName().toString().contains("Primordial")) {
+            if (!klass.isInterface()
+                    && !klass.getClassLoader().getName().toString().contains("Primordial")
+            ) {
+                if (klass.toString().contains("springsecurity")) {
+                    System.out.println(klass);
+                };
                 for (IMethod method : klass.getDeclaredMethods()) {
+//                    if(method.toString().contains("createEncryptedKeySha1IdentifierStructure")){
+//                        System.out.println("start add");
+//                    }
+//                    if (method.toString().contains("springframework")
+//                            || method.toString().contains("hibernate")
+//                            || method.toString().contains("org")
+//                            || method.toString().contains("net")
+//                            || method.toString().contains("mysql"))
+//                        continue;
+
                     entryPoints.add(new DefaultEntrypoint(method, cha));
+
                 }
             }
         }
-        return  entryPoints;
+        return entryPoints;
 
     }
 

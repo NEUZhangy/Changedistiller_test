@@ -12,7 +12,6 @@ import com.ibm.wala.util.CancelException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 /*do backward slice for a given stmt, grape all sensitive stmt*/
 
 public class BackwardResult {
@@ -39,6 +38,10 @@ public class BackwardResult {
         return completeSDG;
     }
 
+    /*
+    * this function used for group all reaching statements
+    *  from the starting point(sensitive init location)
+    * Also do a filter to the statement which is "Primordial"*/
     public void setReachingStmts(Statement startStmt ) throws CancelException {
         this.reachingStmts = Slicer.computeBackwardSlice(startStmt, completeCG, pa,
                 dataDependenceOptions, controlDependenceOptions);

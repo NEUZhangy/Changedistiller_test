@@ -1,6 +1,7 @@
 package com.changedistiller.test.DAO;
 
 import com.changedistiller.test.*;
+import javafx.util.Pair;
 import redis.clients.jedis.Jedis;
 
 import java.io.FileWriter;
@@ -75,8 +76,16 @@ public class DBHandler {
 
     private void WriteToDB(CompositePattern pattern, String name, String matchExpression) {
         Map<String, String> patternField = new HashMap<>();
-        patternField.put("InsecureTemplate", GenerateString(pattern.getLcuTemplateStatements()));
-        patternField.put("SecureTemplate", GenerateString(pattern.getRcuTemplateStatements()));
+        List<String> lcuStmt = null;
+        List<String> rcuStmt = null;
+        for (Pair<String, String> a: pattern.getRcuTemplateStatements()){
+            rcuStmt.add(a.getValue());
+        }
+        for (Pair<String, String> a: pattern.getLcuTemplateStatements()){
+            lcuStmt.add(a.getValue());
+        }
+        patternField.put("InsecureTemplate", GenerateString(lcuStmt));
+        patternField.put("SecureTemplate", GenerateString(rcuStmt));
         patternField.put("StringMatchingExpression", matchExpression);
         patternField.put("Type", Integer.toString(typeConverter(pattern)));
         jedis.hmset(name, patternField);

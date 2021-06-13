@@ -1,1 +1,1 @@
-{"MethodType":"AlgorithmParameters","Type":"parameter","Incorrect":"[\"RSA\"]","callee":"getInstance","Check":"0","Correct":"[\"DES\"]"}
+{"Check":"0","MethodType":"AlgorithmParameterSpec","Type":"number","MinNum":"0","callee":"<init>"}

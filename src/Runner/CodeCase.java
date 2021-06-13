@@ -1,12 +1,16 @@
 package Runner;
 
+import com.Constant;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class CodeCase {
+    private final static Logger LOGGER = Logger.getLogger(CodeCase.class.getName());
     public String callee;
     public String methodType;
     public String type;
@@ -24,6 +28,7 @@ public class CodeCase {
         correctSet = this.jsonArraytoSet(jsonObject.get("Correct"));
         if (jsonObject.get("MinNum") != null)
             this.minNum = (long) jsonObject.get("MinNum");
+        LOGGER.setLevel(Constant.loglevel);
     }
 
     public List<Long> jsonArraytoList(Object o) {
@@ -47,13 +52,17 @@ public class CodeCase {
 
     public int checking(Map<String, Map<Integer, List<Object>>> classVarMap) {
         int count = 0;
+        LOGGER.info(Constant.getLineNumber() + " CodeCase Type: " + this.type);
         switch (this.type) {
             case "parameter":
                 for (String className : classVarMap.keySet()) {
                     System.out.println(className);
                     Map<Integer, List<Object>> variables = classVarMap.get(className);
                     List<Object> ans = variables.get(this.checkParameter.intValue());
-                    if (ans == null) continue;
+                    if (ans == null) {
+                        LOGGER.info(Constant.getLineNumber() + " ans: null");
+                        continue;
+                    }
                     if (incorrectSet == null && ans != null) {
                         System.out.println("Parameter " + this.checkParameter + " " + ans + "\n" +
                                 "Suggest: " + this.correctSet);
@@ -64,6 +73,7 @@ public class CodeCase {
 //                                System.out.println("Parameter " + this.checkParameter + " " + o + "\n" +
 //                                        "Suggest: " + this.correctSet);
 //                            }
+
                             for (String p: incorrectSet) {
                                 if (p.startsWith("#")) {
                                     if (p.equals("#" + o.toString())) {
@@ -76,6 +86,8 @@ public class CodeCase {
                                     System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
                                             "Suggest: " + this.correctSet);
                                     count++;
+                                } else {
+                                    LOGGER.warning(Constant.getLineNumber() + " not matching! Parameters: " + o + " IncorrectSet: " + String.join(",", incorrectSet));
                                 }
                             }
                         }
@@ -94,8 +106,11 @@ public class CodeCase {
                                 System.out.println("Parameter " + this.checkParameter + ": " + o + "\n" +
                                         "Suggest: " + "Should Greater Than " + minNum);
                                 count++;
+                            } else {
+                                LOGGER.info(Constant.getLineNumber() + " Greater than minNum");
                             }
                         } catch (Exception e) {
+                            LOGGER.log(Level.WARNING, e.getMessage() + e);
                             continue;
                         }
 

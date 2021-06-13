@@ -1,13 +1,17 @@
 package com.changedistiller.test;
 
+import javafx.util.Pair;
 import org.eclipse.jdt.core.dom.*;
 import org.json.simple.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CompositePattern implements CodePattern{
+public class  CompositePattern implements CodePattern{
 
     private int varCount = 0;
     private int constantCount = 0;
@@ -15,8 +19,8 @@ public class CompositePattern implements CodePattern{
     private String matchingExpression;
     private Map <String, String> variableMap = new HashMap<>();
     private Map <String, String> constantMap = new HashMap<>();
-    private List<String> lcuTemplateStatements = new ArrayList<String>();
-    private List<String> rcuTemplateStatements = new ArrayList<String>();
+    private List<Pair<String, String>> lcuTemplateStatements = new ArrayList<>();
+    private List<Pair <String, String>> rcuTemplateStatements = new ArrayList<>();
 
     CompositePattern(ASTNode lcu, ASTNode rcu){
 
@@ -37,26 +41,31 @@ public class CompositePattern implements CodePattern{
                                 constantMap.put(node.getExpression().toString(), String.format("\\$c_%d", constantCount));
                                 constantCount++;
                             }
+
+                            if(node.getExpression() instanceof  NumberLiteral) {
+                                constantMap.put(node.getExpression().toString(), String.format("\\$c_%d", constantCount));
+                                constantCount++;
+                            }
                             return super.visit(node);
                         }
                     });
 
-                    lcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    lcuTemplateStatements.add(new Pair(node.getType().toString(),GenerateTemplateString(node.toString())));
                     return super.visit(node);
                 }
 
                 public boolean visit(ExpressionStatement node) {
-                    lcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    lcuTemplateStatements.add(new Pair<>("expression",GenerateTemplateString(node.toString())));
                     return super.visit(node);
                 }
 
                 public boolean visit(IfStatement node){
-                    lcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    lcuTemplateStatements.add(new Pair<>( "if",GenerateTemplateString(node.toString())));
                     return super.visit(node);
                 }
 
                 public boolean visit(TryStatement node){
-                    lcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    lcuTemplateStatements.add(new Pair("else", GenerateTemplateString(node.toString())));
                     return false;
                 }
 
@@ -71,8 +80,11 @@ public class CompositePattern implements CodePattern{
                             }
                         }
                     }
+                    lcuTemplateStatements.add(new Pair( node.resolveBinding().toString() ,GenerateTemplateString(node.toString())));
                     return super.visit(node);
                 }
+
+
             });
         }
 
@@ -95,21 +107,21 @@ public class CompositePattern implements CodePattern{
                             return super.visit(node);
                         }
                     });
-                    rcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    rcuTemplateStatements.add(new Pair(node.getType().toString(),GenerateTemplateString(node.toString())));
                     return super.visit(node);
                 }
 
                 public boolean visit(IfStatement node){
-                    rcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    rcuTemplateStatements.add(new Pair( "if",GenerateTemplateString(node.toString())));
                     return super.visit(node);
                 }
 
                 public boolean visit(TryStatement node){
-                    rcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    rcuTemplateStatements.add(new Pair("else", GenerateTemplateString(node.toString())));
                     return false;
                 }
                 public boolean visit(ExpressionStatement node) {
-                    rcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    rcuTemplateStatements.add(new Pair("expression",GenerateTemplateString(node.toString())));
                     return super.visit(node);
                 }
 
@@ -124,7 +136,7 @@ public class CompositePattern implements CodePattern{
                         }
                     }
                     System.out.println(node.resolveBinding());
-                    rcuTemplateStatements.add(GenerateTemplateString(node.toString()));
+                    rcuTemplateStatements.add(new Pair( node.resolveBinding().toString() ,GenerateTemplateString(node.toString())));
                     return false;
                 }
             });
@@ -133,9 +145,9 @@ public class CompositePattern implements CodePattern{
         setName(Integer.toString(lcuTemplateStatements.hashCode()));
     }
 
-    public List<String> getLcuTemplateStatements() { return lcuTemplateStatements; }
+    public List<Pair<String,String>>getLcuTemplateStatements() { return lcuTemplateStatements; }
 
-    public List<String> getRcuTemplateStatements() {
+    public List<Pair<String,String> >getRcuTemplateStatements() {
         return rcuTemplateStatements;
     }
 

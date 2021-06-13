@@ -71,7 +71,7 @@ public class BackwardSlicer {
             stmtList.clear();
             cache.clear();
             String className = targetStmt.getNode().getMethod().getDeclaringClass().getName().toString();
-            if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2") != 0) continue;
+//            if (className.compareTo("Lorg/cryptoapi/bench/predictablecryptographickey/PredictableCryptographicKeyABICase2") != 0) continue;
             System.out.println(className);
 
             System.out.println("==========TEST SDG==========");

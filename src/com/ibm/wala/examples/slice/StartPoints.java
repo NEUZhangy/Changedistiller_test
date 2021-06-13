@@ -20,10 +20,14 @@ import java.util.Set;
 /*get the insecure function within project*/
 public class StartPoints {
     private Set<Statement> allStartStmt = new HashSet<>();
+    private Set<CGNode> visitedCgNode = new HashSet<>();
 
     public StartPoints(CallGraph completeCG, String callee,String functionType) throws IOException, ClassHierarchyException, CancelException {
+
         for (CGNode node : completeCG) {
+            if(visitedCgNode.contains(node)) continue;
             findStartStmts(node, callee, functionType);
+            visitedCgNode.add(node);
         }
     }
 
@@ -31,6 +35,7 @@ public class StartPoints {
     public void findStartStmts(CGNode n, String methodName, String methodType) {
         IR ir = n.getIR();
         if (ir == null) return;
+
         for (SSAInstruction s : Iterator2Iterable.make(ir.iterateAllInstructions())) {
             if (s instanceof SSAInvokeInstruction) {
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;

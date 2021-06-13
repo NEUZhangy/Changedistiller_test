@@ -1,5 +1,6 @@
 package com.ibm.wala.examples.slice;
 
+import com.Constant;
 import com.ibm.wala.classLoader.IField;
 import com.ibm.wala.classLoader.NewSiteReference;
 import com.ibm.wala.dataflow.IFDS.ISupergraph;
@@ -14,8 +15,10 @@ import com.ibm.wala.ssa.*;
 import com.ibm.wala.util.collections.Pair;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class EdgeProce {
+    private static final Logger LOGGER = Logger.getLogger(EdgeProce.class.getName());
 
     public HashMap<Integer, Statement> resultMap = new HashMap<>();
     ISupergraph<Statement, PDG<? extends InstanceKey>> backwardSuperGraph;
@@ -37,6 +40,7 @@ public class EdgeProce {
         this.reachingStmts = reachingStmts;
         this.paramValue = paramValue;
         this.completeCG = cg;
+        LOGGER.setLevel(Constant.loglevel);
     }
 
     public IntraResult edgeSolver(int use, int pos, List<Object> ans){
@@ -49,6 +53,7 @@ public class EdgeProce {
             return  intraResult;
 
         }else{
+            LOGGER.info("targetStmt is null");
             System.out.println("no matching stmt; check the resultmap in intraRetrive");
         }
         return null;
@@ -158,20 +163,23 @@ public class EdgeProce {
                     break;
 
                 case NORMAL:
-                    this.targetStmt = curEdge;
                     this.use = use;
-                    if(targetStmt instanceof StatementWithInstructionIndex){
-                        SSAInstruction curInst = ((StatementWithInstructionIndex) targetStmt).getInstruction();
+                    Statement edgeStmt = curEdge;
+                    if(edgeStmt instanceof StatementWithInstructionIndex){
+                        SSAInstruction curInst = ((StatementWithInstructionIndex) edgeStmt).getInstruction();
                         if(curInst instanceof SSAPutInstruction){
+                            this.targetStmt = curEdge;
                             this.use = ((SSAPutInstruction) curInst).getVal();
                         }
 
-                        if(curInst instanceof SSAConditionalBranchInstruction) {
+                        else if(curInst instanceof SSAConditionalBranchInstruction) {
+                            this.targetStmt = curEdge;
                             result = false;
                             break;
                         }
-                        if(curInst instanceof SSANewInstruction){
+                        else if(curInst instanceof SSANewInstruction){
                             //new arraystore?
+                            this.targetStmt = curEdge;
                             if(((SSANewInstruction) curInst).getNewSite().getDeclaredType().toString().contains("<Primordial,[B>")){
                                 Iterator<Statement> stmts = backwardSuperGraph.getPredNodes(curEdge);
                                 while(stmts.hasNext()){
@@ -193,10 +201,12 @@ public class EdgeProce {
                             }
 
                         }
-                        if(curInst instanceof SSAReturnInstruction){
+                        else if(curInst instanceof SSAReturnInstruction){
+                            this.targetStmt = curEdge;
                             SSAReturnInstruction reInst = (SSAReturnInstruction)curInst;
                             this.use = reInst.getResult();
                         }
+                        else continue;
                     }
 
                     result = false;

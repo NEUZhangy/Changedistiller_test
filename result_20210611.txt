@@ -1,0 +1,1672 @@
+############################################################
+D:\BACKUP\code\experiment\complete_case\abdera-client-0.4.0-incubating.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 2
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\accumulo-testing-2.0.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 6
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 1
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\artemis-commons-2.11.0.jar
+Rule Cipher getInstance: 2
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 1
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 2
+Rule SecretKeySpec <init>: 2
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 1
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\atlas-common-0.9-incubating-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\apacheds-kerberos-codec-2.0.0.AM26-SNAPSHOT.jar
+Rule Cipher getInstance: 6
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 9
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 5
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\apacheds-http-integration-2.0.0.AM26-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 1
+############################################################
+D:\BACKUP\code\experiment\complete_case\airavata-sharing-registry-server-0.19-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\amazon-kinesis-client-2.2.3.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\atmosphere-runtime-1.0.18.vaadin1.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\brooklyn-karaf-init-1.0.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\com.springsource.org.apache.commons.httpclient-3.1.0.jar
+Rule Cipher getInstance: 1
+Rule MessageDigest getInstance: 2
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 1
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\cloudstack-2.2.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\cxf-codegen-plugin-3.4.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\cxf-rt-bindings-soap-2.1.3.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\cxf-spring-boot-autoconfigure-3.4.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\cayenne-modeler-win-ext-4.2.M1-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\catalina-ant.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\cpu-affinity-4.10.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\calcite-linq4j-1.16.0-kylin-r3.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\druid-processing-0.9.1.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\deltaspike-core-impl-1.9.2.jar
+Rule Cipher getInstance: 2
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\debezium-connector-mysql-1.0.0.Final.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 1
+############################################################
+D:\BACKUP\code\experiment\complete_case\com.springsource.org.apache.commons.codec-1.3.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\common-compress-0.1.5.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\flume-file-channel-1.9.0.jar
+Rule Cipher getInstance: 1
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\flink-test-utils_2.11-1.11-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 3
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 1
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\flink-table-common-1.11-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\flink-hadoop-fs-1.11-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\flink-streaming-java_2.11-1.11-SNAPSHOT-tests.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\flume-ng-hbase2-sink-1.10.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\gossip-base-0.1.3-incubating-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 1
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\gateway-spi-1.4.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 2
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 1
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\httpcore5-testing-5.0-beta12-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\hive-common-3.1.2.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 2
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\kylin-core-common-3.1.0-SNAPSHOT.jar
+Rule Cipher getInstance: 2
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 2
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\kylin-server-base-3.0.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\meecrowave-core-1.2.9.jar
+Rule Cipher getInstance: 2
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 1
+Rule SecretKeySpec <init>: 1
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\mina-core-2.0.4.jar
+Rule Cipher getInstance: 2
+Rule MessageDigest getInstance: 4
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 1
+Rule SecretKeySpec <init>: 1
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\mcf-core-2.9-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 1
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 1
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 1
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 1
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\mongodb.rya-4.0.1-incubating-SNAPSHOT-tests.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\maven-install-plugin-2.5.2.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\mysql-binlog-connector-java-0.11.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\netty-3.5.12.Final.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 4
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\nifi-ranger-plugin-1.12.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\nifi-logging-utils-1.12.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\org.apache.sling.discovery.base-2.0.9-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 1
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 2
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 1
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 1
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 1
+Rule PBEKeySpec <init>: 1
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\org.apache.sling.discovery.commons-1.0.20-tests.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\org.apache.sling.installer.core-3.6.4.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 2
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\org.apache.felix.configadmin-1.8.8.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\org.apache.stanbol.enhancer.engines.langdetect-1.0.1-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\original-flink-connector-kinesis_2.11-1.11-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\org.springframework.core-3.0.5.RELEASE.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\original-storm-starter-2.2.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\original-camel-api-3.1.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 2
+############################################################
+D:\BACKUP\code\experiment\complete_case\original-flink-table-common-1.11-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\original-maven-surefire-common-3.0.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\original-tika-server-2.0.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\original-tika-app-2.0.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\oak-blob-plugins-1.25-SNAPSHOT-tests.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\openejb-core-7.0.5-SNAPSHOT.jar
+############################################################
+D:\BACKUP\code\experiment\complete_case\picketlink-common-2.7.0.Final.jar
+Rule Cipher getInstance: 2
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 2
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 2
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\picketlink-impl-2.7.0.Final.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\pulsar-functions-local-runner-original.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\pulsar-flink.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\pulsar-client-original.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\poi-scratchpad-3.0.2-FINAL.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\qpid-broker-plugins-management-amqp-8.0.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\ranger-plugins-common-2.0.0.jar
+Rule MessageDigest getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 2
+Rule PBEParameterSpec <init>: 2
+Rule PBEKeySpec <init>: 2
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 4
+############################################################
+D:\BACKUP\code\experiment\complete_case\ranger-plugins-cred-2.0.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\ranger-storm-plugin-2.0.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\ranger-hive-plugin-shim-2.0.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\rethinkdb-driver-2.3.3.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 1
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\redback-common-integrations-3.0.0-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\rya.api-4.0.1-incubating-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\spring-security-core-3.1.0.RC2.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 1
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 1
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\spring-social-core-1.0.0.RC1.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 1
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\spring-web-3.1.2.RELEASE.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\secured-string-converter-1.0.3-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 1
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule IvParameterSpec <init>: 1
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\simple-odf-0.9.0-incubating-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 2
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\shindig-common-3.0.0-beta4.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 2
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\spring-boot-2.1.0.RELEASE.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 2
+############################################################
+D:\BACKUP\code\experiment\complete_case\shiro-crypto-cipher-1.5.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 7
+############################################################
+D:\BACKUP\code\experiment\complete_case\taverna-perspective-myexperiment-3.1.0-incubating-SNAPSHOT.jar
+Rule Cipher getInstance: 2
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 2
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 1
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 1
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\taverna-wsdl-generic-2.1.0-incubating.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 1
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\taverna-wsdl-activity-2.1.0-incubating.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 2
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\tika-core-1.7-SNAPSHOT.jar
+############################################################
+D:\BACKUP\code\experiment\complete_case\TopSpeedWindowing.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\uima-ducc-common-3.0.0.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 1
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\wicket-util-9.0.0-M4.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 1
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 1
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\wagon-provider-api-3.3.4.jar
+Rule Cipher getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\wss4j-ws-security-stax-2.2.4.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\complete_case\wss4j-ws-security-common-2.2.4.jar
+Rule MessageDigest getInstance: 5
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+############################################################
+D:\BACKUP\code\experiment\test_set\test_set\oodt.git\webapp\wmservices\target\workflow-services-1.10-SNAPSHOT\WEB-INF\lib\tika-core-1.13.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\test_set\test_set\oodt.git\webapp\wmservices\target\workflow-services-1.10-SNAPSHOT\WEB-INF\lib\tika-core-1.13.jar
+Rule Cipher getInstance: 0
+Rule MessageDigest getInstance: 0
+Rule SecretKeyFactory getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Ljava/util/Random <init>: 0
+Rule KeyStore load: 0

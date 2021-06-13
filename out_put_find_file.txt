@@ -1,0 +1,261 @@
+filename: D:\BACKUP\code\experiment\complete_case\cassandra-all-3.11.2.jar
+
+=====parameter Cipher getInstance=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter MessageDigest getInstance=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter SecretKeyFactory getInstance=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter SSLContext getInstance=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====number KeyPairGenerator initialize=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter SecretKeySpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter SecretKeySpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====number PBEParameterSpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====number PBEKeySpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter SecureRandom setSeed=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter IvParameterSpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter PBEParameterSpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter PBEKeySpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter PBEKeySpec <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====type Ljava/util/Random <init>=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+=====parameter KeyStore load=====
+Jun 12, 2021 9:05:58 AM Runner.Main runCaseChecking
+WARNING: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+com.ibm.wala.util.debug.UnimplementedError: java.io.FileNotFoundException: D:\BACKUP\code\experiment\complete_case\apache-cassandra-thrift-3.11.2.jar (The system cannot find the file specified)
+	at com.ibm.wala.util.debug.Assertions.UNREACHABLE(Assertions.java:55)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:266)
+	at com.ibm.wala.util.config.AnalysisScopeReader.addClassPathToScope(AnalysisScopeReader.java:248)
+	at com.ibm.wala.util.config.AnalysisScopeReader.makeJavaBinaryAnalysisScope(AnalysisScopeReader.java:226)
+	at com.ibm.wala.examples.slice.ProBuilder.<init>(ProBuilder.java:39)
+	at com.ibm.wala.examples.slice.InterRetrive.start(InterRetrive.java:31)
+	at Runner.Main.runCaseChecking(Main.java:80)
+	at Runner.Main.main(Main.java:63)
+
+
+DURATION: 0 SECONDS
+
+filename: D:\BACKUP\code\experiment\test_set\test_set\oodt.git\webapp\wmservices\target\workflow-services-1.10-SNAPSHOT\WEB-INF\lib\tika-core-1.13.jar
+
+=====parameter Cipher getInstance=====
+
+=====parameter MessageDigest getInstance=====
+
+=====parameter SecretKeyFactory getInstance=====
+
+=====parameter SSLContext getInstance=====
+
+=====number KeyPairGenerator initialize=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====parameter SecretKeySpec <init>=====
+
+=====number PBEParameterSpec <init>=====
+
+=====number PBEKeySpec <init>=====
+
+=====parameter SecureRandom setSeed=====
+
+=====parameter IvParameterSpec <init>=====
+
+=====parameter PBEParameterSpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====parameter PBEKeySpec <init>=====
+
+=====type Ljava/util/Random <init>=====
+
+=====parameter KeyStore load=====

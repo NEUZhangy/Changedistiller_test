@@ -6,11 +6,11 @@ import ch.uzh.ifi.seal.changedistiller.model.classifiers.SourceRange;
 import ch.uzh.ifi.seal.changedistiller.model.entities.*;
 import com.changedistiller.test.DAO.DBHandler;
 import edu.vt.cs.append.FineChangesInMethod;
+import javafx.util.Pair;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.NodeFinder;
 
-import javax.xml.transform.Source;
 import java.io.*;
 import java.util.*;
 
@@ -34,38 +34,6 @@ public class GeneratePattern {
 
     private SourceRange reconstruct(List<SourceCodeChange> changeList) {
         System.out.println("---------reconstruct----------");
-//        Map<String, TreeSet<SourceCodeChange>> codeStrucutre = new HashMap<>();
-//        for (SourceCodeChange scc: changeList) {
-//            String parent = scc.getParentEntity().getUniqueName();
-//            if (scc instanceof Move) {
-//                String old_parent = ((Move)scc).getParentEntity().getUniqueName();
-//                TreeSet<SourceCodeChange> set = codeStrucutre.get(old_parent);
-//                for (SourceCodeChange sc: set) {
-//                    if (sc.getChangedEntity() == scc.getChangedEntity()) {
-//                        set.remove(sc);
-//                        break;
-//                    }
-//                }
-//                parent = ((Move)scc).getNewParentEntity().toString();
-//            }
-//            if (codeStrucutre.containsKey(parent)) {
-//                codeStrucutre.get(parent).add(scc);
-//            }
-//            else {
-//                codeStrucutre.put(parent, new TreeSet<SourceCodeChange>(new Comparator<SourceCodeChange>() {
-//                    @Override
-//                    public int compare(SourceCodeChange o1, SourceCodeChange o2) {
-//                        return o1.getChangedEntity().getStartPosition() - o2.getChangedEntity().getEndPosition();
-//                    }
-//                }));
-//                codeStrucutre.get(parent).add(scc);
-//            }
-//        }
-//        for(Map.Entry<?, ?> entry: codeStrucutre.entrySet()) {
-//            TreeSet<SourceCodeChange> codes = (TreeSet<SourceCodeChange>) entry.getValue();
-//            System.out.println(entry.getKey());
-//            codes.stream().forEach(x-> System.out.println("\t" + x));
-//        }
         Set<SourceCodeEntity> changes = new HashSet<>();
         for (SourceCodeChange scc: changeList) {
             if (changes.contains(scc.getChangedEntity())) {
@@ -106,8 +74,8 @@ public class GeneratePattern {
         //get the statement of changedistiller and oldfrang, newfrang
         List<SourceCodeChange> changes = distiller.getSourceCodeChanges();//the size of changes=1
 
-        List<SourceRange> srlist = new ArrayList<>();
-        List<SourceRange> newsrlist  = new ArrayList<>();
+        List<SourceRange> srlist = new ArrayList<>(); //old entity
+        List<SourceRange> newsrlist  = new ArrayList<>(); //new entity
         List<SourceCodeChange> changelist = new ArrayList<>();
         List<SourceCodeChange> extractChanges = new ArrayList<>();
 
@@ -155,6 +123,8 @@ public class GeneratePattern {
         List<ASTNode> lNode = new ArrayList<>();
         List<String> lNodeType = new ArrayList<>();
         List<ASTNode> lNodeArgument = new ArrayList<>();
+
+
         List<ASTNode> rNode = new ArrayList<>();
         List<String> rNodeType = new ArrayList();
         List<ASTNode> rNodeArgument = new ArrayList<>();
@@ -163,8 +133,10 @@ public class GeneratePattern {
         for (SourceRange l: srlist) {
             ASTNode ltmpNode = NodeFinder.perform(lcu.getRoot(),l.getStart(),l.getEnd()-l.getStart());
             customVisitor.VisitTarget(ltmpNode, lNode, lNodeArgument);
-//                System.out.println("test the nodetype: " + customVisitor.bindingName);
             lNodeType.add(customVisitor.bindingName);
+            if(customVisitor.bindingName == null){
+                System.out.println("find the target expression");
+            }
             matchingExpression = customVisitor.matchingExpression;
         }
         for (SourceRange r: newsrlist){ // can't get the node
@@ -173,9 +145,22 @@ public class GeneratePattern {
             rNodeType.add(customVisitor.bindingName);
         }
 
+        if(!matchingExpression.contains("$nl") && !matchingExpression.contains("$sl")) {
+            CodePattern name = new NamePattern(matchingExpression);
+            //compare type, the name are different
+            for(int i =0; i<lNodeType.size();i++) {
+                if(!(lNodeType.get(i).equals(rNodeType.get(i)))){
+                    ((NamePattern) name).AppendtoINameSet(lNodeType.toString());
+                    ((NamePattern) name).AppendtoIClassSet(lNode.toString());
+
+                    ((NamePattern) name).AppendtoCNameSet(rNodeType.toString());
+                    ((NamePattern) name).AppendtoCClassSet(rNode.toString());
+                }
+            }
+        }
         //composite
 //        if (lNode.size() > 1 || rNode.size() > 1) {
-        if (extractChanges.size() > 1){
+        if (extractChanges.size() > 1 || !customVisitor.typeParameter.isEmpty()){
             ASTNode lTarget = null, rTarget = null;
             int lstart = Integer.MAX_VALUE, lend = Integer.MIN_VALUE, rstart = Integer.MAX_VALUE, rend = Integer.MIN_VALUE;
             for (ASTNode node: lNode) {
@@ -191,27 +176,42 @@ public class GeneratePattern {
             CompositePattern compositePattern = new CompositePattern(lTarget, rTarget);
             compositePattern.setMatchingExpression(matchingExpression);
             patternMap.put(compositePattern.getName(), compositePattern);
+
+            List<Pair<String,String>> lcuStmt = compositePattern.getLcuTemplateStatements();
+            List<Pair<String,String>> rcuStmt = compositePattern.getRcuTemplateStatements();
+
             System.out.println("left:");
             compositePattern.getLcuTemplateStatements().stream().forEach(x -> System.out.println(x));
             System.out.println("right");
             compositePattern.getRcuTemplateStatements().stream().forEach(x -> System.out.println(x));
-            //return;
-        }
-        System.out.println("end the analysis for composite pattern generation ");
-        System.out.println(".-------------------------------------------------.");
+            //return
 
-        CodePattern name = new NamePattern(matchingExpression);
-        //compare type, the name are different
-        for(int i =0; i<lNodeType.size();i++) {
-            if(!(lNodeType.get(i).equals(rNodeType.get(i)))){
-                ((NamePattern) name).AppendtoINameSet(lNodeType.toString());
-                ((NamePattern) name).AppendtoIClassSet(lNode.toString());
+            System.out.println("end the analysis for composite pattern generation ");
+            System.out.println(".-------------------------------------------------.");
 
-                ((NamePattern) name).AppendtoCNameSet(rNodeType.toString());
-                ((NamePattern) name).AppendtoCClassSet(rNode.toString());
+
+
+            //handle composite pattern and size pattern
+            if(!customVisitor.typeParameter.isEmpty() && lcuStmt.size() == rcuStmt.size()) {
+                patternMap.clear();
+                CodePattern sizePattern = null;
+                String size = customVisitor.typeParameter.get("size").toString();
+                for(Pair<String, String> a :compositePattern.getLcuTemplateStatements()){
+                    if(compositePattern.getRcuTemplateStatements().contains(a)) {
+                        matchingExpression = a.getValue();
+                        sizePattern = new NumberPattern(a.getKey(),0); //pos need more process
+                        //((NumberPattern) sizePattern).setMinNum();
+                        ((NumberPattern) sizePattern).AppendtoCSet(size);
+                        ((NumberPattern) sizePattern).AppendtoISet(size);
+
+                        patternMap.put(sizePattern.toString(), sizePattern);
+                        System.out.println(sizePattern.marshall());
+                    }
+                }
             }
-
         }
+        //after custom the pattern, case: namePattern
+
 
         // Compare arguments directly
         for(int i = 0; i < lNodeArgument.size(); i++) {
@@ -242,6 +242,7 @@ public class GeneratePattern {
                 }
             }
         }
+
 
         DBHandler db = new DBHandler();
         for(Map.Entry<String, CodePattern> entry: this.patternMap.entrySet()) {
@@ -309,6 +310,11 @@ public class GeneratePattern {
         if (group_str.length() > 0) group_str.deleteCharAt(group_str.length()-1);
         genericArgs.add(group_str.toString());
         return genericArgs;
+    }
+
+
+    public void extractChangesAsLeftRight() {
+
     }
 
 }

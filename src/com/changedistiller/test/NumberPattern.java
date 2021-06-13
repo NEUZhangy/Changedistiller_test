@@ -10,7 +10,7 @@ import java.util.Set;
 public class NumberPattern implements CodePattern{
     private String name;
     private int pos = 0;
-    private int minNum;
+    private int minNum = Integer.MAX_VALUE;
     private String bindingType;
     private Set<String> secureParametersSet = new HashSet<>();
     private Set<String> insecureParameterSet = new HashSet<>();
@@ -81,6 +81,7 @@ public class NumberPattern implements CodePattern{
         jsonFields.put("Type", "number");
         jsonFields.put("Check", Integer.toString(this.pos));
         jsonFields.put("MinNum", Integer.toString(this.minNum));
+
         String[] strList = this.bindingType.split(" ");
         if (strList.length == 1) {
             jsonFields.put("MethodType", this.bindingType);
