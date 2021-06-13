@@ -14,7 +14,7 @@ public class FiletoAST {
     private String[] encodings = {"utf-8"};
     private final CompilationUnit cu;
 
-    FiletoAST(String[] sourcepath, File file, String filename) throws Exception{
+    public FiletoAST(String[] sourcepath, File file, String filename) throws Exception{
         String sourcefile = FileUtils.readFileToString(file);
         ASTParser parser = ASTParser.newParser(AST.JLS11);
         parser.setSource(sourcefile.toCharArray());

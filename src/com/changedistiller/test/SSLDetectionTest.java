@@ -17,6 +17,6 @@ public class SSLDetectionTest {
         FiletoAST leftast = new FiletoAST(lsourcepath, left, lfilename);
         CompilationUnit lcu = leftast.getComplicationUnit();
         SSLDetection detection = new SSLDetection();
-        detection.detect(lcu);
+//        detection.detect(lcu);
     }
 }

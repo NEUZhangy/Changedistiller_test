@@ -1,19 +1,18 @@
 package com.changedistiller.test;
 
-import com.github.javaparser.JavaParser;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DirectGenerate {
@@ -21,18 +20,24 @@ public class DirectGenerate {
     private CompilationUnit cu;
 
     public DirectGenerate(String file_path) throws Exception {
+        Set<String> keywords = new HashSet<>(Arrays.asList("StringLiterals", "IntegerLiterals"));
         TypeSolver typeSolver = new ReflectionTypeSolver();
-        JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
+        TypeSolver javasolver = new JavaParserTypeSolver("src/template");
+        typeSolver.setParent(typeSolver);
+        CombinedTypeSolver combinedTypeSolver = new CombinedTypeSolver();
+        combinedTypeSolver.add(typeSolver);
+        combinedTypeSolver.add(javasolver);
+        JavaSymbolSolver symbolSolver = new JavaSymbolSolver(combinedTypeSolver);
         StaticJavaParser.getConfiguration().setSymbolResolver(symbolSolver);
         file_path = "src/test.java";
         cu = StaticJavaParser.parse(new File(file_path));
-        List<MethodCallExpr> statementList = new ArrayList<>();
+        List<ObjectCreationExpr> statementList = new ArrayList<>();
         AtomicReference<String> binding = new AtomicReference<>("");
-        cu.findAll(MethodCallExpr.class).forEach(ae -> {
+        cu.findAll(ObjectCreationExpr.class).forEach(ae -> {
             ResolvedType resolvedType = ae.calculateResolvedType();
             //binding.set(ae.resolveInvokedMethod().getQualifiedSignature());
             ae.getArguments().stream().forEach(x -> System.out.println(x));
-            if (ae.getNameAsString().equals("asList")) {
+            if (keywords.contains(ae.getType().getName().toString())){
                 statementList.add(ae);
             }
         });
