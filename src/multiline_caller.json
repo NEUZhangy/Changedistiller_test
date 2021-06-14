@@ -1,0 +1,50 @@
+[
+  {
+    "callee": "load",
+    "MethodType": "KeyStore",
+    "Type": "parameter",
+    "Check": 1,
+    "Incorrect": null,
+    "Correct": ["KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());", "    char[] $v_1$ = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)\n", "    $v_2$.load($v_0$, $v_1$);\n"]
+  },
+  {
+    "callee": "<init>",
+    "MethodType": "SecretKeySpec",
+    "Type": "parameter",
+    "Check": 0,
+    "Incorrect": null,
+    "Correct": ["\tKeyGenerator $v_3$ = KeyGenerator.getInstance(\"AES\");\n", "\t$v_3$.init(128);\n", "\tSecretKey $v_2$ = $v_3$.generateKey();\n", "\tbyte[] $v_1$= $v_2$.getEncoded();\n", "\tSecretKey $v_0$ = new SecretKeySpec($v_1$, \"AES\");\n"]
+  },
+  {
+    "callee": "setSeed",
+    "MethodType": "SecureRandom",
+    "Type": "parameter",
+    "Check": 0,
+    "Incorrect": null,
+    "Correct": ["\tSecureRandom $v_1$ = new SecureRandom();\n", "\tbyte[] $v_0$ = $v_1$.getSeed(20);\n", "\t$v_1$.setSeed($v_0);\n"]
+  },
+  {
+    "callee": "<init>",
+    "MethodType": "IvParameterSpec",
+    "Type": "parameter",
+    "Check": 0,
+    "Incorrect": null,
+    "Correct": ["\tSecureRandom $v_2$ = new SecureRandom();\n", "\tbyte [] $v_1$ = new byte[16];\n", "\t$v_2$.nextBytes($v_1$);\n", "\tIvParameterSpec $v_0$ = new IvParameterSpec($v_1$);\n"]
+  },
+  {
+    "callee": "<init>",
+    "MethodType": "PBEParameterSpec",
+    "Type": "parameter",
+    "Check": 0,
+    "Incorrect": null,
+    "Correct": ["\tSecureRandom $v_3$ = new SecureRandom();\n", "\tbyte[] $v_1$ = new byte[32];\n", "\t$v_3.nextBytes($v_1$);\n", "\tPBEParameterSpec $v_0$ = new PBEParameterSpec($v_1$, $v_2$);\n"]
+  },
+  {
+    "callee": "<init>",
+    "MethodType": "PBEKeySpec",
+    "Type": "parameter",
+    "Check": 0,
+    "Incorrect": null,
+    "Correct": ["\tSecureRandom $v_2$ = new SecureRandom();\n", "\tbyte[] $v_1$ = new byte[32];\n", "\t$v_2$.nextBytes($v_1);\n", "\tPBEKeySpec $v_0$ = new PBEKeySpec($v_3$, $v_1$, $v_4$);\t\n"]
+  }
+]

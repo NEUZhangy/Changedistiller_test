@@ -1,0 +1,248 @@
+D:\BACKUP\code\experiment\test_set\test_set\tika.git\tika-server\target\original-tika-server-2.0.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\tika.git\tika-server\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-table\flink-table-common\target\original-flink-table-common-1.11-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-table\flink-table-common\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\qpid-broker-j.git\broker-plugins\management-amqp\target\qpid-broker-plugins-management-amqp-8.0.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\qpid-broker-j.git\broker-plugins\management-amqp\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\nifi.git\nifi-nar-bundles\nifi-ranger-bundle\nifi-ranger-plugin\target\nifi-ranger-plugin-1.12.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\nifi.git\nifi-nar-bundles\nifi-ranger-bundle\nifi-ranger-plugin\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\pulsar.git\pulsar-functions\localrun\target\pulsar-functions-local-runner-original.jar D:\BACKUP\code\experiment\test_set\test_set\pulsar.git\pulsar-functions\localrun\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\maven-surefire.git\maven-surefire-common\target\original-maven-surefire-common-3.0.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\maven-surefire.git\maven-surefire-common\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\pulsar.git\pulsar-flink\target\pulsar-flink.jar D:\BACKUP\code\experiment\test_set\test_set\pulsar.git\pulsar-flink\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\cxf.git\integration\spring-boot\autoconfigure\target\cxf-spring-boot-autoconfigure-3.4.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\cxf.git\integration\spring-boot\autoconfigure\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\cxf.git\maven-plugins\codegen-plugin\target\cxf-codegen-plugin-3.4.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\cxf.git\maven-plugins\codegen-plugin\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\odftoolkit.git\simple\target\simple-odf-0.9.0-incubating-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\odftoolkit.git\simple\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\tika.git\tika-app\target\original-tika-app-2.0.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\tika.git\tika-app\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\accumulo-testing.git\target\accumulo-testing-2.0.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\accumulo-testing.git\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\flume.git\flume-ng-sinks\flume-ng-hbase2-sink\target\flume-ng-hbase2-sink-1.10.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\flume.git\flume-ng-sinks\flume-ng-hbase2-sink\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-connectors\flink-connector-kinesis\target\original-flink-connector-kinesis_2.11-1.11-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-connectors\flink-connector-kinesis\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\pulsar.git\pulsar-client\target\pulsar-client-original.jar D:\BACKUP\code\experiment\test_set\test_set\pulsar.git\pulsar-client\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\target\taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    $v_2.load($v_0, $v_1);
+
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    $v_2.load($v_0, $v_1);
+
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    $v_2.load($v_0, $v_1);
+
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    $v_2.load($v_0, $v_1);
+
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    $v_2.load($v_0, $v_1);
+
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    $v_2.load($v_0, $v_1);
+
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    $v_2.load($v_0, $v_1);
+
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-taverna-engine.git\taverna-credential-manager-impl\src\main\java\org\apache\taverna\security\credentialmanager\impl\CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Suggest: 
+		$v_3.init(128);
+
+		KeyGenerator $v_3 = KeyGenerator.getInstance("AES");
+
+		SecretKey $v_0 = new SecretKeySpec($v_1, "AES");
+
+		SecretKey $v_2 = $v_3.generateKey();
+
+		byte[] $v_1= $v_2.getEncoded();
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-retired-gossip.git\gossip-base\target\gossip-base-0.1.3-incubating-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\incubator-retired-gossip.git\gossip-base\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\sling-org-apache-sling-discovery-base.git\target\org.apache.sling.discovery.base-2.0.9-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\sling-org-apache-sling-discovery-base.git\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\sling-org-apache-sling-discovery-base.git\src\main\java\org\apache\sling\discovery\base\connectors\ping\TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Suggest: 
+		$v_3.init(128);
+
+		KeyGenerator $v_3 = KeyGenerator.getInstance("AES");
+
+		SecretKey $v_0 = new SecretKeySpec($v_1, "AES");
+
+		SecretKey $v_2 = $v_3.generateKey();
+
+		byte[] $v_1= $v_2.getEncoded();
+
+D:\BACKUP\code\experiment\test_set\test_set\sling-org-apache-sling-discovery-base.git\src\main\java\org\apache\sling\discovery\base\connectors\ping\TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Add Statement before Line 484: 	$v_3.init(128);
+
+Add Statement before Line 484: 	KeyGenerator $v_3 = KeyGenerator.getInstance("AES");
+
+Add Statement after Line 484: 	SecretKey $v_2 = $v_3.generateKey();
+
+Add Statement after Line 484: 	byte[] tmp= $v_2.getEncoded();
+
+D:\BACKUP\code\experiment\test_set\test_set\sling-org-apache-sling-discovery-base.git\src\main\java\org\apache\sling\discovery\base\connectors\ping\TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Suggest: 
+		$v_2.nextBytes($v_1);
+
+		byte [] $v_1 = new byte[16];
+
+		SecureRandom $v_2 = new SecureRandom();
+
+		IvParameterSpec $v_0 = new IvParameterSpec($v_1);
+
+D:\BACKUP\code\experiment\test_set\test_set\sling-org-apache-sling-discovery-base.git\src\main\java\org\apache\sling\discovery\base\connectors\ping\TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Suggest: 
+		PBEKeySpec $v_0 = new PBEKeySpec($v_3,$v_1,$v_4);	
+
+		byte[] $v_1 = new byte[32];
+
+		$v_2.nextBytes($v_1);
+
+		SecureRandom $v_2 = new SecureRandom();
+
+D:\BACKUP\code\experiment\test_set\test_set\cayenne.git\modeler\cayenne-modeler-win-ext\target\cayenne-modeler-win-ext-4.2.M1-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\cayenne.git\modeler\cayenne-modeler-win-ext\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-test-utils-parent\flink-test-utils\target\flink-test-utils_2.11-1.11-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-test-utils-parent\flink-test-utils\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-test-utils-parent\flink-test-utils\src\main\java\org\apache\flink\shaded\testutils\org\jboss\netty\handler\ssl\JdkSslClientContext.java
+-----------------------------------Lorg/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslClientContext----------------------------------------------
+D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-test-utils-parent\flink-test-utils\src\main\java\org\apache\flink\shaded\testutils\org\jboss\netty\handler\ssl\JdkSslServerContext.java
+-----------------------------------Lorg/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslServerContext----------------------------------------------
+D:\BACKUP\code\experiment\test_set\test_set\brooklyn-server.git\karaf\init\target\brooklyn-karaf-init-1.0.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\brooklyn-server.git\karaf\init\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\geronimo-microprofile.git\microprofile-extensions\microprofile-extensions-config\secured-string-converter\target\secured-string-converter-1.0.3-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\geronimo-microprofile.git\microprofile-extensions\microprofile-extensions-config\secured-string-converter\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\geronimo-microprofile.git\microprofile-extensions\microprofile-extensions-config\secured-string-converter\src\main\java\org\apache\geronimo\microprofile\extensions\config\converter\secure\PBECipher.java
+-----------------------------------Lorg/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher----------------------------------------------
+Suggest: 
+		$v_3.init(128);
+
+		KeyGenerator $v_3 = KeyGenerator.getInstance("AES");
+
+		SecretKey $v_0 = new SecretKeySpec($v_1, "AES");
+
+		SecretKey $v_2 = $v_3.generateKey();
+
+		byte[] $v_1= $v_2.getEncoded();
+
+D:\BACKUP\code\experiment\test_set\test_set\geronimo-microprofile.git\microprofile-extensions\microprofile-extensions-config\secured-string-converter\src\main\java\org\apache\geronimo\microprofile\extensions\config\converter\secure\PBECipher.java
+-----------------------------------Lorg/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher----------------------------------------------
+Suggest: 
+		byte[] $v_0 = $v_1.getSeed(20);
+
+		$v_1.setSeed($v_0);
+
+		SecureRandom $v_1 = new SecureRandom();
+
+D:\BACKUP\code\experiment\test_set\test_set\geronimo-microprofile.git\microprofile-extensions\microprofile-extensions-config\secured-string-converter\src\main\java\org\apache\geronimo\microprofile\extensions\config\converter\secure\PBECipher.java
+-----------------------------------Lorg/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher----------------------------------------------
+Suggest: 
+		$v_2.nextBytes($v_1);
+
+		byte [] $v_1 = new byte[16];
+
+		SecureRandom $v_2 = new SecureRandom();
+
+		IvParameterSpec $v_0 = new IvParameterSpec($v_1);
+
+D:\BACKUP\code\experiment\test_set\test_set\knox.git\gateway-spi\target\gateway-spi-1.4.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\knox.git\gateway-spi\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\knox.git\gateway-spi\src\main\java\org\apache\knox\gateway\services\security\impl\ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Add Statement before Line 110: 	$v_3.init(128);
+
+Add Statement before Line 110: 	KeyGenerator $v_3 = KeyGenerator.getInstance("AES");
+
+Add Statement after Line 110: 	SecretKey $v_2 = $v_3.generateKey();
+
+Add Statement after Line 110: 	byte[] alg= $v_2.getEncoded();
+
+D:\BACKUP\code\experiment\test_set\test_set\knox.git\gateway-spi\src\main\java\org\apache\knox\gateway\services\security\impl\ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Add Statement before Line 120: 	$v_3.init(128);
+
+Add Statement before Line 120: 	KeyGenerator $v_3 = KeyGenerator.getInstance("AES");
+
+Add Statement after Line 120: 	SecretKey $v_2 = $v_3.generateKey();
+
+Add Statement after Line 120: 	byte[] alg= $v_2.getEncoded();
+
+D:\BACKUP\code\experiment\test_set\test_set\knox.git\gateway-spi\src\main\java\org\apache\knox\gateway\services\security\impl\ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Suggest: 
+		$v_2.nextBytes($v_1);
+
+		byte [] $v_1 = new byte[16];
+
+		SecureRandom $v_2 = new SecureRandom();
+
+		IvParameterSpec $v_0 = new IvParameterSpec($v_1);
+
+D:\BACKUP\code\experiment\test_set\test_set\knox.git\gateway-spi\src\main\java\org\apache\knox\gateway\services\security\impl\ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Suggest: 
+		PBEKeySpec $v_0 = new PBEKeySpec($v_3,$v_1,$v_4);	
+
+		byte[] $v_1 = new byte[32];
+
+		$v_2.nextBytes($v_1);
+
+		SecureRandom $v_2 = new SecureRandom();
+
+D:\BACKUP\code\experiment\test_set\test_set\incubator-atlas.git\common\target\atlas-common-0.9-incubating-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\incubator-atlas.git\common\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\httpcomponents-core.git\httpcore5-testing\target\httpcore5-testing-5.0-beta12-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\httpcomponents-core.git\httpcore5-testing\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\camel.git\core\camel-api\target\original-camel-api-3.1.0-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\camel.git\core\camel-api\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\camel.git\core\camel-api\src\main\java\org\apache\camel\support\jsse\KeyStoreParameters.java
+-----------------------------------Lorg/apache/camel/support/jsse/KeyStoreParameters----------------------------------------------
+Add Statement before Line 172: KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+Add Statement after Line 172:     char[] ksPassword = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\camel.git\core\camel-api\src\main\java\org\apache\camel\support\jsse\KeyStoreParameters.java
+-----------------------------------Lorg/apache/camel/support/jsse/KeyStoreParameters----------------------------------------------
+Add Statement before Line 175: KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+Add Statement after Line 175:     char[] ksPassword = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-table\flink-table-common\target\flink-table-common-1.11-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-table\flink-table-common\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\airavata.git\modules\sharing-registry\sharing-registry-server\target\airavata-sharing-registry-server-0.19-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\airavata.git\modules\sharing-registry\sharing-registry-server\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-filesystems\flink-hadoop-fs\target\flink-hadoop-fs-1.11-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\flink.git\flink-filesystems\flink-hadoop-fs\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\target\abdera-client-1.2-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\src\main\java\org\apache\abdera\protocol\client\util\ClientAuthSSLProtocolSocketFactory.java
+-----------------------------------Lorg/apache/abdera/protocol/client/util/ClientAuthSSLProtocolSocketFactory----------------------------------------------
+D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\target\abdera-client-1.2-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\src\main\java\org\apache\abdera\protocol\client\util\ClientAuthSSLProtocolSocketFactory.java
+-----------------------------------Lorg/apache/abdera/protocol/client/util/ClientAuthSSLProtocolSocketFactory----------------------------------------------
+D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\target\abdera-client-1.2-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\src\main\java\
+D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\src\main\java\org\apache\abdera\protocol\client\util\ClientAuthSSLProtocolSocketFactory.java
+-----------------------------------Lorg/apache/abdera/protocol/client/util/ClientAuthSSLProtocolSocketFactory----------------------------------------------
+Suggest: 
+	KeyStore $v_2 = KeyStore.getInstance(KeyStore.getDefaultType());
+	    char[] $v_1 = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+	    $v_2.load($v_0, $v_1);
+
+D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\target\abdera-client-1.2-SNAPSHOT.jar D:\BACKUP\code\experiment\test_set\test_set\abdera.git\client\src\main\java\

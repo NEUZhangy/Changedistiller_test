@@ -5,8 +5,6 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import jdk.nashorn.internal.ir.FunctionCall;
-import org.eclipse.jdt.core.dom.VariableDeclaration;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -74,7 +72,7 @@ public class VariableDeclarationVisitor extends VoidVisitorAdapter<Map<String, S
     }
 
     private void addVariables(VariableDeclarator v, Map<String, String> arg) {
-        arg.put(v.getNameAsString(), "$v" + "_" + trace++);
+        arg.put(v.getNameAsString(), "$v" + "_" + trace++ + "$");
         variables.add(v.getNameAsString());
 
     }

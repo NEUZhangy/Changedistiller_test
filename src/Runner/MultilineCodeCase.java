@@ -12,7 +12,7 @@ public class MultilineCodeCase {
     public String type;
     public Long checkParameter;
     public Set<String> incorrectSet = new HashSet<>();
-    public Set<String> correctSet = new HashSet<>();
+    public List<String> correctSet = new ArrayList<>();
     public long minNum;
 
     public MultilineCodeCase(JSONObject jsonObject) {
@@ -21,7 +21,7 @@ public class MultilineCodeCase {
         type = (String) jsonObject.get("Type");
         checkParameter = (Long) jsonObject.get("Check");
         incorrectSet = this.jsonArraytoSet(jsonObject.get("Incorrect"));
-        correctSet = this.jsonArraytoSet(jsonObject.get("Correct"));
+        correctSet = this.jsonArraytoArray(jsonObject.get("Correct"));
         if (jsonObject.get("MinNum") != null)
             this.minNum = (long) jsonObject.get("MinNum");
     }
@@ -34,6 +34,16 @@ public class MultilineCodeCase {
             set.add((String) arr.get(i));
         }
         return set;
+    }
+
+    public List<String> jsonArraytoArray(Object o) {
+        JSONArray arr = (JSONArray) o;
+        List<String> ls = new ArrayList<>();
+        if (o == null) return null;
+        for (int i = 0; i < arr.size(); i++) {
+            ls.add((String) arr.get(i));
+        }
+        return ls;
     }
 
     public int checking(Map<String, Map<Integer, List<Object>>> classVarMap) {

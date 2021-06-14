@@ -13,7 +13,6 @@ import com.ibm.wala.ipa.cha.ClassHierarchy;
 import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.cha.ClassHierarchyFactory;
 import com.ibm.wala.ipa.slicer.*;
-import com.ibm.wala.shrikeCT.InvalidClassFileException;
 import com.ibm.wala.ssa.*;
 import com.ibm.wala.types.FieldReference;
 import com.ibm.wala.types.MethodReference;
@@ -26,7 +25,6 @@ import com.ibm.wala.util.intset.IntSet;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -42,6 +40,7 @@ public class BackwardSlice {
     private Set<String> instanceFieldNames = new HashSet<>();
     private Map<String, Object> varMap = new HashMap<>(); //for save the field value
     private Map<SSAInstruction, Object> instValMap = new HashMap<>();
+    private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
     private Set<Statement> allRelatedStmt = new HashSet<>();
     private List<String> classorder = new ArrayList<>();
     private Map<String, String> classInitmap = new HashMap<>();
@@ -53,6 +52,7 @@ public class BackwardSlice {
     private Slicer.DataDependenceOptions dataDependenceOptions = Slicer.DataDependenceOptions.FULL;
     private Slicer.ControlDependenceOptions controlDependenceOptions = Slicer.ControlDependenceOptions.FULL;
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    public Map<String, List<Statement>> classStmtMap = new HashMap<>();
     //private Map<String, Map<Integer, List<Object>>> classVarMap = new HashMap<>();
     //private Statement targetStmt;
 
@@ -63,8 +63,8 @@ public class BackwardSlice {
     ) throws IOException, ClassHierarchyException, CancelException {
 
         //clear the related parameters
-
-
+        init();
+        completeCGBuilder(path, callee, functionType);
         for (CGNode node : completeCG) {
             findAllCallTo(node, callee, functionType);
         }
@@ -81,7 +81,6 @@ public class BackwardSlice {
 
             Collection<CGNode> roots = new ArrayList<>();
             roots.add(targetStmt.getNode());
-
             try {
                 Collection<Statement> relatedStmts = Slicer.computeBackwardSlice(targetStmt, completeCG, builder.getPointerAnalysis(),
                         dataDependenceOptions, controlDependenceOptions);
@@ -96,6 +95,7 @@ public class BackwardSlice {
                 }
                 classVarMap.put(className, (Map<Integer, List<Object>>) paramValue.clone());
                 classParamsLinesNumsMap.put(className, (HashMap<Integer, List<Integer>>) paramsSourceLineNumsMap.clone());
+                classStmtMap.put(className, stmtList);
                 LOGGER.info("Finish");
             } catch (NullPointerException e) {
                 //System.out.println("#Statement error#: " + targetStmt);
@@ -120,9 +120,10 @@ public class BackwardSlice {
         sourceLineNums = new ArrayList<>();
         paramsSourceLineNumsMap = new HashMap<>();
         classParamsLinesNumsMap = new HashMap<>();
+        classStmtMap = new HashMap<>();
     }
 
-    private void completeCGBuilder(String path, String callee, String functionType) throws IOException, ClassHierarchyException, CallGraphBuilderCancelException {
+    private void completeCGBuilder(String path, String callee, String functionType) throws IOException, ClassHierarchyException, CancelException {
         LOGGER.info("Build CG");
         if (completeCG != null) return;
         AnalysisScope scope = AnalysisScopeReader.makeJavaBinaryAnalysisScope(path, null);

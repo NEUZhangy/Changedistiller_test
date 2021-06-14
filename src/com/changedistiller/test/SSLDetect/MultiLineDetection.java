@@ -5,10 +5,10 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.ibm.wala.classLoader.ShrikeBTMethod;
-import com.ibm.wala.examples.slice.BackwardResult;
 import com.ibm.wala.examples.slice.ProBuilder;
 import com.ibm.wala.examples.slice.StartPoints;
-import com.ibm.wala.ipa.callgraph.*;
+import com.ibm.wala.ipa.callgraph.CallGraph;
+import com.ibm.wala.ipa.callgraph.CallGraphBuilderCancelException;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
 import com.ibm.wala.ipa.cha.ClassHierarchyException;
 import com.ibm.wala.ipa.slicer.NormalStatement;
@@ -36,19 +36,20 @@ public class MultiLineDetection {
     private static final Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private ProBuilder proBuilder;
     private String projectSource;
-    public Set<String> correctSet;
+    public List<String> correctSet;
     private Slicer.DataDependenceOptions dOptions = Slicer.DataDependenceOptions.FULL;
     private Slicer.ControlDependenceOptions cOptions = Slicer.ControlDependenceOptions.FULL;
     private CallGraph completeCG;
     private SDG<InstanceKey> completeSDG;
 
-    public MultiLineDetection(String classPath, String projectSource, Set<String> correctSet)
+    public MultiLineDetection(String classPath, String projectSource, List<String> correctSet)
             throws ClassHierarchyException, CallGraphBuilderCancelException, IOException {
         proBuilder = new ProBuilder(classPath, dOptions, cOptions);
         completeCG = proBuilder.getTargetCG();
         completeSDG = proBuilder.getCompleteSDG();
         this.projectSource = projectSource;
         this.correctSet = correctSet;
+        log.setLevel(Level.OFF);
     }
 
     public void start(String callee, String functionType)
@@ -79,12 +80,12 @@ public class MultiLineDetection {
         List<Integer> lineNum = new ArrayList<>();
         for (Statement stmt : slice) {
             if (stmt.getNode()
-                                    .getMethod()
-                                    .getDeclaringClass()
-                                    .getClassLoader()
-                                    .getName()
-                                    .toString()
-                                    .compareToIgnoreCase("primordial") == 0
+                    .getMethod()
+                    .getDeclaringClass()
+                    .getClassLoader()
+                    .getName()
+                    .toString()
+                    .compareToIgnoreCase("primordial") == 0
                     || stmt.getKind() != Statement.Kind.NORMAL) continue;
             lineNum.add(getLineNumber(stmt));
             log.log(Level.INFO, String.valueOf(getLineNumber(stmt)));
@@ -134,7 +135,7 @@ public class MultiLineDetection {
     }
 
     private String getVar(String s) {
-        String pattern = "(.*)(\\$v_\\d+)(.*)";
+        String pattern = "(.*?)(\\$v_\\d+\\$)(.*)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(s);
         if (m.find()) {
@@ -162,6 +163,8 @@ public class MultiLineDetection {
         return -1;
     }
 
+    // we assume that the last statment should be the target statement
+    // and the matchingstmt contains only one statement
     private void getMissingStmts(
             List<String> correctstmts, List<String> matchingStmt, List<Integer> lineNum) {
         StringSimilarity ss = new StringSimilarity();
@@ -170,21 +173,30 @@ public class MultiLineDetection {
         // get the matching line
         HashMap<Integer, Integer> addLines = new HashMap<>();
         HashMap<String, String> varMap = new HashMap<>();
-        for (int i = 0; i < matchingStmt.size(); i++) {
-            for (int j = 0; j < correctstmts.size(); j++) {
-                if (visited.contains(j)) continue;
-                double result = ss.calculateSimilarity(matchingStmt.get(i), correctstmts.get(j));
-                if (result >= 0.6) {
-                    visited.add(j);
-                    String oriVar = getVar(matchingStmt.get(i));
-                    String descVar = getVar(correctstmts.get(j));
-                    varMap.put(oriVar, '\\' + descVar);
-                    addLines.put(j, lineNum.get(i));
-                }
-            }
-        }
+//        for (int i = 0; i < matchingStmt.size(); i++) {
+//            for (int j = 0; j < correctstmts.size(); j++) {
+//                if (visited.contains(j)) continue;
+//                double result = ss.calculateSimilarity(matchingStmt.get(i), correctstmts.get(j));
+//                if (result >= 0.6) {
+//                    visited.add(j);
+//                    String oriVar = getVar(matchingStmt.get(i));
+//                    String descVar = getVar(correctstmts.get(j));
+//                    varMap.put(oriVar, '\\' + descVar);
+//                    addLines.put(j, lineNum.get(i));
+//                }
+//            }
+//        }
+        // auto match the last statement
+        int ii = 0;
+        int jj = correctstmts.size() - 1;
+        visited.add(jj);
+        String oriVar = getVar(matchingStmt.get(ii));
+        String descVar = getVar(correctstmts.get(jj));
+        varMap.put(oriVar, '\\' + descVar);
+        addLines.put(jj, lineNum.get(ii));
         // get insert after linenum
         int pivot = -1;
+        System.out.println(String.format("Matching Stmt: %s", replaceVar(correctstmts.get(jj), varMap)));
         for (int j = 0; j < correctstmts.size(); j++) {
             if (visited.contains(j)) {
                 for (int i = 0; i < j && pivot == -1; i++) {
@@ -202,15 +214,24 @@ public class MultiLineDetection {
             System.out.println(
                     String.format("Add Statement after Line %d: %s", pivot, stmtwithvar));
         }
+        if (pivot == -1) {
+            System.out.println("Suggest: ");
+            for (int j = 0; j < correctstmts.size(); j++) {
+                String stmtwithvar = replaceVar(correctstmts.get(j), varMap);
+                System.out.println("\t" + stmtwithvar);
+            }
+        }
     }
 
     private String replaceVar(String stmtwithvar, HashMap<String, String> varMap) {
-        String s = null;
+        String s = stmtwithvar;
         for (Map.Entry<String, String> entry : paramMap.entrySet()) {
             if (varMap.containsKey(entry.getKey().substring(1))) {
+                String searchStr = varMap.get(entry.getKey().substring(1));
+                searchStr = searchStr.substring(0, searchStr.length() - 1) + "\\$";
                 s =
                         stmtwithvar.replaceAll(
-                                varMap.get(entry.getKey().substring(1)), entry.getValue());
+                                searchStr, entry.getValue());
             }
         }
         return s;

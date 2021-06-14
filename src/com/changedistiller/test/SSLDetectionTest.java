@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
-
 public class SSLDetectionTest {
 
     @Test
@@ -16,7 +14,7 @@ public class SSLDetectionTest {
         String[] lsourcepath = {"C:\\Users\\Ying\\Documents\\JAVA_CODE\\cipher_test\\src\\cipher_test"};
         FiletoAST leftast = new FiletoAST(lsourcepath, left, lfilename);
         CompilationUnit lcu = leftast.getComplicationUnit();
-        SSLDetection detection = new SSLDetection();
+        com.changedistiller.test.SSLDetection detection = new com.changedistiller.test.SSLDetection();
 //        detection.detect(lcu);
     }
 }

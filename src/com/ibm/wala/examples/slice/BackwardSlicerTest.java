@@ -15,21 +15,21 @@ public class BackwardSlicerTest {
         String caller = "main";
 
 //        String mainClass ="Lcom/example/lesson16/Lesson16Application";
-//        String callee = "<init>";
-//        String functionType = "PBEParameterSpec";
+        String callee = "<init>";
+        String functionType = "PBEParameterSpec";
 
-        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
-        String callee = "getInstance";
-        String methodType = "Cipher";
-        String type = "parameter";
+//        String mainClass = "Lorg/cryptoapi/bench/brokencrypto/BrokenCryptoABICase8";
+//        String callee = "getInstance";
+//        String methodType = "Cipher";
+//        String type = "parameter";
 
-        InterRetrive backwardSlicer = new InterRetrive();
-        backwardSlicer.start(path, callee, methodType, type);
+//        InterRetrive backwardSlicer = new InterRetrive();
+//        backwardSlicer.start(path, callee, methodType, type);
 //        BackwardSlicer backwardSlicer = new BackwardSlicer();
 //        backwardSlicer.run(path, mainClass, callee, caller, functionType);
 
-//        BackwardSlice backwardSlicer = new BackwardSlice();
-//        backwardSlicer.run(path, callee, functionType);
+        BackwardSlice backwardSlicer = new BackwardSlice();
+        backwardSlicer.run(path, callee, functionType);
 
 //        InterRetrive interRetrive = new InterRetrive();
 //        interRetrive.start(path, callee, functionType);
