@@ -1,0 +1,757 @@
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load($v_0$, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load($v_0$, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load($v_0$, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:659)
+	at java.util.ArrayList.get(ArrayList.java:435)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getMissingStmts(MultiLineDetection.java:321)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:86)
+	at Runner.RandomMain.main(RandomMain.java:31)
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load($v_0$, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load($v_0$, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load($v_0$, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	fis.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore fis = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_1$, var_1);
+
+Add Statement before Line 678: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+java.lang.IllegalArgumentException: Illegal index. The index should be between 0 and 2 excluded. It is instead -1
+	at com.github.javaparser.ast.NodeList.set(NodeList.java:141)
+	at com.github.javaparser.ast.nodeTypes.NodeWithArguments.setArgument(NodeWithArguments.java:55)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getmatchStmts(MultiLineDetection.java:165)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:81)
+	at Runner.RandomMain.main(RandomMain.java:31)
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:659)
+	at java.util.ArrayList.get(ArrayList.java:435)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getMissingStmts(MultiLineDetection.java:321)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:83)
+	at Runner.RandomMain.main(RandomMain.java:31)
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey passwordKey = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey passwordKey = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(null, var_1);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(null, var_1);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load(null, var_1);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey passwordKey = new SecretKeySpec(key, "AES");
+
+Add Statement before Line 1069: 	 byte[] key  = keyInit(); 
+
+Add Statement before Line 1069: 	 public byte[] keyInit() { 
+
+Add Statement before Line 1069: 		KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 		$v_3$.init(256);
+
+Add Statement before Line 1069: 		SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 		byte[] $v_1$= $v_2$.getEncoded();
+
+Add Statement before Line 1069: 	} 
+

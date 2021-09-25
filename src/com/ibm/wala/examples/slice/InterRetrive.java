@@ -24,7 +24,7 @@ public class InterRetrive {
     public ISupergraph<Statement, PDG<? extends InstanceKey>> backwardSuperGraph;
     public Integer classIndex = 0;
 
-    public void start(String classpath, String callee, String functionType, String checkType) throws ClassHierarchyException, CancelException, IOException {
+    public void start(String classpath, String callee, String functionType, String checkType, Long args) throws ClassHierarchyException, CancelException, IOException {
         LOGGER.setLevel(Constant.loglevel);
         Slicer.DataDependenceOptions dOptions = Slicer.DataDependenceOptions.FULL;
         Slicer.ControlDependenceOptions cOptions = Slicer.ControlDependenceOptions.FULL;
@@ -32,7 +32,7 @@ public class InterRetrive {
         completeCG = proBuilder.getTargetCG();
         completeSDG = proBuilder.getCompleteSDG();
         backwardSuperGraph = proBuilder.getBackwardSuperGraph();
-        StartPoints startPoints = new StartPoints(completeCG, callee, functionType);
+        StartPoints startPoints = new StartPoints(completeCG, callee, functionType, args);
         allStartStmt = startPoints.getStartStmts();
 
         if(checkType.equals("type")) {

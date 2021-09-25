@@ -12,17 +12,12 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
-import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
 import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.resolution.types.ResolvedType;
-import com.github.javaparser.utils.SourceRoot;
 import utils.StringSimilarity;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -72,6 +67,18 @@ public class Util {
             return ((MethodCallExpr) exp).getName().toString();
         }
         return "";
+    }
+
+    public int extractArgSize(Expression exp) {
+        log.info("Extract Aug #");
+        if (exp instanceof ObjectCreationExpr) {
+            return exp.asObjectCreationExpr().getArguments().size();
+        }
+        if (exp instanceof MethodCallExpr) {
+            // ResolvedType type = (MethodCallExpr) exp.calculateResolvedType().describe();
+            return exp.asMethodCallExpr().getArguments().size();
+        }
+        return -1;
     }
 
     class ExprComp implements Comparator<Expression> {
@@ -168,11 +175,20 @@ public class Util {
     //    public CompilationUnit getCU(String file_path) throws FileNotFoundException {
     //        return StaticJavaParser.parse(new File(file_path));
     //    }
+    class RangeComparator implements Comparator<Range> {
+        @Override
+        public int compare(Range o1, Range o2) {
+            return o1.begin.line - o2.begin.line;
+        }
+    }
 
     public Map<Range, Expression> getStatements(CompilationUnit cu) {
-        Map<Range, Expression> stmtMap = new HashMap<>();
-        cu.findAll(ExpressionStmt.class)
-                .forEach(x -> stmtMap.put(x.getRange().get(), x.getExpression()));
+        Map<Range, Expression> stmtMap = new TreeMap<>(new RangeComparator());
+        List<ExpressionStmt> expStmts = cu.findAll(ExpressionStmt.class);
+        for(ExpressionStmt es: expStmts){
+            stmtMap.put(es.getRange().get(), es.getExpression());
+        }
+//                .forEach(x -> stmtMap.put(x.getRange().get(), x.getExpression()));
         return stmtMap;
     }
 
@@ -226,7 +242,7 @@ public class Util {
             paramMap.put("\\" + entry.getValue(), entry.getKey());
         }
         int prev = -1;
-        Map<Range, String> matchingStmt = new HashMap<>();
+        Map<Range, String> matchingStmt = new TreeMap<>(new RangeComparator());
 
         String str = "";
         for (JavaToken tr : cu.getTokenRange().get()) {
@@ -453,4 +469,9 @@ public class Util {
         }
         return null;
     }
+
+    public void treeDiff(CompilationUnit leftCU, CompilationUnit rightCU) {
+
+    }
+
 }

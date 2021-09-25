@@ -1670,3 +1670,24 @@ Rule PBEKeySpec <init>: 0
 Rule PBEKeySpec <init>: 0
 Rule Ljava/util/Random <init>: 0
 Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\test_set\test_set\test1_cons\target\test1_cons-1.0-SNAPSHOT.jar
+Rule Cipher getInstance: 1
+Rule MessageDigest getInstance: 0
+Rule SSLContext getInstance: 0
+Rule KeyPairGenerator initialize: 0
+Rule SecretKeySpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule SecureRandom setSeed: 0
+Rule IvParameterSpec <init>: 0
+Rule PBEParameterSpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule Random <init>: 0
+Rule PBEKeySpec <init>: 0
+Rule KeyStore load: 0
+############################################################
+D:\BACKUP\code\experiment\test_set\test_set\test1_cons\target\test1_cons-1.0-SNAPSHOT.jar
+############################################################
+D:\BACKUP\code\experiment\test_set\test_set\test1_cons\target\test1_cons-1.0-SNAPSHOT.jar

@@ -14,11 +14,13 @@ public class MultilineCodeCase {
     public Set<String> incorrectSet = new HashSet<>();
     public List<String> correctSet = new ArrayList<>();
     public long minNum;
+    public long args;
 
     public MultilineCodeCase(JSONObject jsonObject) {
         callee = (String) jsonObject.get("callee");
         methodType = (String) jsonObject.get("MethodType");
         type = (String) jsonObject.get("Type");
+        args = (Long)jsonObject.get("args");
         checkParameter = (Long) jsonObject.get("Check");
         incorrectSet = this.jsonArraytoSet(jsonObject.get("Incorrect"));
         correctSet = this.jsonArraytoArray(jsonObject.get("Correct"));

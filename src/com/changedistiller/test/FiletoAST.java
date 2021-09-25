@@ -10,7 +10,7 @@ import java.io.File;
 
 public class FiletoAST {
 
-    private String[] classpath = {"C:\\Program Files\\Java\\jre1.8.0_202\\lib\\rt.jar"};
+    private String[] classpath = {"/usr/lib/jvm/jdk1.8.0_301/jre/lib/rt.jar"};
     private String[] encodings = {"utf-8"};
     private final CompilationUnit cu;
 

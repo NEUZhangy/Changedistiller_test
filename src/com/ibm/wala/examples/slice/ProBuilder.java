@@ -93,18 +93,7 @@ public class ProBuilder {
                     System.out.println(klass);
                 };
                 for (IMethod method : klass.getDeclaredMethods()) {
-//                    if(method.toString().contains("createEncryptedKeySha1IdentifierStructure")){
-//                        System.out.println("start add");
-//                    }
-//                    if (method.toString().contains("springframework")
-//                            || method.toString().contains("hibernate")
-//                            || method.toString().contains("org")
-//                            || method.toString().contains("net")
-//                            || method.toString().contains("mysql"))
-//                        continue;
-
                     entryPoints.add(new DefaultEntrypoint(method, cha));
-
                 }
             }
         }

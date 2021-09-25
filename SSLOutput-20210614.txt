@@ -1,0 +1,327 @@
+    //Please change "example.com" as needed
+    if ("example.com".equals($v_0$)) {
+        return true;
+    }
+    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+    return hv.verify($v_0$, $v_1$);
+ }
+public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException{
+        if (x509Certificates == null) {
+                        throw new IllegalArgumentException("checkServerTrusted:x509Certificate array isnull");
+        }
+
+        if (!(x509Certificates.length > 0)) {
+                        throw new IllegalArgumentException("checkServerTrusted: X509Certificate is empty");
+        }
+
+        if (!(null != s && s.equalsIgnoreCase("RSA"))) {
+                        throw new CertificateException("checkServerTrusted: s is not RSA");
+        }
+
+
+        try {
+                        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509"); // choose algorithm to match your code
+                        tmf.init((KeyStore) null);
+                        for (TrustManager trustManager : tmf.getTrustManagers()) {
+                                        ((X509TrustManager) trustManager).checkServerTrusted(x509Certificates, s);
+                        }
+        } catch (Exception e) {
+                        throw new CertificateException(e);
+        }
+
+
+        RSAPublicKey pubkey = (RSAPublicKey) x509Certificates[0].getPublicKey();
+        String encoded = new BigInteger(1 , pubkey.getEncoded()).toString(16);
+        final boolean expected = PUB_KEY.equalsIgnoreCase(encoded);
+
+        if (!expected) {
+                        throw new CertificateException("checkServerTrusted: Expected public key: "
+                                                        + PUB_KEY + ", got public key:" + encoded);
+        }
+}
+public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+    KeyStore ts = KeyStore.getInstance("JKS");
+    ts.load(new FileInputStream(path), password); // load your local cert path and specify your password
+    TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509"); // choose the algrithm to match your cert
+    tmf.init(ts);
+    TrustManager[] trustManagers = tmf.getTrustManagers(); // refer to https://lightbend.github.io/ssl-config/WSQuickStart.html for detailed steps
+    for (final X509TrustManager trustManager : trustManagers) {
+        try {
+                trustManager.checkClientTrusted(x509Certificates, s);
+                return;
+            } catch (final CertificateException e) {
+                //LOGGER.debug(e.getMessage(), e);
+               }
+    }
+            throw new CertificateException("None of the TrustManagers trust this certificate chain");
+
+}
+public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException{
+        if (x509Certificates == null) {
+                        throw new IllegalArgumentException("checkServerTrusted:x509Certificate array isnull");
+        }
+
+        if (!(x509Certificates.length > 0)) {
+                        throw new IllegalArgumentException("checkServerTrusted: X509Certificate is empty");
+        }
+
+        if (!(null != s && s.equalsIgnoreCase("RSA"))) {
+                        throw new CertificateException("checkServerTrusted: s is not RSA");
+        }
+
+
+        try {
+                        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509"); // choose algorithm to match your code
+                        tmf.init((KeyStore) null);
+                        for (TrustManager trustManager : tmf.getTrustManagers()) {
+                                        ((X509TrustManager) trustManager).checkServerTrusted(x509Certificates, s);
+                        }
+        } catch (Exception e) {
+                        throw new CertificateException(e);
+        }
+
+
+        RSAPublicKey pubkey = (RSAPublicKey) x509Certificates[0].getPublicKey();
+        String encoded = new BigInteger(1 , pubkey.getEncoded()).toString(16);
+        final boolean expected = PUB_KEY.equalsIgnoreCase(encoded);
+
+        if (!expected) {
+                        throw new CertificateException("checkServerTrusted: Expected public key: "
+                                                        + PUB_KEY + ", got public key:" + encoded);
+        }
+}
+public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+    KeyStore ts = KeyStore.getInstance("JKS");
+    ts.load(new FileInputStream(path), password); // load your local cert path and specify your password
+    TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509"); // choose the algrithm to match your cert
+    tmf.init(ts);
+    TrustManager[] trustManagers = tmf.getTrustManagers(); // refer to https://lightbend.github.io/ssl-config/WSQuickStart.html for detailed steps
+    for (final X509TrustManager trustManager : trustManagers) {
+        try {
+                trustManager.checkClientTrusted(x509Certificates, s);
+                return;
+            } catch (final CertificateException e) {
+                //LOGGER.debug(e.getMessage(), e);
+               }
+    }
+            throw new CertificateException("None of the TrustManagers trust this certificate chain");
+
+}
+public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException{
+        if (x509Certificates == null) {
+                        throw new IllegalArgumentException("checkServerTrusted:x509Certificate array isnull");
+        }
+
+        if (!(x509Certificates.length > 0)) {
+                        throw new IllegalArgumentException("checkServerTrusted: X509Certificate is empty");
+        }
+
+        if (!(null != s && s.equalsIgnoreCase("RSA"))) {
+                        throw new CertificateException("checkServerTrusted: s is not RSA");
+        }
+
+
+        try {
+                        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509"); // choose algorithm to match your code
+                        tmf.init((KeyStore) null);
+                        for (TrustManager trustManager : tmf.getTrustManagers()) {
+                                        ((X509TrustManager) trustManager).checkServerTrusted(x509Certificates, s);
+                        }
+        } catch (Exception e) {
+                        throw new CertificateException(e);
+        }
+
+
+        RSAPublicKey pubkey = (RSAPublicKey) x509Certificates[0].getPublicKey();
+        String encoded = new BigInteger(1 , pubkey.getEncoded()).toString(16);
+        final boolean expected = PUB_KEY.equalsIgnoreCase(encoded);
+
+        if (!expected) {
+                        throw new CertificateException("checkServerTrusted: Expected public key: "
+                                                        + PUB_KEY + ", got public key:" + encoded);
+        }
+}
+ public boolean verify(String $v_0$, SSLSession $v_1$) {
+    //Please change "example.com" as needed
+    if ("example.com".equals($v_0$)) {
+        return true;
+    }
+    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+    return hv.verify($v_0$, $v_1$);
+ }
+ public boolean verify(String $v_0$, SSLSession $v_1$) {
+    //Please change "example.com" as needed
+    if ("example.com".equals($v_0$)) {
+        return true;
+    }
+    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+    return hv.verify($v_0$, $v_1$);
+ }
+ public boolean verify(String $v_0$, SSLSession $v_1$) {
+    //Please change "example.com" as needed
+    if ("example.com".equals($v_0$)) {
+        return true;
+    }
+    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+    return hv.verify($v_0$, $v_1$);
+ }
+public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException{
+        if (x509Certificates == null) {
+                        throw new IllegalArgumentException("checkServerTrusted:x509Certificate array isnull");
+        }
+
+        if (!(x509Certificates.length > 0)) {
+                        throw new IllegalArgumentException("checkServerTrusted: X509Certificate is empty");
+        }
+
+        if (!(null != s && s.equalsIgnoreCase("RSA"))) {
+                        throw new CertificateException("checkServerTrusted: s is not RSA");
+        }
+
+
+        try {
+                        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509"); // choose algorithm to match your code
+                        tmf.init((KeyStore) null);
+                        for (TrustManager trustManager : tmf.getTrustManagers()) {
+                                        ((X509TrustManager) trustManager).checkServerTrusted(x509Certificates, s);
+                        }
+        } catch (Exception e) {
+                        throw new CertificateException(e);
+        }
+
+
+        RSAPublicKey pubkey = (RSAPublicKey) x509Certificates[0].getPublicKey();
+        String encoded = new BigInteger(1 , pubkey.getEncoded()).toString(16);
+        final boolean expected = PUB_KEY.equalsIgnoreCase(encoded);
+
+        if (!expected) {
+                        throw new CertificateException("checkServerTrusted: Expected public key: "
+                                                        + PUB_KEY + ", got public key:" + encoded);
+        }
+}
+public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+    KeyStore ts = KeyStore.getInstance("JKS");
+    ts.load(new FileInputStream(path), password); // load your local cert path and specify your password
+    TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509"); // choose the algrithm to match your cert
+    tmf.init(ts);
+    TrustManager[] trustManagers = tmf.getTrustManagers(); // refer to https://lightbend.github.io/ssl-config/WSQuickStart.html for detailed steps
+    for (final X509TrustManager trustManager : trustManagers) {
+        try {
+                trustManager.checkClientTrusted(x509Certificates, s);
+                return;
+            } catch (final CertificateException e) {
+                //LOGGER.debug(e.getMessage(), e);
+               }
+    }
+            throw new CertificateException("None of the TrustManagers trust this certificate chain");
+
+}
+public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException{
+        if (x509Certificates == null) {
+                        throw new IllegalArgumentException("checkServerTrusted:x509Certificate array isnull");
+        }
+
+        if (!(x509Certificates.length > 0)) {
+                        throw new IllegalArgumentException("checkServerTrusted: X509Certificate is empty");
+        }
+
+        if (!(null != s && s.equalsIgnoreCase("RSA"))) {
+                        throw new CertificateException("checkServerTrusted: s is not RSA");
+        }
+
+
+        try {
+                        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509"); // choose algorithm to match your code
+                        tmf.init((KeyStore) null);
+                        for (TrustManager trustManager : tmf.getTrustManagers()) {
+                                        ((X509TrustManager) trustManager).checkServerTrusted(x509Certificates, s);
+                        }
+        } catch (Exception e) {
+                        throw new CertificateException(e);
+        }
+
+
+        RSAPublicKey pubkey = (RSAPublicKey) x509Certificates[0].getPublicKey();
+        String encoded = new BigInteger(1 , pubkey.getEncoded()).toString(16);
+        final boolean expected = PUB_KEY.equalsIgnoreCase(encoded);
+
+        if (!expected) {
+                        throw new CertificateException("checkServerTrusted: Expected public key: "
+                                                        + PUB_KEY + ", got public key:" + encoded);
+        }
+}
+public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+    KeyStore ts = KeyStore.getInstance("JKS");
+    ts.load(new FileInputStream(path), password); // load your local cert path and specify your password
+    TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509"); // choose the algrithm to match your cert
+    tmf.init(ts);
+    TrustManager[] trustManagers = tmf.getTrustManagers(); // refer to https://lightbend.github.io/ssl-config/WSQuickStart.html for detailed steps
+    for (final X509TrustManager trustManager : trustManagers) {
+        try {
+                trustManager.checkClientTrusted(x509Certificates, s);
+                return;
+            } catch (final CertificateException e) {
+                //LOGGER.debug(e.getMessage(), e);
+               }
+    }
+            throw new CertificateException("None of the TrustManagers trust this certificate chain");
+
+}
+public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException{
+        if (x509Certificates == null) {
+                        throw new IllegalArgumentException("checkServerTrusted:x509Certificate array isnull");
+        }
+
+        if (!(x509Certificates.length > 0)) {
+                        throw new IllegalArgumentException("checkServerTrusted: X509Certificate is empty");
+        }
+
+        if (!(null != s && s.equalsIgnoreCase("RSA"))) {
+                        throw new CertificateException("checkServerTrusted: s is not RSA");
+        }
+
+
+        try {
+                        TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509"); // choose algorithm to match your code
+                        tmf.init((KeyStore) null);
+                        for (TrustManager trustManager : tmf.getTrustManagers()) {
+                                        ((X509TrustManager) trustManager).checkServerTrusted(x509Certificates, s);
+                        }
+        } catch (Exception e) {
+                        throw new CertificateException(e);
+        }
+
+
+        RSAPublicKey pubkey = (RSAPublicKey) x509Certificates[0].getPublicKey();
+        String encoded = new BigInteger(1 , pubkey.getEncoded()).toString(16);
+        final boolean expected = PUB_KEY.equalsIgnoreCase(encoded);
+
+        if (!expected) {
+                        throw new CertificateException("checkServerTrusted: Expected public key: "
+                                                        + PUB_KEY + ", got public key:" + encoded);
+        }
+}
+ public boolean verify(String s, SSLSession sslSession) {
+    //Please change "example.com" as needed
+    if ("example.com".equals(s)) {
+        return true;
+    }
+    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+    return hv.verify(s, sslSession);
+ }
+ public boolean verify(String hostname, SSLSession sslSession) {
+    //Please change "example.com" as needed
+    if ("example.com".equals(hostname)) {
+        return true;
+    }
+    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+    return hv.verify(hostname, sslSession);
+ }
+ public boolean verify(String arg0, SSLSession arg1) {
+    //Please change "example.com" as needed
+    if ("example.com".equals(arg0)) {
+        return true;
+    }
+    HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
+    return hv.verify(arg0, arg1);
+ }

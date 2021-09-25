@@ -15,6 +15,7 @@ public class CodeCase {
     public String methodType;
     public String type;
     public Long checkParameter;
+    public Long argNums;
     public Set<String> incorrectSet = new HashSet<>();
     public Set<String> correctSet = new HashSet<>();
     public long minNum;
@@ -24,6 +25,7 @@ public class CodeCase {
         methodType = (String) jsonObject.get("MethodType");
         type = (String) jsonObject.get("Type");
         checkParameter = (Long) jsonObject.get("Check");
+        argNums = (Long) jsonObject.get("args");
         incorrectSet = this.jsonArraytoSet(jsonObject.get("Incorrect"));
         correctSet = this.jsonArraytoSet(jsonObject.get("Correct"));
         if (jsonObject.get("MinNum") != null)

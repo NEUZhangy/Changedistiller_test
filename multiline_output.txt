@@ -359,3 +359,22 @@ INFO: Finish
 java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
 	at Runner.MultilineMain.keypairCaseChecking(MultilineMain.java:111)
 	at Runner.MultilineMain.main(MultilineMain.java:52)
+
+=====KeypairGenerator initialize=====
+Sep 25, 2021 11:12:13 AM com.ibm.wala.examples.slice.BackwardSlice init
+INFO: Init
+Sep 25, 2021 11:12:13 AM com.ibm.wala.examples.slice.BackwardSlice completeCGBuilder
+INFO: Build CG
+Sep 25, 2021 11:12:17 AM com.ibm.wala.examples.slice.BackwardSlice run
+INFO: FindAllCallTo finished
+java.nio.file.NoSuchFileException: multiline_result.txt
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:86)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
+	at java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:434)
+	at java.nio.file.Files.newOutputStream(Files.java:216)
+	at java.nio.file.Files.write(Files.java:3292)
+	at Runner.MultilineMain.writetoFile(MultilineMain.java:137)
+	at Runner.MultilineMain.keypairCaseChecking(MultilineMain.java:123)
+	at Runner.MultilineMain.main(MultilineMain.java:52)

@@ -1,27 +1,23 @@
 package diff;
 
 import com.changedistiller.test.SSLDetect.VariableDeclarationVisitor;
-import com.github.javaparser.*;
+import com.github.javaparser.ParserConfiguration;
+import com.github.javaparser.Range;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.BlockStmt;
-import com.github.javaparser.ast.stmt.ExpressionStmt;
 import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitor;
-import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import com.github.javaparser.utils.SourceRoot;
-import edu.vt.cs.append.diff_match_patch;
-import utils.StringSimilarity;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -34,7 +30,7 @@ public class DiffChecker {
     private TypeSolver typeSolver =
             new CombinedTypeSolver(
                     new ReflectionTypeSolver(),
-                    new JavaParserTypeSolver("C:\\Users\\LinG\\Desktop\\case"));
+                    new JavaParserTypeSolver("/home/ying/code/cipher_test/src/"));
     private JavaSymbolSolver symbolSolver = new JavaSymbolSolver(typeSolver);
     ParserConfiguration parserConfiguration =
             new ParserConfiguration().setSymbolResolver(symbolSolver);
@@ -50,8 +46,8 @@ public class DiffChecker {
     public DiffChecker() throws IOException {}
 
     public void run() throws IOException {
-        String left_file_path = "C:\\Users\\LinG\\Desktop\\case\\left.java";
-        String right_file_path = "C:\\Users\\LinG\\Desktop\\case\\right.java";
+        String left_file_path = "/home/ying/code/cipher_test/src/cipher_test/insecure/parameter/15.java";
+        String right_file_path = "/home/ying/code/cipher_test/src/cipher_test/secure/parameter/15.java";
 
         CompilationUnit leftCU = getCU(left_file_path);
         CompilationUnit rightCU = getCU(right_file_path);
@@ -60,16 +56,19 @@ public class DiffChecker {
         HashMap<Range, Range> lineMap = null;
         extractVars(leftStmts, lVarMap, eToVL);
         extractVars(rightStmts, rVarMap, eToVR);
+        util.treeDiff(leftCU, rightCU);
         DiffType diff = null;
+
         // 这里需不需要判断相等存疑，可以直接进行匹配
         if (leftStmts.size() == rightStmts.size()) {
             lineMap = util.getMatchStmts(leftStmts, rightStmts, leftCU, rightCU, 0.69f);
             diff = extractDiff(lineMap, leftStmts, rightStmts);
         } else {
             // 判断多行情况
-            lineMap = util.getMatchStmts(leftStmts, rightStmts, leftCU, rightCU, 0.54f);
+            lineMap = util.getMatchStmts(leftStmts, rightStmts, leftCU, rightCU, 0.7f);
             diff = extractMultiDiff(lineMap, leftStmts, rightStmts, leftCU, rightCU);
         }
+
         if (leftStmts.size() != 0) extractTargetStmt(diff, leftCU, rightStmts, lineMap);
         else {
             extractTargetStmt(diff, rightCU, rightStmts, lineMap);
@@ -98,7 +97,7 @@ public class DiffChecker {
             Range r = lineMap.get(l);
             Expression leftExpr = leftStmts.get(l);
             Expression rightExpr = rightStmts.get(r);
-            if (leftExpr.toString().toLowerCase().contains("stringliterals")) {
+            if (leftExpr.toString().toLowerCase().contains("stringliterals") || leftExpr.toString().toLowerCase().contains("ByteLiterals") ) {
                 leftliterals = leftExpr;
                 rightliterals = rightExpr;
                 continue;
@@ -124,6 +123,14 @@ public class DiffChecker {
     }
 
     // get the similat stmt in multi-line case
+
+    class RangeComparator implements Comparator<Range> {
+        @Override
+        public int compare(Range o1, Range o2) {
+            return o1.begin.line - o2.begin.line;
+        }
+    }
+
     private DiffType extractMultiDiff(
             HashMap<Range, Range> lineMap,
             Map<Range, Expression> leftStmts,
@@ -131,7 +138,7 @@ public class DiffChecker {
             CompilationUnit leftCU,
             CompilationUnit rightCU) {
         DiffType diff = new DiffType();
-        diff.stmts = new HashSet<>();
+        diff.stmts = new ArrayList<>();
         diff.pattern = Pattern.COMPOSITE;
         Map<String, NodeList<Statement>> leftMap = extractStructure(leftCU);
         Map<String, NodeList<Statement>> rightMap = extractStructure(rightCU);
@@ -139,10 +146,13 @@ public class DiffChecker {
         if (leftMap.size() != 0 || rightMap.size() != 0) {
             return extractMultiDiffByStructure(leftMap, rightMap, leftCU, rightCU);
         }
-        Map<Range, Expression> leftStmts_ = new HashMap<>(leftStmts);
-        Map<Range, Expression> rightStmts_ = new HashMap<>(rightStmts);
+        Map<Range, Expression> leftStmts_ = new TreeMap<>(new RangeComparator());
+        leftStmts_.putAll(leftStmts);
+        Map<Range, Expression> rightStmts_ = new TreeMap<>(new RangeComparator());
+        rightStmts_.putAll(rightStmts);
         for (Range l : lineMap.keySet()) {
             Range r = lineMap.get(l);
+           // if(leftStmts_.get(l))
             leftStmts_.remove(l);
             rightStmts_.remove(r);
         }
@@ -329,7 +339,7 @@ public class DiffChecker {
         // getInstance.findFirst(MethodCallExpr.class).get().getArgument(0).toString();
         //        System.out.println(algo);
         Map<Range, String> normalizeStmts = util.normalizeStmts(cu, stmts, false);
-        HashSet<String> matchStmts = new HashSet<>();
+        List<String> matchStmts = new ArrayList<>();
         for (String stmt : normalizeStmts.values()) {
             if (stmt.contains("getInstance")) {
                 matchStmts.add(stmt);
@@ -343,6 +353,7 @@ public class DiffChecker {
             CompilationUnit cu,
             Map<Range, Expression> rightStmts,
             HashMap<Range, Range> lineMap) {
+
         log.info("extracting the target stmt");
         List<Expression> exps = new ArrayList<>();
         exps.addAll(cu.findAll(ObjectCreationExpr.class));
@@ -353,6 +364,7 @@ public class DiffChecker {
                 // 拿到第几个参数
                 diff.methodType = type.substring(type.lastIndexOf(".") + 1);
                 diff.callee = util.extractCallee(exp);
+                diff.args = util.extractArgSize(exp);
                 if (diff.pattern == Pattern.COMPOSITE) {
                     diff.pos =
                             extractCompositePos(
@@ -364,11 +376,13 @@ public class DiffChecker {
                         extractCompositePos(exp, util.getRightExp(exp, rightStmts, lineMap), diff);
                 diff.methodType = type.substring(type.lastIndexOf(".") + 1);
                 diff.callee = "<init>";
+                diff.args = 0;
             }
             if (exp.toString().contains("setSeed")) {
                 diff.pos = 0;
                 diff.callee = "setSeed";
                 diff.incorrect = "constant";
+                diff.args = 1;
             }
         }
     }
@@ -388,15 +402,28 @@ public class DiffChecker {
                     return i;
                 }
 
+                if(leftExp instanceof NameExpr) {
+                    int k  = i;
+                    i++;
+                    while(i < leftArgs.size()) {
+                        Expression lExp = leftArgs.get(i);
+                        Expression rExp = rightArgs.get(i);
+                        if(lExp.toString().equals(rExp.toString())) i++;
+                        else {
+                            return i;
+                        }
+                    }
+                    return k;
+                }
+
                 if (leftExp instanceof MethodCallExpr
-                                && (((MethodCallExpr) leftExp)
-                                        .getScope()
+                                && ((leftExp
                                         .toString()
-                                        .contains("StringLiterals.CONSTANT"))
+                                        .contains("ByteLiterals.CONSTANT_ARRAY"))
                         || ((MethodCallExpr) leftExp)
                                 .getScope()
                                 .toString()
-                                .contains("IntegerLiterals.CONSTANT")) {
+                                .contains("IntegerLiterals.CONSTANT"))) {
                     diff.incorrect = "constant";
                     return i;
                 }
@@ -408,6 +435,7 @@ public class DiffChecker {
         }
 
         if (left instanceof MethodCallExpr) {
+
             NodeList<Expression> leftArgs = ((MethodCallExpr) left).getArguments();
             NodeList<Expression> rightArgs = ((MethodCallExpr) right).getArguments();
             for (int j = 0; j < leftArgs.size(); j++) {

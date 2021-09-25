@@ -77,7 +77,7 @@ public class Main {
             //running apache case
             try {
                 InterRetrive backwardSlicer = new InterRetrive();
-                backwardSlicer.start(filePath, codeCase.callee, codeCase.methodType, codeCase.type);
+                backwardSlicer.start(filePath, codeCase.callee, codeCase.methodType, codeCase.type, codeCase.argNums);
                 Map<String, Map<Integer, List<Object>>> varMap = backwardSlicer.getClassVarMap();
 //                Map<String, HashMap<Integer, List<Integer>>> classLineNums = backwardSlicer.getClassParamsLinesNumsMap();
 //            System.err.println(classLineNums);

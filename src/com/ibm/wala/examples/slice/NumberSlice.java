@@ -39,9 +39,7 @@ import com.ibm.wala.util.graph.GraphSlicer;
 import com.ibm.wala.util.intset.IntSet;
 import com.ibm.wala.util.io.CommandLine;
 import com.ibm.wala.viz.NodeDecorator;
-import sun.awt.Symbol;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;

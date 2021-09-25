@@ -17,22 +17,22 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-/*get the insecure function within project*/
+/*get the sensitive method invocation in the project*/
 public class StartPoints {
     private Set<Statement> allStartStmt = new HashSet<>();
     private Set<CGNode> visitedCgNode = new HashSet<>();
 
-    public StartPoints(CallGraph completeCG, String callee,String functionType) throws IOException, ClassHierarchyException, CancelException {
+    public StartPoints(CallGraph completeCG, String callee,String functionType, Long args) throws IOException, ClassHierarchyException, CancelException {
 
         for (CGNode node : completeCG) {
             if(visitedCgNode.contains(node)) continue;
-            findStartStmts(node, callee, functionType);
+            findStartStmts(node, callee, functionType, args);
             visitedCgNode.add(node);
         }
     }
 
 
-    public void findStartStmts(CGNode n, String methodName, String methodType) {
+    public void findStartStmts(CGNode n, String methodName, String methodType, Long args) {
         IR ir = n.getIR();
         if (ir == null) return;
 
@@ -41,6 +41,7 @@ public class StartPoints {
                 SSAInvokeInstruction call = (SSAInvokeInstruction) s;
                 // Get the information binding
                 String methodT = call.getCallSite().getDeclaredTarget().getSignature();
+                if(call.getCallSite().getDeclaredTarget().getNumberOfParameters()!= args) continue;
                 if (call.getCallSite().getDeclaredTarget().getName().toString().compareTo(methodName) == 0
                         && methodT.contains(methodType)) {
                     // 一个例子

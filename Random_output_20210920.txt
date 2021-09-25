@@ -1,0 +1,2202 @@
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec($v_1$, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] $v_1$= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec($v_1$, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] $v_1$= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec($v_1$, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] $v_1$= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+javaTruststore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 678: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+truststore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 581: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+javaTruststore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 529: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+keystore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 407: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+truststore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 484: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+keystore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 423: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+newKeystore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 1860: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec($v_1$, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] $v_1$= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 678: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 581: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 529: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+keystore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 407: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 484: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+keystore
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 423: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 1860: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec($v_1$, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] $v_1$= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 678: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 581: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 529: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 407: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+java.lang.IllegalStateException: No data of this type found. Use containsData to check for this first.
+	at com.github.javaparser.ast.Node.getData(Node.java:451)
+	at com.github.javaparser.ast.Node.lambda$getSymbolResolver$5(Node.java:713)
+	at java.util.Optional.map(Optional.java:215)
+	at com.github.javaparser.ast.Node.getSymbolResolver(Node.java:712)
+	at com.github.javaparser.ast.expr.Expression.calculateResolvedType(Expression.java:564)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.lambda$getmatchStmts$0(MultiLineDetection.java:125)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getmatchStmts(MultiLineDetection.java:124)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:82)
+	at Runner.RandomMain.main(RandomMain.java:31)
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+java.lang.IllegalStateException: No data of this type found. Use containsData to check for this first.
+	at com.github.javaparser.ast.Node.getData(Node.java:451)
+	at com.github.javaparser.ast.Node.lambda$getSymbolResolver$5(Node.java:713)
+	at java.util.Optional.map(Optional.java:215)
+	at com.github.javaparser.ast.Node.getSymbolResolver(Node.java:712)
+	at com.github.javaparser.ast.expr.Expression.calculateResolvedType(Expression.java:564)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.lambda$getmatchStmts$0(MultiLineDetection.java:125)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getmatchStmts(MultiLineDetection.java:124)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:82)
+	at Runner.RandomMain.main(RandomMain.java:31)
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+java.lang.RuntimeException: Error calculating the type of parameter System.getProperty(PROPERTY_TRUSTSTORE_PASSWORD, "") of method call Arrays.asList(System.getProperty(PROPERTY_TRUSTSTORE_PASSWORD, ""), "changeit", "changeme", "")
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:578)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:267)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:44)
+	at com.github.javaparser.ast.expr.MethodCallExpr.accept(MethodCallExpr.java:115)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getTypeConcrete(JavaParserFacade.java:448)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:310)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:292)
+	at com.github.javaparser.symbolsolver.JavaSymbolSolver.calculateType(JavaSymbolSolver.java:250)
+	at com.github.javaparser.ast.expr.Expression.calculateResolvedType(Expression.java:564)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.lambda$getmatchStmts$0(MultiLineDetection.java:131)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getmatchStmts(MultiLineDetection.java:130)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:84)
+	at Runner.RandomMain.main(RandomMain.java:31)
+Caused by: java.lang.RuntimeException: Error calculating the type of parameter PROPERTY_TRUSTSTORE_PASSWORD of method call System.getProperty(PROPERTY_TRUSTSTORE_PASSWORD, "")
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:578)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:267)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:44)
+	at com.github.javaparser.ast.expr.MethodCallExpr.accept(MethodCallExpr.java:115)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getTypeConcrete(JavaParserFacade.java:448)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:340)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:576)
+	... 13 more
+Caused by: UnsolvedSymbolException{context='PROPERTY_TRUSTSTORE_PASSWORD', name='Solving PROPERTY_TRUSTSTORE_PASSWORD', cause='null'}
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:279)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:44)
+	at com.github.javaparser.ast.expr.NameExpr.accept(NameExpr.java:79)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getTypeConcrete(JavaParserFacade.java:448)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:340)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:576)
+	... 19 more
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+java.lang.RuntimeException: Error calculating the type of parameter System.getProperty(PROPERTY_TRUSTSTORE_PASSWORD, "") of method call Arrays.asList(System.getProperty(PROPERTY_TRUSTSTORE_PASSWORD, ""), "changeit", "changeme", "")
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:578)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:267)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:44)
+	at com.github.javaparser.ast.expr.MethodCallExpr.accept(MethodCallExpr.java:115)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getTypeConcrete(JavaParserFacade.java:448)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:310)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:292)
+	at com.github.javaparser.symbolsolver.JavaSymbolSolver.calculateType(JavaSymbolSolver.java:250)
+	at com.github.javaparser.ast.expr.Expression.calculateResolvedType(Expression.java:564)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.lambda$getmatchStmts$0(MultiLineDetection.java:131)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getmatchStmts(MultiLineDetection.java:130)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:84)
+	at Runner.RandomMain.main(RandomMain.java:31)
+Caused by: java.lang.RuntimeException: Error calculating the type of parameter PROPERTY_TRUSTSTORE_PASSWORD of method call System.getProperty(PROPERTY_TRUSTSTORE_PASSWORD, "")
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:578)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:267)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:44)
+	at com.github.javaparser.ast.expr.MethodCallExpr.accept(MethodCallExpr.java:115)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getTypeConcrete(JavaParserFacade.java:448)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:340)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:576)
+	... 13 more
+Caused by: UnsolvedSymbolException{context='PROPERTY_TRUSTSTORE_PASSWORD', name='Solving PROPERTY_TRUSTSTORE_PASSWORD', cause='null'}
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:279)
+	at com.github.javaparser.symbolsolver.javaparsermodel.TypeExtractor.visit(TypeExtractor.java:44)
+	at com.github.javaparser.ast.expr.NameExpr.accept(NameExpr.java:79)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getTypeConcrete(JavaParserFacade.java:448)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.getType(JavaParserFacade.java:340)
+	at com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFacade.solveMethodAsUsage(JavaParserFacade.java:576)
+	... 19 more
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 678: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 581: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 529: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 407: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 484: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 423: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	$v_2$.load($v_0$, $v_1$);
+
+Add Statement before Line 1860: 	KeyStore $v_2$ = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] $v_1$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.cert.CertificateFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.List, typeParametersMap=TypeParametersMap{nameToValue={java.util.List.E=ReferenceType{java.net.URL, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.Collection, typeParametersMap=TypeParametersMap{nameToValue={java.util.Collection.E=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='int'}
+PrimitiveTypeUsage{name='int'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.io.OutputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='byte'}}
+ReferenceType{java.math.BigInteger, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.InputStream, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.KeyStore, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.util.Enumeration, typeParametersMap=TypeParametersMap{nameToValue={java.util.Enumeration.E=ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.security.Key, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{java.security.cert.Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.KeyStore.Entry, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ReferenceType{javax.net.ssl.SSLContext, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{javax.net.ssl.SSLSocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.KeyManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{PrimitiveTypeUsage{name='char'}}
+ResolvedArrayType{ReferenceType{javax.net.ssl.KeyManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ReferenceType{java.security.PrivateKey, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.ssl.TrustManagerFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.net.SocketFactory, typeParametersMap=TypeParametersMap{nameToValue={}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{javax.net.ssl.TrustManager, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+PrimitiveTypeUsage{name='boolean'}
+com.github.javaparser.resolution.types.ResolvedVoidType@18ca3c62
+ResolvedArrayType{ReferenceType{java.security.cert.X509Certificate, typeParametersMap=TypeParametersMap{nameToValue={}}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{javax.security.auth.x500.X500Principal, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.Class, typeParametersMap=TypeParametersMap{nameToValue={java.lang.Class.T=WildcardUsage{type=EXTENDS, boundedType=ReferenceType{java.lang.Object, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}}
+ReferenceType{java.lang.reflect.Method, typeParametersMap=TypeParametersMap{nameToValue={}}}
+WildcardUsage{type=null, boundedType=null}
+ReferenceType{java.util.LinkedHashSet, typeParametersMap=TypeParametersMap{nameToValue={java.util.LinkedHashSet.E=ReferenceType{java.net.URI, typeParametersMap=TypeParametersMap{nameToValue={}}}}}}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.io.File, typeParametersMap=TypeParametersMap{nameToValue={}}}
+PrimitiveTypeUsage{name='boolean'}
+PrimitiveTypeUsage{name='boolean'}
+ReferenceType{java.lang.String, typeParametersMap=TypeParametersMap{nameToValue={}}}
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec($v_1$, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(256);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] $v_1$= $v_2$.getEncoded();
+

@@ -6,15 +6,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 
 public class RandomMain {
 
     public static void main(String []args) throws IOException, ParseException {
-//        PrintStream stream = new PrintStream(new FileOutputStream("Random_output_20210613.txt", true));
-//        System.setOut(stream);
-//        System.setErr(stream);
+        PrintStream stream = new PrintStream(new FileOutputStream("Random_output_20210921.txt", true));
+        System.setOut(stream);
+        System.setErr(stream);
         String jarfile = args[0];
         String filePath = args[1];
         JSONParser jsonParser = new JSONParser();
@@ -26,9 +28,12 @@ public class RandomMain {
             try{
                 MultilineCodeCase codeCase = new MultilineCodeCase((JSONObject)o);
                 MultiLineDetection detection = new MultiLineDetection(jarfile, filePath, codeCase.correctSet);
-                detection.start(codeCase.callee, codeCase.methodType);
+                detection.start(codeCase.callee, codeCase.methodType, codeCase.checkParameter, codeCase.args);
             }
             catch (Throwable e) {
+                System.out.println(jarfile);
+                System.out.println(filePath);
+                e.printStackTrace();
                 continue;
             }
         }

@@ -1,0 +1,261 @@
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/httpcomponents-core.git/httpcore5-testing/target/httpcore5-testing-5.0-beta12-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/httpcomponents-core.git/httpcore5-testing/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/pulsar.git/pulsar-flink/target/pulsar-flink.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/pulsar.git/pulsar-flink/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/odftoolkit.git/simple/target/simple-odf-0.9.0-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/odftoolkit.git/simple/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/sling-org-apache-sling-discovery-base.git/target/org.apache.sling.discovery.base-2.0.9-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/sling-org-apache-sling-discovery-base.git/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/sling-org-apache-sling-discovery-base.git/src/main/java/org/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Matching Template Stmt: 	SecretKey key = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 501: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 501: 	$v_3$.init(128);
+
+Add Statement before Line 501: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 501: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/sling-org-apache-sling-discovery-base.git/src/main/java/org/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Matching Template Stmt: 	SecretKey key = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 484: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 484: 	$v_3$.init(128);
+
+Add Statement before Line 484: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 484: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/sling-org-apache-sling-discovery-base.git/src/main/java/org/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Matching Template Stmt: 	IvParameterSpec $v_0$ = new IvParameterSpec(m);
+
+Add Statement before Line 437: 	SecureRandom $v_2$ = new SecureRandom();
+
+Add Statement before Line 437: 	byte [] m = new byte[16];
+
+Add Statement before Line 437: 	$v_2$.nextBytes(m);
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/sling-org-apache-sling-discovery-base.git/src/main/java/org/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator.java
+-----------------------------------Lorg/apache/sling/discovery/base/connectors/ping/TopologyRequestValidator----------------------------------------------
+Matching Template Stmt: 	PBEKeySpec spec = new PBEKeySpec(var_0, parts, tmp);	
+
+Add Statement before Line 482: 	SecureRandom $v_2$ = new SecureRandom();
+
+Add Statement before Line 482: 	byte[] parts = new byte[32];
+
+Add Statement before Line 482: 	$v_2$.nextBytes($v_1);
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/accumulo-testing.git/target/accumulo-testing-2.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/accumulo-testing.git/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/target/taverna-credential-manager-impl-3.1.1-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 678: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 678: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load($v_0$, null);
+
+Add Statement before Line 581: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 581: 	char[] null = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	javaTruststore.load(fis, var_1);
+
+Add Statement before Line 529: 	KeyStore javaTruststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 529: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load(fis, var_1);
+
+Add Statement before Line 407: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 407: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	truststore.load(fis, var_1);
+
+Add Statement before Line 484: 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 484: 	char[] var_1 = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	keystore.load($v_0$, null);
+
+Add Statement before Line 423: 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 423: 	char[] null = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	newKeystore.load($v_0$, null);
+
+Add Statement before Line 1860: 	KeyStore newKeystore = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 1860: 	char[] $v_0$ = getPassword(); // pwd should not be a hardcoded constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-taverna-engine.git/taverna-credential-manager-impl/src/main/java/org/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl.java
+-----------------------------------Lorg/apache/taverna/security/credentialmanager/impl/CredentialManagerImpl----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec(c, "AES");
+
+Add Statement before Line 1069: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 1069: 	$v_3$.init(128);
+
+Add Statement before Line 1069: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 1069: 	byte[] c= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/target/flink-test-utils_2.11-1.11-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/src/main/java/org/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslClientContext.java
+-----------------------------------Lorg/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslClientContext----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/target/flink-test-utils_2.11-1.11-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/src/main/java/
+java.io.FileNotFoundException: /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/src/main/java/org/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslClientContext.java (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at com.github.javaparser.Providers.provider(Providers.java:62)
+	at com.github.javaparser.JavaParser.parse(JavaParser.java:196)
+	at com.github.javaparser.StaticJavaParser.parse(StaticJavaParser.java:127)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getmatchStmts(MultiLineDetection.java:116)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:80)
+	at Runner.RandomMain.main(RandomMain.java:31)
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/src/main/java/org/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslServerContext.java
+-----------------------------------Lorg/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslServerContext----------------------------------------------
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/target/flink-test-utils_2.11-1.11-SNAPSHOT.jar
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/src/main/java/
+java.io.FileNotFoundException: /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-test-utils-parent/flink-test-utils/src/main/java/org/apache/flink/shaded/testutils/org/jboss/netty/handler/ssl/JdkSslServerContext.java (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at com.github.javaparser.Providers.provider(Providers.java:62)
+	at com.github.javaparser.JavaParser.parse(JavaParser.java:196)
+	at com.github.javaparser.StaticJavaParser.parse(StaticJavaParser.java:127)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.getmatchStmts(MultiLineDetection.java:116)
+	at com.changedistiller.test.SSLDetect.MultiLineDetection.start(MultiLineDetection.java:80)
+	at Runner.RandomMain.main(RandomMain.java:31)
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/tika.git/tika-server/target/original-tika-server-2.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/tika.git/tika-server/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-table/flink-table-common/target/flink-table-common-1.11-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-table/flink-table-common/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-table/flink-table-common/target/original-flink-table-common-1.11-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-table/flink-table-common/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/qpid-broker-j.git/broker-plugins/management-amqp/target/qpid-broker-plugins-management-amqp-8.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/qpid-broker-j.git/broker-plugins/management-amqp/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/geronimo-microprofile.git/microprofile-extensions/microprofile-extensions-config/secured-string-converter/target/secured-string-converter-1.0.3-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/geronimo-microprofile.git/microprofile-extensions/microprofile-extensions-config/secured-string-converter/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/geronimo-microprofile.git/microprofile-extensions/microprofile-extensions-config/secured-string-converter/src/main/java/org/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher.java
+-----------------------------------Lorg/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher----------------------------------------------
+Matching Template Stmt: 	SecretKey $v_0$ = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 164: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 164: 	$v_3$.init(128);
+
+Add Statement before Line 164: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 164: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/geronimo-microprofile.git/microprofile-extensions/microprofile-extensions-config/secured-string-converter/src/main/java/org/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher.java
+-----------------------------------Lorg/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher----------------------------------------------
+Matching Template Stmt: 	secureRandom.setSeed($v_0);
+
+Add Statement before Line 71: 	SecureRandom secureRandom = new SecureRandom();
+
+Add Statement before Line 71: 	byte[] $v_0$ = secureRandom.getSeed(20);
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/geronimo-microprofile.git/microprofile-extensions/microprofile-extensions-config/secured-string-converter/src/main/java/org/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher.java
+-----------------------------------Lorg/apache/geronimo/microprofile/extensions/config/converter/secure/PBECipher----------------------------------------------
+Matching Template Stmt: 	IvParameterSpec $v_0$ = new IvParameterSpec(var_0);
+
+Add Statement before Line 164: 	SecureRandom $v_2$ = new SecureRandom();
+
+Add Statement before Line 164: 	byte [] var_0 = new byte[16];
+
+Add Statement before Line 164: 	$v_2$.nextBytes(var_0);
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/airavata.git/modules/sharing-registry/sharing-registry-server/target/airavata-sharing-registry-server-0.19-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/airavata.git/modules/sharing-registry/sharing-registry-server/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/nifi.git/nifi-nar-bundles/nifi-ranger-bundle/nifi-ranger-plugin/target/nifi-ranger-plugin-1.12.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/nifi.git/nifi-nar-bundles/nifi-ranger-bundle/nifi-ranger-plugin/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-connectors/flink-connector-kinesis/target/original-flink-connector-kinesis_2.11-1.11-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-connectors/flink-connector-kinesis/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/brooklyn-server.git/karaf/init/target/brooklyn-karaf-init-1.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/brooklyn-server.git/karaf/init/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/cayenne.git/modeler/cayenne-modeler-win-ext/target/cayenne-modeler-win-ext-4.2.M1-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/cayenne.git/modeler/cayenne-modeler-win-ext/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flume.git/flume-ng-sinks/flume-ng-hbase2-sink/target/flume-ng-hbase2-sink-1.10.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flume.git/flume-ng-sinks/flume-ng-hbase2-sink/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-atlas.git/common/target/atlas-common-0.9-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-atlas.git/common/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/knox.git/gateway-spi/target/gateway-spi-1.4.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/knox.git/gateway-spi/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/knox.git/gateway-spi/src/main/java/org/apache/knox/gateway/services/security/impl/ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Matching Template Stmt: 	SecretKey secret = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 110: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 110: 	$v_3$.init(128);
+
+Add Statement before Line 110: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 110: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/knox.git/gateway-spi/src/main/java/org/apache/knox/gateway/services/security/impl/ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Matching Template Stmt: 	SecretKey secret = new SecretKeySpec(var_0, "AES");
+
+Add Statement before Line 120: 	KeyGenerator $v_3$ = KeyGenerator.getInstance("AES");
+
+Add Statement before Line 120: 	$v_3$.init(128);
+
+Add Statement before Line 120: 	SecretKey $v_2$ = $v_3$.generateKey();
+
+Add Statement before Line 120: 	byte[] var_0= $v_2$.getEncoded();
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/knox.git/gateway-spi/src/main/java/org/apache/knox/gateway/services/security/impl/ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Matching Template Stmt: 	IvParameterSpec $v_0$ = new IvParameterSpec(var_0);
+
+Add Statement before Line 123: 	SecureRandom $v_2$ = new SecureRandom();
+
+Add Statement before Line 123: 	byte [] var_0 = new byte[16];
+
+Add Statement before Line 123: 	$v_2$.nextBytes(var_0);
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/knox.git/gateway-spi/src/main/java/org/apache/knox/gateway/services/security/impl/ConfigurableEncryptor.java
+-----------------------------------Lorg/apache/knox/gateway/services/security/impl/ConfigurableEncryptor----------------------------------------------
+Matching Template Stmt: 	PBEKeySpec spec = new PBEKeySpec(var_0, salt, KEY_LENGTH);	
+
+Add Statement before Line 90: 	SecureRandom $v_2$ = new SecureRandom();
+
+Add Statement before Line 90: 	byte[] salt = new byte[32];
+
+Add Statement before Line 90: 	$v_2$.nextBytes($v_1);
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/camel.git/core/camel-api/target/original-camel-api-3.1.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/camel.git/core/camel-api/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/camel.git/core/camel-api/src/main/java/org/apache/camel/support/jsse/KeyStoreParameters.java
+-----------------------------------Lorg/apache/camel/support/jsse/KeyStoreParameters----------------------------------------------
+Matching Template Stmt: 	ks.load(null, provider);
+
+Add Statement before Line 172: 	KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 172: 	char[] provider = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/camel.git/core/camel-api/src/main/java/org/apache/camel/support/jsse/KeyStoreParameters.java
+-----------------------------------Lorg/apache/camel/support/jsse/KeyStoreParameters----------------------------------------------
+Matching Template Stmt: 	ks.load(is, provider);
+
+Add Statement before Line 175: 	KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+
+Add Statement before Line 175: 	char[] provider = getPassword(); // pwd should not be a constant value, it should be load from a provided file(local path)
+
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/tika.git/tika-app/target/original-tika-app-2.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/tika.git/tika-app/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/pulsar.git/pulsar-client/target/pulsar-client-original.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/pulsar.git/pulsar-client/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/pulsar.git/pulsar-functions/localrun/target/pulsar-functions-local-runner-original.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/pulsar.git/pulsar-functions/localrun/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/cxf.git/maven-plugins/codegen-plugin/target/cxf-codegen-plugin-3.4.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/cxf.git/maven-plugins/codegen-plugin/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/maven-surefire.git/maven-surefire-common/target/original-maven-surefire-common-3.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/maven-surefire.git/maven-surefire-common/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/cxf.git/integration/spring-boot/autoconfigure/target/cxf-spring-boot-autoconfigure-3.4.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/cxf.git/integration/spring-boot/autoconfigure/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-filesystems/flink-hadoop-fs/target/flink-hadoop-fs-1.11-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/flink.git/flink-filesystems/flink-hadoop-fs/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-retired-gossip.git/gossip-base/target/gossip-base-0.1.3-incubating-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/incubator-retired-gossip.git/gossip-base/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/tika.git/tika-app/target/original-tika-app-2.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/tika.git/tika-app/src/main/java/
+/mnt/windows_share/BACKUP/code/experiment/test_set/test_set/brooklyn-server.git/karaf/init/target/brooklyn-karaf-init-1.0.0-SNAPSHOT.jar /mnt/windows_share/BACKUP/code/experiment/test_set/test_set/brooklyn-server.git/karaf/init/src/main/java/

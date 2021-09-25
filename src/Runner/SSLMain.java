@@ -17,7 +17,7 @@ import java.util.List;
 public class SSLMain {
 
     public static void main(String[] args) throws IOException {
-        PrintStream stream = new PrintStream(new FileOutputStream("SSLOutput.txt", true));
+        PrintStream stream = new PrintStream(new FileOutputStream("SSLOutput-20210614.txt", true));
         System.setOut(stream);
         System.setErr(stream);
         String jarfile = args[0];
@@ -31,12 +31,15 @@ public class SSLMain {
             if (p.getFileName().toString().endsWith("java")) {
                 String[] lsourcepath = {p.getParent().toString()};
                 try {
+//                    com.github.javaparser.ast.CompilationUnit cu = StaticJavaParser.parse(new File(filePath));
+                    String pathStr = p.toString();
                     FiletoAST leftast =
-                            new FiletoAST(lsourcepath, new File(p.toString()), p.toString());
+                            new FiletoAST(lsourcepath, new File(pathStr), pathStr);
                     CompilationUnit lcu = leftast.getComplicationUnit();
                     SSLDetection detection = new SSLDetection();
-                    detection.detect(lcu, p.toString());
+                    detection.detect(lcu, pathStr);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     continue;
                 }
             }
